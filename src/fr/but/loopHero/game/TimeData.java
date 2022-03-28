@@ -5,8 +5,10 @@ public class TimeData {
 	private long elapsedTotal = 0; 	// elapsed time since creation
 	private long elapsedBob = 0; 	// elapsed time since last Bob reset()
 	private boolean stopped;
-	public final static double DAY_MILLISECONDS = 20_000;
-	public final static int BOB_DELAY = 1500;
+	public final static double DAY_MILLISECONDS = 24_000;
+	public final static int HERO_DELAY = 1500;
+	private double previousTick = 1;
+	
 
 	private void tickTock() {
 		long tock = System.currentTimeMillis();
@@ -50,4 +52,15 @@ public class TimeData {
 		stopped = false;
 		tick = System.currentTimeMillis();
 	}
+	
+	public boolean isDayPased() {
+		double timeFrac = timeFraction();
+		if (previousTick > timeFrac) {
+			this.previousTick = timeFrac;
+				return true;
+		}
+		this.previousTick = timeFrac;
+		return false;
+	}
+	
 }

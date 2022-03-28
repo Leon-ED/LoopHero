@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import fr.but.loopHero.game.LoopHeroData;
@@ -58,9 +59,10 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		}
 		
 		
-		public void drawHero(Board plateau, ApplicationContext context, Player hero) {
+		public void drawHero(Board plateau, ApplicationContext context, Player hero, TimeData timeData) {
 			context.renderFrame( graphics ->{
 				graphics.setColor(Color.BLACK);
+				drawBar(graphics, 350, timeData.timeFraction());
 				int heroNextPos = hero.addCurrentNumOfCell();
 				
 
@@ -87,6 +89,30 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				int x = taille + j*taille;
 				int y = taille + (i*taille)+ taille;
 				graphics.fill(new Rectangle2D.Float(x,y,taille,taille));
+			});
+		}
+		
+		private void drawBar(Graphics2D graphics, int width, double timeFraction) {
+			graphics.setColor(Color.LIGHT_GRAY);
+			graphics.fill(new Rectangle2D.Double(xOrigin, yOrigin - 20, width, 10));
+			graphics.setColor(Color.GREEN);
+			graphics.fill(new Rectangle2D.Double(xOrigin, yOrigin - 20, width * timeFraction, 10));
+			graphics.setColor(Color.BLACK);
+			graphics.draw(new Rectangle2D.Double(xOrigin, yOrigin - 20, width, 10));
+		}
+		
+		public void drawMobs(ApplicationContext context,Board plateau) {
+			context.renderFrame( graphics ->{
+				ArrayList<Cell> listCellsLoop = plateau.getlistCellsLoop();
+				for (Cell cell : listCellsLoop ) {
+					if (cell.hasMob()) {
+						graphics.setColor(cell.getFirstMob().getColor()); // Couleur du slime
+						int startingPointx = taille + cell.j() * taille;
+						int startingPointy = taille*2 + cell.i()* taille;
+						graphics.fillOval(startingPointx,startingPointy,taille/2,taille/2);
+					}
+				
+				}
 			});
 		}
 }

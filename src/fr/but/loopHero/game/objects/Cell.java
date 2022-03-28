@@ -1,18 +1,22 @@
 package fr.but.loopHero.game.objects;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import fr.but.loopHero.game.objects.tiles.Tile;
+import fr.but.loopHero.mobs.Mobs;
 
 public class Cell {
 	private final int i;
 	private final int j;
 	private Tile type;
+	private ArrayList<Mobs> mobs;
 	
 	public Cell(int i, int j) {
 		this.i=Objects.requireNonNull(i);
 		this.j=Objects.requireNonNull(j);
+		this.mobs = new ArrayList<Mobs>();
 		this.type = new Tile("empty");
 	}
 	@Override
@@ -38,6 +42,19 @@ public class Cell {
 	
 	public boolean isEmpty() {
 		return type.name().equalsIgnoreCase("empty");
+	}
+	
+	public Tile type() {return type;} 
+	
+	public boolean hasMob() {
+		return mobs.size() != 0;
+	}
+	
+	public void addMob(Mobs mob) {
+		mobs.add(mob);
+	}
+	public Mobs getFirstMob() {
+		return mobs.get(0);
 	}
 	
 }

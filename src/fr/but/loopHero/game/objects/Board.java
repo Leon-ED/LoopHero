@@ -2,9 +2,13 @@ package fr.but.loopHero.game.objects;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.Random;
 
 import fr.but.loopHero.game.objects.tiles.Road;
+import fr.but.loopHero.mobs.Mobs;
+import fr.but.loopHero.mobs.Slime;
 
 public class Board {
     
@@ -82,6 +86,31 @@ public class Board {
     	}
     	return "";
     }
+    
+    public void getSpawnableEntity(HashMap<Mobs, Cell> dict_mob_cell) {
+		// Pour les phases suivantes, boucler sur tous le tableau et vérif les impacts sur les tiles d'a coté et ajouter une liste de carte qui se fait impacter par les tiles d'a coté.
+	}
+    
+    public void spawnEntity() {
+		// Spawn des slimes
+    	
+    	for (Cell cell : listCellsLoop ) {
+    		// Toutes les cell sont celles de la boucle
+    		if (!cell.hasMob()) {
+	    		Random rand = new Random();
+	    		int rand_number = rand.nextInt(99);
+	    		if (rand_number < 5) {
+	    			System.out.println("Spawn d'un slime");
+	    			cell.addMob(new Slime());
+	    		}
+    		}
+    			
+    	}
+    	// Spawns des xxx, vérifier si il y a x card a coté...
+    }
+    	
+    	
+	
     
     
     public Cell[][] getBoardMatrix() {return boardMatrix;}

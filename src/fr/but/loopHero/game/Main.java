@@ -19,61 +19,77 @@ import fr.umlv.zen5.ScreenInfo;
 
 
 public class Main {
+    private final GameGraphics loopHeroGraphics  = new GameGraphics(150,50,50,50,60);
+    private final TimeData loopHeroTimeData = new TimeData();
+    private final Board plateau = new Board(12,21);
+    private final Player hero = new Player();
+    private final static int USER_ACTION_DELAY = 1500;
+    
+    
+    private void loopHero(ApplicationContext context) {
 
+        plateau.fill(); // Remplis de cellule vide
+        plateau.createLoop(34); // Créé la boucle du jeux (les cases ou le héro se déplace)
+        loopHeroGraphics.drawBoard(plateau, context);
+        //System.out.println(plateau);
+        //loopHeroGraphics.drawOutlineLoop(plateau, context);
 
-	private void loopHero(ApplicationContext context) {
-
-		
-		
-		Board plateau = new Board(12,21);
-		plateau.fill(); // Remplis de cellule vide
-		plateau.createLoop(34); // Créé la boucle du jeux (les cases ou le héro se déplace)
-		//System.out.println(plateau);
-		
-		GameGraphics loopHeroGraphics  = new GameGraphics(0,0,0,0,60);
-		
-		TimeData loopHeroTimeData = new TimeData();
-		
-		loopHeroGraphics.drawBoard(plateau, context);
-		//loopHeroGraphics.drawOutlineLoop(plateau, context);
-
-		Player hero = new Player();
-		
-		for (int i=0; i<40;i++) {
-			Event event = context.pollOrWaitEvent(200);
-				
-			loopHeroGraphics.drawHero(plateau, context, hero);
-
+        
+        while (true) {
+        	moveHeroAndDraw(context);
+        	if (loopHeroTimeData.isDayPased()) 
+        		plateau.spawnEntity();	
+        	loopHeroGraphics.drawMobs(context, plateau);
+        	doEventActionAndDraw(context);
+        }
+        
+    }
+    
+    private void doEventActionAndDraw(ApplicationContext context) {
+		Event event = context.pollOrWaitEvent(USER_ACTION_DELAY);
+		if (event == null) { // no event
+			return;
 		}
-		
-		
-		
-		Event event = context.pollOrWaitEvent(100000000);
-		context.exit(0);
 
+		switch (event.getAction()) {
+		case KEY_PRESSED:
+			doKeyAction(context, event);
+			break;
+		case POINTER_DOWN:
+			if (loopHeroTimeData.stopped()) {
+				//doMouseAction(context, event);
+			}
+			break;
+		}
+		//view.draw(context, data, loopHeroTimeData);
 	}
-	
-	public static void main(String[] args) {
-		Main controller = new Main();
-		Application.run(Color.WHITE,controller::loopHero);
-		
-		
+    
+    private void doKeyAction(ApplicationContext context, Event event) {
+		switch (event.getKey()) {
+		case SPACE -> {
+			System.out.println("Fin du jeu");
+			context.exit(0);
+			throw new AssertionError("ne devrait pas arriver");
+		}
+		case S -> {loopHeroTimeData.stop(); System.out.println("Jeux mis en pause");}
+		case D -> {loopHeroTimeData.start(); System.out.println("Reprise du jeux");}
+		default -> System.out.println("Touche inactive : " + event.getKey());
+		}
 	}
+    
+    private void moveHeroAndDraw(ApplicationContext context) {
+    	if (loopHeroTimeData.elapsedBob() >= TimeData.HERO_DELAY) {
+    		loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData);
+    		loopHeroTimeData.resetElapsedBob();
+    	}
+	}
+    
+    
+    
+    public static void main(String[] args) {
+        Main controller = new Main();
+        Application.run(Color.WHITE,controller::loopHero);
+        
+    }
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
