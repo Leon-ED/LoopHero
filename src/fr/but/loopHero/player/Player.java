@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import fr.but.loopHero.droppable.Droppable;
+import fr.but.loopHero.game.LoopHeroGameData;
 
 public class Player {
 
@@ -48,8 +49,10 @@ public class Player {
 	}
 	
 	public int addCurrentNumOfCell() {
-		if (currentNumOfCell >= 34)
+		if (currentNumOfCell >= 34) {
 			currentNumOfCell = 0;
+			LoopHeroGameData.LEVEL +=1;
+		}
 		currentNumOfCell++; 
 		return currentNumOfCell-1;
 	}
@@ -58,8 +61,26 @@ public class Player {
 		Random r = new Random();
 		return r.nextInt(maxDamagePoints-minDamagePoints)+maxDamagePoints;
 	}
+
+	public void takeDamage(int damages) {
+		currentHealth -= damages;
+		
+	}
 	
-	
+	public int[] getHealths() {
+		int[] vies = new int[2];
+		vies[0] = currentHealth;
+		vies[1] = maxHealth;
+		
+		return vies;
+	}
+
+	public void addInventory(ArrayList<Droppable> droppedItems) {
+		playerInventory.addAll(droppedItems);
+		
+	}
+
+
 	
 	
 	

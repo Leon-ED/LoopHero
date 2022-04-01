@@ -7,7 +7,9 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import fr.but.loopHero.game.LoopHeroData;
+import javax.swing.plaf.FontUIResource;
+
+import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.TimeData;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
@@ -62,7 +64,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		public void drawHero(Board plateau, ApplicationContext context, Player hero, TimeData timeData) {
 			context.renderFrame( graphics ->{
 				graphics.setColor(Color.BLACK);
-				drawBar(graphics, 350, timeData.timeFraction());
+				drawBar(graphics, 350, timeData.timeFraction(),0,0,Color.LIGHT_GRAY);
 				int heroNextPos = hero.addCurrentNumOfCell();
 				
 
@@ -92,13 +94,62 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			});
 		}
 		
-		private void drawBar(Graphics2D graphics, int width, double timeFraction) {
+		private void drawBar(Graphics2D graphics, int width, double timeFraction, int xOffset, int yOffset,Color color) {
 			graphics.setColor(Color.LIGHT_GRAY);
-			graphics.fill(new Rectangle2D.Double(xOrigin, yOrigin - 20, width, 10));
-			graphics.setColor(Color.GREEN);
-			graphics.fill(new Rectangle2D.Double(xOrigin, yOrigin - 20, width * timeFraction, 10));
+			graphics.fill(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width, 10));
+			graphics.setColor(color);
+			graphics.fill(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width * timeFraction, 10));
 			graphics.setColor(Color.BLACK);
-			graphics.draw(new Rectangle2D.Double(xOrigin, yOrigin - 20, width, 10));
+			graphics.draw(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width, 10));
+		}
+		
+		private Color getHealthColor(int[] healths) {
+			double currentHealth = healths[0];
+			double maxHealth = healths[1];
+			double healthRatio = (currentHealth/maxHealth);
+			System.out.println(healthRatio);
+			System.out.println(currentHealth);
+			if(healthRatio >= 0.4)
+				return Color.green;
+			if(healthRatio >= 0.15)
+				return Color.orange;
+			if(healthRatio < 0.15)
+				return Color.red;
+			
+			return Color.GREEN;
+			
+			
+			
+		}
+		
+		public void drawHealthInfos(ApplicationContext context,Player hero) {
+			int[] healths = hero.getHealths();
+			double currentHealth = healths[0];
+			double maxHealth = healths[1];
+			double healthRatio = (currentHealth/maxHealth);
+			Color color = getHealthColor(healths);
+
+			context.renderFrame(graphics ->{
+				//System.out.println(healthRatio);
+				drawBar(graphics, 400, healthRatio, 1300,400,color);
+				
+				
+				
+				
+			});
+			
+			
+		}
+		
+		public void drawLevel(ApplicationContext context) {
+			context.renderFrame(graphics ->{
+				graphics.setColor(LoopHeroGameData.BG_COLOR);
+				graphics.fillRect(1800, 20, 100, 35);
+				
+				graphics.setColor(LoopHeroGameData.TXT_COLOR);
+				graphics.setFont(new FontUIResource("Arial", 0, 30));
+				graphics.drawString("LVL: "+LoopHeroGameData.LEVEL, 1800, 50);
+			});	
 		}
 		
 		public void drawMobs(ApplicationContext context,Board plateau) {

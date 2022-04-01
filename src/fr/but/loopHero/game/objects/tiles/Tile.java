@@ -25,5 +25,23 @@ public class Tile {
 	public Color getColor() {
 		return color;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(color, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Tile)) {
+			return false;
+		}
+		Tile other = (Tile) obj;
+		return name.equals(other.name ) && color.equals(other.color);
+	}
+	
+	
 	
 }

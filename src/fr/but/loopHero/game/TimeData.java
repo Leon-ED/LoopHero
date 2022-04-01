@@ -12,7 +12,7 @@ public class TimeData {
 	
 	private boolean stopped;
 	public final static double DAY_MILLISECONDS = 24_000;
-	public final static int HERO_DELAY = 1_500;
+	public final static int HERO_DELAY = 1_500; // 1_500
 	private double previousTick = 1;
 	
 

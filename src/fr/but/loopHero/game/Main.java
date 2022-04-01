@@ -3,7 +3,9 @@ package fr.but.loopHero.game;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
+import fr.but.loopHero.game.objects.tiles.Tile;
 import fr.but.loopHero.mobs.Mobs;
+import fr.but.loopHero.mobs.Slime;
 import fr.but.loopHero.player.Player;
 
 import java.awt.Color;
@@ -24,22 +26,21 @@ public class Main {
     private final TimeData loopHeroTimeData = new TimeData();
     private final Board plateau = new Board(12,21);
     private final Player hero = new Player();
-    private final LoopHeroData gameData = new LoopHeroData();
+    private final LoopHeroGameData gameData = new LoopHeroGameData();
     private final static int USER_ACTION_DELAY = 1500;
     
     
     private void loopHero(ApplicationContext context) {
-
-        plateau.fill(); // Remplis de cellule vide
-        plateau.createLoop(34); // Cr�� la boucle du jeux (les cases ou le h�ro se d�place)
+    	LoopHeroGameData.generateDroppableItems();
+        plateau.fill(); 
+        plateau.createLoop(34);
         loopHeroGraphics.drawBoard(plateau, context);
-        //System.out.println(plateau);
-        //loopHeroGraphics.drawOutlineLoop(plateau, context);
 
-        
         while (true) {
-        	if(Combat.isInCombat(plateau.getlistCellsLoop().get(hero.getCurrentCellIndex())))
-        		startCombat(context, hero, loopHeroTimeData,plateau.getlistCellsLoop().get(hero.getCurrentCellIndex()),gameData);
+        	loopHeroGraphics.drawLevel(context);
+        	if(Combat.combatAvailable(plateau.getlistCellsLoop().get(hero.getCurrentCellIndex())))
+        		Combat.startCombat(context, hero, loopHeroTimeData,plateau.getlistCellsLoop().get(hero.getCurrentCellIndex()),gameData, loopHeroGraphics, plateau);
+        	loopHeroGraphics.drawHealthInfos(context, hero);
         	moveHeroAndDraw(context);
         	if (loopHeroTimeData.isDayPased()) 
         		plateau.spawnEntity();	
@@ -83,7 +84,7 @@ public class Main {
 		}
 	}
     
-    private void moveHeroAndDraw(ApplicationContext context) {
+    private  void moveHeroAndDraw(ApplicationContext context) {
     	if (loopHeroTimeData.elapsedBob() >= TimeData.HERO_DELAY) {
     		loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData);
     		loopHeroTimeData.resetElapsedBob();
@@ -92,27 +93,7 @@ public class Main {
     
     
     
-    private void startCombat(ApplicationContext context, Player hero,TimeData timedata,Cell cell,LoopHeroData data) {
-    	moveHeroAndDraw(context); // Permet de mettre le hero sur la tuile ou est le mob
-    	timedata.stop();
-    	//timedata.stop();
-    	Mobs mob = cell.getFirstMob();
-    	System.out.println("En combat !");
-    	timedata.startCombat();
-    	while((!mob.isDead())) {
-    		
-    		//System.out.println(mob.health());
-    		if(timedata.readyToAttack()) {
-    			int attack = hero.attack();
-        		System.out.println("Degats = " +attack);
-    			mob.takeDamage(attack);
-    		}
-    	}
-    	timedata.stopCombat();
-    	timedata.start();
-    	//data.delete(mob);
-    	
-    }
+
     
     	
     

@@ -60,6 +60,20 @@ public class Cell {
 	public void removeMob(Mobs mob) {
 		mobs.remove(mob);
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(i, j,type);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Cell)) {
+			return false;
+		}
+		Cell cell = (Cell) obj;
+		return i == cell.i && j == cell.j && cell.type.equals(type);
+	}
 
 		
 	

@@ -100,8 +100,7 @@ public class Board {
     		if (!cell.hasMob()) {
 	    		Random rand = new Random();
 	    		int rand_number = rand.nextInt(99);
-	    		if (rand_number < 5) {
-	    			System.out.println("Spawn d'un slime");
+	    		if (rand_number <1000) { // < 5
 	    			cell.addMob(new Slime(cell));
 	    		}
     		}

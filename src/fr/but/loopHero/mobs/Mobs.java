@@ -1,6 +1,9 @@
 package fr.but.loopHero.mobs;
 
 import java.awt.Color;
+import java.util.ArrayList;
+
+import fr.but.loopHero.droppable.Droppable;
 
 public interface Mobs {
 	boolean isDead();
@@ -9,6 +12,8 @@ public interface Mobs {
 	
 	void takeDamage(int damages);
 	
+	int attack();
+	
 	int health();
 	
 	boolean equals(Object o);
@@ -16,4 +21,8 @@ public interface Mobs {
 	int hashCode();
 	
 	int[] getPos();
+
+	ArrayList<Droppable> getDroppedItems();
+	
+	
 }
