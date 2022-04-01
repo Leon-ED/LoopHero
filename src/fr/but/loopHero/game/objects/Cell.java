@@ -57,4 +57,10 @@ public class Cell {
 		return mobs.get(0);
 	}
 	
+	public void removeMob(Mobs mob) {
+		mobs.remove(mob);
+	}
+
+		
+	
 }

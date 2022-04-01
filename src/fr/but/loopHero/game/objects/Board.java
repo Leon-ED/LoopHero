@@ -17,6 +17,7 @@ public class Board {
     private final Cell[][] boardMatrix;
     private final ArrayList<Cell> listCellsLoop;
     
+    
     public Board(int boardHeight, int boardWidht) {
         this.boardHeight = Objects.requireNonNull(boardHeight);
         this.boardWidht = Objects.requireNonNull(boardWidht);
@@ -101,7 +102,7 @@ public class Board {
 	    		int rand_number = rand.nextInt(99);
 	    		if (rand_number < 5) {
 	    			System.out.println("Spawn d'un slime");
-	    			cell.addMob(new Slime());
+	    			cell.addMob(new Slime(cell));
 	    		}
     		}
     			

@@ -9,4 +9,11 @@ public interface Mobs {
 	
 	void takeDamage(int damages);
 	
+	int health();
+	
+	boolean equals(Object o);
+	
+	int hashCode();
+	
+	int[] getPos();
 }

@@ -44,20 +44,19 @@ public class Player {
 	}
 	
 	public int getCurrentCellIndex(){
-		return currentNumOfCell;
+		return (currentNumOfCell == 34 ?  0 :  currentNumOfCell);
 	}
 	
 	public int addCurrentNumOfCell() {
 		if (currentNumOfCell >= 34)
 			currentNumOfCell = 0;
-		
 		currentNumOfCell++; 
 		return currentNumOfCell-1;
 	}
 
 	public int attack() {
-		int random = (int) (Math.random() * ( maxDamagePoints - minDamagePoints ));
-		return random;
+		Random r = new Random();
+		return r.nextInt(maxDamagePoints-minDamagePoints)+maxDamagePoints;
 	}
 	
 	

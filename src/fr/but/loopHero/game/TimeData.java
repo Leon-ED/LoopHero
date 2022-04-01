@@ -5,8 +5,10 @@ public class TimeData {
 	private long elapsedTotal = 0; 	// elapsed time since creation
 	private long elapsedBob = 0; 	// elapsed time since last Bob reset()
 	
-	private long elapsedCombat = 0;
-	private final static int COMBAT_DURATION = 2_000;
+	
+	private final static long COMBAT_ATTACK_COOLDOWN = 2_000;
+	private long combatStartTick = 0;
+	private long combatLastAttackTick = 0;
 	
 	private boolean stopped;
 	public final static double DAY_MILLISECONDS = 24_000;
@@ -25,7 +27,7 @@ public class TimeData {
 	
 	
 	
-	
+
 
 	public double timeFraction() {
 		if (!stopped) {
@@ -72,5 +74,27 @@ public class TimeData {
 		this.previousTick = timeFrac;
 		return false;
 	}
+
+	
+	public void startCombat() {
+		combatStartTick = tick;
+		
+	}
+	
+	public boolean readyToAttack() {
+		if(combatLastAttackTick == 0 ||  (System.currentTimeMillis()-combatLastAttackTick >= COMBAT_ATTACK_COOLDOWN)) {
+			combatLastAttackTick = System.currentTimeMillis();
+			return true;
+		}
+		return false;
+	}
+
+
+	public void stopCombat(){
+		System.out.println("duree = " + (int)((System.currentTimeMillis()-combatStartTick)/1000l));
+		combatLastAttackTick = 0;
+	}
+
+
 	
 }
