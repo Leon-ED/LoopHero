@@ -20,8 +20,8 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			context.renderFrame( graphics ->{
 				Cell[][] boardMatrix = plateau.getBoardMatrix();
 				
-				graphics.setColor(Color.BLACK);
-				graphics.draw(new Rectangle2D.Float(taille,taille*2,21*taille,12*taille)); // Grand rectangle de toute la surface
+				graphics.setColor(Color.DARK_GRAY);
+				graphics.fill(new Rectangle2D.Float(taille,taille*2,21*taille,12*taille)); // Grand rectangle de toute la surface
 				
 				for (int i = 0; i < boardMatrix.length; i++) {
 					for (int j = 0; j < boardMatrix[0].length; j++) {
@@ -31,7 +31,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 							continue;
 							
 							
-						graphics.setColor(boardMatrix[i][j].getColor()); // On définis la couleur de la Tile
+						graphics.setColor(boardMatrix[i][j].getColor()); // On dï¿½finis la couleur de la Tile
 						int x = taille + j*taille;
 						int y = taille + (i*taille)+ taille;
 						graphics.fill(new Rectangle2D.Float(x,y,taille,taille));
@@ -85,7 +85,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		
 		public void drawOneCell(Board plateau, ApplicationContext context, int i, int j) {
 			context.renderFrame( graphics ->{
-				graphics.setColor(plateau.getBoardMatrix()[i][j].getColor()); // On définis la couleur de la Tile
+				graphics.setColor(plateau.getBoardMatrix()[i][j].getColor()); // On dï¿½finis la couleur de la Tile
 				int x = taille + j*taille;
 				int y = taille + (i*taille)+ taille;
 				graphics.fill(new Rectangle2D.Float(x,y,taille,taille));

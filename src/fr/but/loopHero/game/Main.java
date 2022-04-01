@@ -3,6 +3,7 @@ package fr.but.loopHero.game;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
+import fr.but.loopHero.mobs.Mobs;
 import fr.but.loopHero.player.Player;
 
 import java.awt.Color;
@@ -29,7 +30,7 @@ public class Main {
     private void loopHero(ApplicationContext context) {
 
         plateau.fill(); // Remplis de cellule vide
-        plateau.createLoop(34); // Créé la boucle du jeux (les cases ou le héro se déplace)
+        plateau.createLoop(34); // Crï¿½ï¿½ la boucle du jeux (les cases ou le hï¿½ro se dï¿½place)
         loopHeroGraphics.drawBoard(plateau, context);
         //System.out.println(plateau);
         //loopHeroGraphics.drawOutlineLoop(plateau, context);
@@ -41,6 +42,9 @@ public class Main {
         		plateau.spawnEntity();	
         	loopHeroGraphics.drawMobs(context, plateau);
         	doEventActionAndDraw(context);
+        	
+        	if(Combat.isInCombat(plateau.getlistCellsLoop().get(hero.getCurrentCellIndex())))
+        		startCombat(context, hero, loopHeroTimeData,plateau.getlistCellsLoop().get(hero.getCurrentCellIndex()) );
         }
         
     }
@@ -83,6 +87,27 @@ public class Main {
     		loopHeroTimeData.resetElapsedBob();
     	}
 	}
+    
+    
+    
+    private void startCombat(ApplicationContext context, Player hero,TimeData timedata,Cell cell) {
+    	timedata.stop();
+    	//timedata.stop();
+    	Mobs mob = cell.getFirstMob();
+    	System.out.println("En combat !");
+    	timedata.startCombat();
+    	while((!mob.isDead())) {
+    		int attack = hero.attack();
+    		System.out.println("Degats = " +attack);
+    		
+    		if(timedata.readyToAttack)
+    			mob.takeDamage(attack);
+    		
+    	}
+    	timedata.start();
+    	
+    }
+    
     
     
     

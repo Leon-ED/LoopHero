@@ -4,9 +4,13 @@ public class TimeData {
 	private long tick = System.currentTimeMillis();
 	private long elapsedTotal = 0; 	// elapsed time since creation
 	private long elapsedBob = 0; 	// elapsed time since last Bob reset()
+	
+	private long elapsedCombat = 0;
+	private final static int COMBAT_DURATION = 2_000;
+	
 	private boolean stopped;
 	public final static double DAY_MILLISECONDS = 24_000;
-	public final static int HERO_DELAY = 1500;
+	public final static int HERO_DELAY = 1_500;
 	private double previousTick = 1;
 	
 
@@ -16,6 +20,12 @@ public class TimeData {
 		elapsedBob += tock - tick;
 		tick = tock;
 	}
+	
+	
+	
+	
+	
+	
 
 	public double timeFraction() {
 		if (!stopped) {

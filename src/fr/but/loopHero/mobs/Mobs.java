@@ -4,5 +4,9 @@ import java.awt.Color;
 
 public interface Mobs {
 	boolean isDead();
+	
 	Color getColor();
+	
+	void takeDamage(int damages);
+	
 }

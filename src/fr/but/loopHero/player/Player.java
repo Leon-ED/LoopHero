@@ -1,6 +1,7 @@
 package fr.but.loopHero.player;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import fr.but.loopHero.droppable.Droppable;
 
@@ -42,7 +43,9 @@ public class Player {
 		return currentHealth <= 0;
 	}
 	
-	
+	public int getCurrentCellIndex(){
+		return currentNumOfCell;
+	}
 	
 	public int addCurrentNumOfCell() {
 		if (currentNumOfCell >= 34)
@@ -50,6 +53,11 @@ public class Player {
 		
 		currentNumOfCell++; 
 		return currentNumOfCell-1;
+	}
+
+	public int attack() {
+		int random = (int) (Math.random() * ( maxDamagePoints - minDamagePoints ));
+		return random;
 	}
 	
 	

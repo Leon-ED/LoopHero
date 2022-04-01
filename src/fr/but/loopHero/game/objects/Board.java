@@ -41,7 +41,7 @@ public class Board {
     	listCellsLoop.add(boardMatrix[4-1][10-1]);
     	
     	for (int i=0;i<6;i++) {
-    		boardMatrix[3][10+i].setType(new Road("Wasteland")); // Première ligne 
+    		boardMatrix[3][10+i].setType(new Road("Wasteland")); // Premiï¿½re ligne 
     		listCellsLoop.add(boardMatrix[3][10+i]);}
     	
     	boardMatrix[4][15].setType(new Road("Wasteland"));
@@ -88,7 +88,7 @@ public class Board {
     }
     
     public void getSpawnableEntity(HashMap<Mobs, Cell> dict_mob_cell) {
-		// Pour les phases suivantes, boucler sur tous le tableau et vérif les impacts sur les tiles d'a coté et ajouter une liste de carte qui se fait impacter par les tiles d'a coté.
+		// Pour les phases suivantes, boucler sur tous le tableau et vï¿½rif les impacts sur les tiles d'a cotï¿½ et ajouter une liste de carte qui se fait impacter par les tiles d'a cotï¿½.
 	}
     
     public void spawnEntity() {
@@ -106,7 +106,7 @@ public class Board {
     		}
     			
     	}
-    	// Spawns des xxx, vérifier si il y a x card a coté...
+    	// Spawns des xxx, vï¿½rifier si il y a x card a cotï¿½...
     }
     	
     	

@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class Slime implements Mobs{
 	private final int percentageOfSpawn;
-	private final int healthPoint;
+	private  int healthPoint;
 	private final double strenght;
 	private final double speed;
 	private final Color color;
@@ -24,6 +24,13 @@ public class Slime implements Mobs{
 	
 	public Color getColor() {
 		return color;
+	}
+
+	@Override
+	public void takeDamage(int damages) {
+		this.healthPoint -= damages;
+		
+		
 	}
 	
 }
