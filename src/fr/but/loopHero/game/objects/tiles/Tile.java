@@ -42,6 +42,8 @@ public class Tile {
 		return name.equals(other.name ) && color.equals(other.color);
 	}
 	
-	
+	public boolean mobCanSpawn() {
+		return true;
+	}
 	
 }

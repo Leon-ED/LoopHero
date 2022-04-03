@@ -19,7 +19,7 @@ public class Combat {
 	
 	
     public static void startCombat(ApplicationContext context, Player hero,TimeData timedata,Cell cell,LoopHeroGameData data,GameGraphics graphics,Board plateau) {
-		graphics.drawHero(plateau, context, hero, timedata);
+		graphics.drawHero(plateau, context, hero, timedata,hero.getCurrentCellIndex());
 		timedata.resetElapsedBob();
     	timedata.stop();
     	Mobs mob = cell.getFirstMob();

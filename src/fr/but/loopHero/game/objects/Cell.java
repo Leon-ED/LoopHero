@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import fr.but.loopHero.game.objects.tiles.LandScape;
 import fr.but.loopHero.game.objects.tiles.Tile;
 import fr.but.loopHero.mobs.Mobs;
 
@@ -17,7 +18,7 @@ public class Cell {
 		this.i=Objects.requireNonNull(i);
 		this.j=Objects.requireNonNull(j);
 		this.mobs = new ArrayList<Mobs>();
-		this.type = new Tile("empty");
+		this.type = new LandScape("empty",Color.DARK_GRAY);
 	}
 	@Override
 	public String toString() {

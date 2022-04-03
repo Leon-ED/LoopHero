@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
+import fr.but.loopHero.game.objects.tiles.CampFire;
 import fr.but.loopHero.game.objects.tiles.Road;
 import fr.but.loopHero.mobs.Mobs;
 import fr.but.loopHero.mobs.Slime;
@@ -38,8 +39,8 @@ public class Board {
     	
     	
     	
-    	boardMatrix[4-1][10-1].setType(new Road("CampFire",Color.orange)); // Feu de camps (10,4)
-    	listCellsLoop.add(boardMatrix[4-1][10-1]);
+    	boardMatrix[4-1][10-1].setType(new CampFire("CampFire")); // Feu de camps (10,4)
+    	listCellsLoop.add(boardMatrix[3][9]);
     	
     	for (int i=0;i<6;i++) {
     		boardMatrix[3][10+i].setType(new Road("Wasteland")); // Premi�re ligne 
@@ -98,9 +99,14 @@ public class Board {
     	for (Cell cell : listCellsLoop ) {
     		// Toutes les cell sont celles de la boucle
     		if (!cell.hasMob()) {
+    			if (cell.type() instanceof CampFire) {
+					continue;	
+				}
+    			
+    			
 	    		Random rand = new Random();
 	    		int rand_number = rand.nextInt(99);
-	    		if (rand_number <1000) { // < 5
+	    		if (rand_number <50) { // < 5
 	    			cell.addMob(new Slime(cell));
 	    		}
     		}

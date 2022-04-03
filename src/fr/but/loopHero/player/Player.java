@@ -1,10 +1,13 @@
 package fr.but.loopHero.player;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
+import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.game.LoopHeroGameData;
+import fr.but.loopHero.game.objects.tiles.LandScape;
 
 public class Player {
 
@@ -27,7 +30,7 @@ public class Player {
 	
 	public Player() {
 		this.playerInventory = new ArrayList<>();
-		
+		playerInventory.addAll(LoopHeroGameData.START_CARDS);
 		this.maxHealth = 250;
 		this.currentHealth = 250;
 		this.regenPerSecond = 0;
@@ -80,9 +83,17 @@ public class Player {
 		
 	}
 
+	public ArrayList<Droppable> getInventory() {
+		
+		return playerInventory;
+	}
 
 	
-	
+	public void deleteFromInventory(Droppable drop) {
+		playerInventory.remove(drop);
+		
+		
+	}
 	
 	
 	

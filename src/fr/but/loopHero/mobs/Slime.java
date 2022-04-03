@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.Random;
 
+import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.Cell;
@@ -27,7 +28,7 @@ public class Slime implements Mobs{
 		strenght = 3.3;
 		speed = 0.6;
 		color = Color.green;
-		dropChance = 0.35;
+		dropChance = 35;
 		this.cell = cell;
 		
 	}
@@ -93,11 +94,13 @@ public class Slime implements Mobs{
 		for(Droppable drop : LoopHeroGameData.MOBS_DROPPABLE_ITEMS) {
     		Random rand = new Random();
     		int rand_number = rand.nextInt(99);
-    		if (rand_number < (int) dropChance*100) {
+    		if (rand_number < dropChance) {
+    			if(drop instanceof Card)
+    				drop = (Card) drop;
     			toDrop.add(drop);
     		}
 		}
-		
+		System.out.println(toDrop.size());
 		return toDrop;
 	}
 	

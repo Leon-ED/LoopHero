@@ -18,4 +18,32 @@ public class Card implements Droppable {
 
 	}
 	
+	public String displayName() {
+		return name;
+	}
+	
+	public Tile cardType() {
+		return cardType;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cardType, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Card))
+			return false;
+		Card other = (Card) obj;
+		return Objects.equals(cardType, other.cardType) && Objects.equals(name, other.name);
+	}
+	
+	
+
+	
+	
+	
 }
