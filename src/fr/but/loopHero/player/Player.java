@@ -77,6 +77,10 @@ public class Player {
 		
 		return vies;
 	}
+	
+	public void regenHero(int hp) {
+		currentHealth = (currentHealth+hp > maxHealth ? maxHealth : currentHealth+hp);
+	}
 
 	public void addInventory(ArrayList<Droppable> droppedItems) {
 		playerInventory.addAll(droppedItems);
@@ -92,6 +96,11 @@ public class Player {
 	public void deleteFromInventory(Droppable drop) {
 		playerInventory.remove(drop);
 		
+		
+	}
+
+	public void increaseMaxHealth(int i) {
+		maxHealth = maxHealth+ (int) i;
 		
 	}
 	

@@ -10,6 +10,7 @@ import java.util.Random;
 import fr.but.loopHero.game.objects.tiles.CampFire;
 import fr.but.loopHero.game.objects.tiles.Road;
 import fr.but.loopHero.game.objects.tiles.RoadSide;
+import fr.but.loopHero.game.objects.tiles.Wasteland;
 import fr.but.loopHero.mobs.Mobs;
 import fr.but.loopHero.mobs.Slime;
 
@@ -43,51 +44,85 @@ public class Board {
     	
     	boardMatrix[4-1][10-1].setType(new CampFire("CampFire")); // Feu de camps (10,4)
     	listCellsLoop.add(boardMatrix[3][9]);
+    	boardMatrix[3][9].setIndex(0);
     	
     	for (int i=0;i<6;i++) {
-    		boardMatrix[3][10+i].setType(new Road("Wasteland")); // Première ligne 
-    		listCellsLoop.add(boardMatrix[3][10+i]);}
+    		boardMatrix[3][10+i].setType(new Wasteland()); // Première ligne 
+    		listCellsLoop.add(boardMatrix[3][10+i]);
+    		boardMatrix[3][10+i].setIndex(i+1);
     	
-    	boardMatrix[4][15].setType(new Road("Wasteland"));
+    	}
+    	
+    	boardMatrix[4][15].setType(new Wasteland());
+    	boardMatrix[4][15].setIndex(7);
     	listCellsLoop.add(boardMatrix[4][15]);
-    	boardMatrix[5][15].setType(new Road("Wasteland"));
+    	
+    	
+    	boardMatrix[5][15].setType(new Wasteland());
+    	boardMatrix[5][15].setIndex(8);
     	listCellsLoop.add(boardMatrix[5][15]);
-    	boardMatrix[5][14].setType(new Road("Wasteland"));
+    	
+    	
+    	
+    	boardMatrix[5][14].setType(new Wasteland());
+    	boardMatrix[5][14].setIndex(9);
     	listCellsLoop.add(boardMatrix[5][14]);
     	
     	
-    	for (int i=0;i<5;i++) {boardMatrix[6][14-i].setType(new Road("Wasteland"));listCellsLoop.add(boardMatrix[6][14-i]);}
-    	for (int i=0;i<2;i++) {boardMatrix[7+i][10].setType(new Road("Wasteland"));listCellsLoop.add(boardMatrix[7+i][10]);}
-    	boardMatrix[8][9].setType(new Road("Wasteland"));
-    	listCellsLoop.add(boardMatrix[8][9]);
-    	boardMatrix[9][9].setType(new Road("Wasteland"));
-    	listCellsLoop.add(boardMatrix[9][9]);
-    	for (int i=0;i<1;i++) {boardMatrix[9][8-i].setType(new Road("Wasteland"));listCellsLoop.add(boardMatrix[9][8-i]);}
-    	for (int i=0;i<4;i++) {boardMatrix[9-i][7].setType(new Road("Wasteland"));listCellsLoop.add(boardMatrix[9-i][7]);}
-    	boardMatrix[6][6].setType(new Road("Wasteland"));
-    	listCellsLoop.add(boardMatrix[6][6]);
-    	boardMatrix[6][5].setType(new Road("Wasteland"));
-    	listCellsLoop.add(boardMatrix[6][5]);
-    	for (int i=0;i<2;i++) {boardMatrix[5-i][5].setType(new Road("Wasteland"));listCellsLoop.add(boardMatrix[5-i][5]);}
-    	boardMatrix[4][6].setType(new Road("Wasteland"));
-    	listCellsLoop.add(boardMatrix[4][6]);
-    	for (int i=0;i<2;i++) {boardMatrix[3-i][6].setType(new Road("Wasteland"));listCellsLoop.add(boardMatrix[3-i][6]);}
-    	for (int i=0;i<3;i++) {boardMatrix[2][7+i].setType(new Road("Wasteland"));listCellsLoop.add(boardMatrix[2][7+i]);}
+    	for (int i=0;i<5;i++) {boardMatrix[6][14-i].setType(new Wasteland());listCellsLoop.add(boardMatrix[6][14-i]);boardMatrix[6][14-i].setIndex(10+i);}
+    	for (int i=0;i<2;i++) {boardMatrix[7+i][10].setType(new Wasteland());listCellsLoop.add(boardMatrix[7+i][10]);boardMatrix[7+i][10].setIndex(15+i);;}
     	
-    	for (int i = 0; i < listCellsLoop.size(); i++) {
-    		int iCell = listCellsLoop.get(i).i();
-    		int jCell = listCellsLoop.get(i).j();
+    	boardMatrix[8][9].setType(new Wasteland());
+    	boardMatrix[8][9].setIndex(17);
+    	listCellsLoop.add(boardMatrix[8][9]);
+    	
+    	
+    	boardMatrix[9][9].setType(new Wasteland());
+    	boardMatrix[9][9].setIndex(18);
+    	listCellsLoop.add(boardMatrix[9][9]);
+    	
+    	
+    	for (int i=0;i<1;i++) {boardMatrix[9][8-i].setType(new Wasteland());listCellsLoop.add(boardMatrix[9][8-i]);boardMatrix[9][8-i].setIndex(19+i);}
+    	for (int i=0;i<4;i++) {boardMatrix[9-i][7].setType(new Wasteland());listCellsLoop.add(boardMatrix[9-i][7]);boardMatrix[9-i][7].setIndex(20+i);}
+    	
+    	boardMatrix[6][6].setType(new Wasteland());
+    	boardMatrix[6][6].setIndex(24);
+    	listCellsLoop.add(boardMatrix[6][6]);
+    	
+    	
+    	boardMatrix[6][5].setType(new Wasteland());
+    	boardMatrix[6][5].setIndex(25);
+    	listCellsLoop.add(boardMatrix[6][5]);
+    	
+    	for (int i=0;i<2;i++) {boardMatrix[5-i][5].setType(new Wasteland());listCellsLoop.add(boardMatrix[5-i][5]);boardMatrix[5-i][5].setIndex(26+i);}
+    	
+    	boardMatrix[4][6].setType(new Wasteland());
+    	listCellsLoop.add(boardMatrix[4][6]);
+    	boardMatrix[4][6].setIndex(28);
+    	
+    	for (int i=0;i<2;i++) {boardMatrix[3-i][6].setType(new Wasteland());listCellsLoop.add(boardMatrix[3-i][6]);boardMatrix[3-i][6].setIndex(29+i);}
+    	for (int i=0;i<3;i++) {boardMatrix[2][7+i].setType(new Wasteland());listCellsLoop.add(boardMatrix[2][7+i]);boardMatrix[2][7+i].setIndex(31+i);}
+    	
+    	
+    	// Permet de générer les RoadSide en fonction de la boucle (des Road)
+    	for (Cell cell : listCellsLoop) {
+    		int i = cell.i();
+    		int j = cell.j();
     		for (int x=-1; x<=1;x= x+2) {
-    			System.out.println(iCell+x + " "+ jCell);
-    			if (!boardMatrix[iCell+x][jCell].type().name().equals("ROAD"))
-    				boardMatrix[iCell+x][jCell].setType(new RoadSide("Wasteland",Color.RED));
+    			int newI = i+x;
+    			//System.out.println(i+x + " "+ j);
+    			//System.out.println(listCellsLoop.contains(boardMatrix[newI][j]));
+    			if (!(listCellsLoop.contains(boardMatrix[newI][j]) || boardMatrix[newI][j].type().name().equalsIgnoreCase("RoadSide")))
+    				boardMatrix[i+x][j].setType(new RoadSide("Wasteland",Color.DARK_GRAY.brighter()));
     		}
-    		for (int y=-1; y<=1;y=y+2) {
+    		for (int y=-1; y<=1; y=y+2) {
+    			int newJ = j+y;
+    			if (!(listCellsLoop.contains(boardMatrix[i][newJ]) || boardMatrix[i][newJ].type().name().equalsIgnoreCase("RoadSide")))
+    				boardMatrix[i][newJ].setType(new RoadSide("Wasteland",Color.DARK_GRAY.brighter()));
     			
     		}	
 						
     	}
-    	
 	}
     
     
@@ -108,27 +143,7 @@ public class Board {
 		// Pour les phases suivantes, boucler sur tous le tableau et vï¿½rif les impacts sur les tiles d'a cotï¿½ et ajouter une liste de carte qui se fait impacter par les tiles d'a cotï¿½.
 	}
     
-    public void spawnEntity() {
-		// Spawn des slimes
-    	
-    	for (Cell cell : listCellsLoop ) {
-    		// Toutes les cell sont celles de la boucle
-    		if (!cell.hasMob()) {
-    			if (cell.type() instanceof CampFire) {
-					continue;	
-				}
-    			
-    			
-	    		Random rand = new Random();
-	    		int rand_number = rand.nextInt(99);
-	    		if (rand_number <50) { // < 5
-	    			cell.addMob(new Slime(cell));
-	    		}
-    		}
-    			
-    	}
-    	// Spawns des xxx, vï¿½rifier si il y a x card a cotï¿½...
-    }
+
     	
     	
 	

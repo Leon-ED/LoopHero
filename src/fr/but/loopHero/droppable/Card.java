@@ -3,16 +3,17 @@ package fr.but.loopHero.droppable;
 import java.util.Objects;
 
 import fr.but.loopHero.game.objects.tiles.Tile;
+import fr.but.loopHero.game.objects.tiles.placedTiles.PlacedTiles;
 
 public class Card implements Droppable {
 	
 	private final String name;
-	private final Tile cardType;
+	private final PlacedTiles cardType;
 	
 	
 	
 	
-	public Card(String name, Tile cardType) {
+	public Card(String name, PlacedTiles cardType) {
 		this.name = Objects.requireNonNull(name);
 		this.cardType = Objects.requireNonNull(cardType);
 
@@ -22,7 +23,7 @@ public class Card implements Droppable {
 		return name;
 	}
 	
-	public Tile cardType() {
+	public PlacedTiles cardType() {
 		return cardType;
 	}
 

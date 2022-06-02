@@ -3,7 +3,14 @@ package fr.but.loopHero.game.objects.tiles;
 import java.awt.Color;
 import java.util.Objects;
 
-public class Tile {
+import fr.but.loopHero.droppable.Card;
+import fr.but.loopHero.game.LoopHeroGameData;
+import fr.but.loopHero.game.objects.Board;
+import fr.but.loopHero.game.objects.Cell;
+import fr.but.loopHero.player.Player;
+import fr.umlv.zen5.ApplicationContext;
+
+public abstract class Tile {
 	private final String name;
 	private final Color color;
 	
@@ -12,6 +19,7 @@ public class Tile {
 		this.color = Objects.requireNonNull(color);
 		
 	}
+	
 	
 	public Tile(String name) {
 		this.name = Objects.requireNonNull(name);
@@ -28,7 +36,7 @@ public class Tile {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(color, name);
+		return Objects.hash(name);
 	}
 
 	@Override
@@ -39,11 +47,20 @@ public class Tile {
 			return false;
 		}
 		Tile other = (Tile) obj;
-		return name.equals(other.name ) && color.equals(other.color);
+		return name.equalsIgnoreCase(other.name);
 	}
 	
 	public boolean mobCanSpawn() {
 		return true;
+	}
+	
+	public boolean allowToPlace(Card card) {
+		
+		return false;
+	}
+	
+	public void doEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
+		
 	}
 	
 }

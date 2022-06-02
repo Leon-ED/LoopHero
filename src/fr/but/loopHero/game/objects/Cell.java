@@ -11,6 +11,7 @@ import fr.but.loopHero.mobs.Mobs;
 public class Cell {
 	private final int i;
 	private final int j;
+	private int index;
 	private Tile type;
 	private ArrayList<Mobs> mobs;
 	
@@ -19,7 +20,24 @@ public class Cell {
 		this.j=Objects.requireNonNull(j);
 		this.mobs = new ArrayList<Mobs>();
 		this.type = new LandScape("empty",Color.DARK_GRAY);
+		this.index = -1;
 	}
+	
+	public Cell(int i, int j,int index) {
+		this.i=Objects.requireNonNull(i);
+		this.j=Objects.requireNonNull(j);
+		this.mobs = new ArrayList<Mobs>();
+		this.type = new LandScape("empty",Color.DARK_GRAY);
+		this.index = index;
+	}
+	
+	public void setIndex(int index) {
+		this.index = index;
+	}
+	public int getIndex() {
+		return index;
+	}
+	
 	@Override
 	public String toString() {
 		return i+","+j+" type:"+type;

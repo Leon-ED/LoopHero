@@ -56,8 +56,14 @@ public class Main {
         	}
         	loopHeroGraphics.drawHealthInfos(context, hero);
         	moveHeroAndDraw(context);
-        	if (loopHeroTimeData.isDayPased()) 
-        		plateau.spawnEntity();	
+        	if (loopHeroTimeData.isDayPased()) {
+        		gameData.doNewDayEffects(context,hero,plateau);
+        		gameData.LEVEL++;
+        		//plateau.spawnEntity();	
+        		
+        		
+        	}
+        	plateau.getlistCellsLoop().get(0).type().doEffects(context, hero, plateau, gameData, null);
         	loopHeroGraphics.drawMobs(context, plateau);
         	//loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData,hero.getCurrentCellIndex());
         	doEvent(context);
@@ -200,17 +206,19 @@ public class Main {
 		int i = selectedCell.i();
 		int j = selectedCell.j();
 		
-		if((selectedCell.type()  instanceof Road)) {
-			plateau.getBoardMatrix()[i][j].setType(new Road(selectedCard.displayName(), selectedCard.cardType().getColor()));
-		}
-
-		if((selectedCell.type()  instanceof LandScape)) {
-			plateau.getBoardMatrix()[i][j].setType(new LandScape(selectedCard.displayName(), selectedCard.cardType().getColor()));
-		}
-
-		if((selectedCell.type()  instanceof RoadSide)) {
-			plateau.getBoardMatrix()[i][j].setType(new RoadSide(selectedCard.displayName(), selectedCard.cardType().getColor()));
-		}
+		plateau.getBoardMatrix()[i][j].setType(selectedCard.cardType().generateNew());
+//		if((selectedCell.type()  instanceof Road)) {
+//			plateau.getBoardMatrix()[i][j].setType(new Road(selectedCard.displayName(), selectedCard.cardType().getColor()));
+//			System.out.println(plateau.getBoardMatrix()[i][j].type().name());
+//		}
+//
+//		if((selectedCell.type()  instanceof LandScape)) {
+//			plateau.getBoardMatrix()[i][j].setType(new LandScape(selectedCard.displayName(), selectedCard.cardType().getColor()));
+//		}
+//
+//		if((selectedCell.type()  instanceof RoadSide)) {
+//			plateau.getBoardMatrix()[i][j].setType(new RoadSide(selectedCard.displayName(), selectedCard.cardType().getColor()));
+//		}
 		
 		loopHeroGraphics.drawOneCell(plateau, context, i, j);
 		hero.deleteFromInventory(selectedCard);
