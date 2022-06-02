@@ -48,8 +48,11 @@ public class Main {
             loopHeroGraphics.drawInventory(context, hero);
         	loopHeroGraphics.drawLevel(context);
         //	loopHeroGraphics.drawOutlineLoop(plateau, context);
-        	if(Combat.combatAvailable(plateau.getlistCellsLoop().get(hero.getCurrentCellIndex())))
+        	
+        	if(Combat.combatAvailable(plateau.getlistCellsLoop().get(hero.getCurrentCellIndex()))) {
+        		loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData,hero.getCurrentCellIndex());
         		Combat.startCombat(context, hero, loopHeroTimeData,plateau.getlistCellsLoop().get(hero.getCurrentCellIndex()),gameData, loopHeroGraphics, plateau);
+        	}
         	loopHeroGraphics.drawHealthInfos(context, hero);
         	moveHeroAndDraw(context);
         	if (loopHeroTimeData.isDayPased()) 
@@ -91,8 +94,9 @@ public class Main {
 		
 		if (pos <= 0 ) 
 			pos = plateau.getlistCellsLoop().size();
+		System.out.println("ok");
 		loopHeroGraphics.drawOneCell(plateau, context, plateau.getlistCellsLoop().get(pos-1).i(),plateau.getlistCellsLoop().get(pos-1).j());
-		
+		System.out.println("ok");
 
     	
 	}
@@ -147,10 +151,7 @@ public class Main {
 			loopHeroGraphics.drawSelection(plateau, context, i, j,Color.red);
 			
 			if(gameData.getSelectedCard() != null)
-				placeCard(context);
-			
-			
-			
+				placeCard(context);			
 			return;
 		}
 		
@@ -176,13 +177,16 @@ public class Main {
     
 	private void placeCard(ApplicationContext context) {
 		//System.out.println("PLACEEEEJINOZERIHOZOHI");
-		if(gameData.getSelectedCard() == null || gameData.getSelectedCell() == null) 
+		if(gameData.getSelectedCard() == null || gameData.getSelectedCell() == null)
+			
 			return;
 
 		// Un carte et une cellule sont choisies, on vérifie si elle peut être posée
 			
 		
 		if(!gameData.canBePlaced()) {
+			Cell selectedCell = gameData.getSelectedCell();
+			loopHeroGraphics.drawOneCell(plateau, context, selectedCell.i() , selectedCell.j());
 			gameData.selectCell(null);
 			return;
 		}

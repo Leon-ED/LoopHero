@@ -1,6 +1,7 @@
 package fr.but.loopHero.mobs;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
@@ -102,6 +103,17 @@ public class Slime implements Mobs{
 		}
 		System.out.println(toDrop.size());
 		return toDrop;
+	}
+
+	public void draw(Graphics2D graphics, int taille) {
+		graphics.setColor(cell.getFirstMob().getColor()); // Couleur du slime
+		int startingPointx = taille + cell.j() * taille;
+		int startingPointy = taille + cell.i()* taille;
+		graphics.fillOval(startingPointx,startingPointy,taille/2,taille/2);
+		
+		graphics.setColor(Color.black); // Contour du slime
+		graphics.drawOval(startingPointx,startingPointy,taille/2,taille/2);
+		
 	}
 	
 	

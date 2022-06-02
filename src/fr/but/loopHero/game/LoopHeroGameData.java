@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.w3c.dom.css.RGBColor;
+
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.game.objects.Cell;
@@ -32,7 +34,7 @@ public class LoopHeroGameData {
 	public static ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<>();
 	public static ArrayList<Mobs> SPAWNABLE_MOBS = new ArrayList<>();
 	
-	public static List<Card> START_CARDS = List.of(new Card("Grove", new Road("Grove",Color.green.darker().darker().darker())),new Card("Rock", new LandScape("Rock",Color.BLACK)),new Card("Meadow", new LandScape("Meadow")));
+	public static List<Card> START_CARDS = List.of(new Card("Grove", new Road("Grove",Color.green.darker())),new Card("Rock", new LandScape("Rock",Color.BLACK)),new Card("Meadow", new LandScape("Meadow",new Color(53,103,23))));
 	
 	
 	public static void generateDroppableItems() {

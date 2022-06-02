@@ -69,6 +69,8 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		
 		public void drawHero(Board plateau, ApplicationContext context, Player hero, TimeData timeData,int heroNextPos) {
 			context.renderFrame( graphics ->{
+				if (heroNextPos-1 >=0)
+					this.drawOneCell(plateau, context, plateau.getlistCellsLoop().get(heroNextPos-1).i(),plateau.getlistCellsLoop().get(heroNextPos-1).j());
 				graphics.setColor(Color.BLACK);
 				drawBar(graphics, 350, timeData.timeFraction(),0,0,Color.GREEN);
 				
@@ -158,10 +160,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				ArrayList<Cell> listCellsLoop = plateau.getlistCellsLoop();
 				for (Cell cell : listCellsLoop ) {
 					if (cell.hasMob()) {
-						graphics.setColor(cell.getFirstMob().getColor()); // Couleur du slime
-						int startingPointx = taille + cell.j() * taille;
-						int startingPointy = taille + cell.i()* taille;
-						graphics.fillOval(startingPointx,startingPointy,taille/2,taille/2);
+						cell.getFirstMob().draw(graphics,taille);
 					}
 				
 				}
