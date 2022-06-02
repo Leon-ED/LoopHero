@@ -3,11 +3,13 @@ package fr.but.loopHero.game.objects;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
 import fr.but.loopHero.game.objects.tiles.CampFire;
 import fr.but.loopHero.game.objects.tiles.Road;
+import fr.but.loopHero.game.objects.tiles.RoadSide;
 import fr.but.loopHero.mobs.Mobs;
 import fr.but.loopHero.mobs.Slime;
 
@@ -43,7 +45,7 @@ public class Board {
     	listCellsLoop.add(boardMatrix[3][9]);
     	
     	for (int i=0;i<6;i++) {
-    		boardMatrix[3][10+i].setType(new Road("Wasteland")); // Premiï¿½re ligne 
+    		boardMatrix[3][10+i].setType(new Road("Wasteland")); // Première ligne 
     		listCellsLoop.add(boardMatrix[3][10+i]);}
     	
     	boardMatrix[4][15].setType(new Road("Wasteland"));
@@ -71,8 +73,21 @@ public class Board {
     	listCellsLoop.add(boardMatrix[4][6]);
     	for (int i=0;i<2;i++) {boardMatrix[3-i][6].setType(new Road("Wasteland"));listCellsLoop.add(boardMatrix[3-i][6]);}
     	for (int i=0;i<3;i++) {boardMatrix[2][7+i].setType(new Road("Wasteland"));listCellsLoop.add(boardMatrix[2][7+i]);}
-    	System.out.println(listCellsLoop);
-    	System.out.println(listCellsLoop.size());
+    	
+    	for (int i = 0; i < listCellsLoop.size(); i++) {
+    		int iCell = listCellsLoop.get(i).i();
+    		int jCell = listCellsLoop.get(i).j();
+    		for (int x=-1; x<=1;x= x+2) {
+    			System.out.println(iCell+x + " "+ jCell);
+    			if (!boardMatrix[iCell+x][jCell].type().name().equals("ROAD"))
+    				boardMatrix[iCell+x][jCell].setType(new RoadSide("Wasteland",Color.RED));
+    		}
+    		for (int y=-1; y<=1;y=y+2) {
+    			
+    		}	
+						
+    	}
+    	
 	}
     
     

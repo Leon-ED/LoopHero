@@ -105,6 +105,7 @@ public class LoopHeroGameData {
 		
 		System.out.println(selectedCard.cardType() instanceof LandScape);
 		System.out.println(selectedCell.type()  instanceof LandScape);
+		
 		if((selectedCard.cardType() instanceof Road) && (selectedCell.type()  instanceof Road) )
 			return true;
 

@@ -19,7 +19,7 @@ public class Tile {
 	}
 	
 	public String name() {
-		return name;
+		return name.toUpperCase();
 	}
 	
 	public Color getColor() {

@@ -41,6 +41,7 @@ public class Main {
     	LoopHeroGameData.generateDroppableItems();
         plateau.fill(); 
         plateau.createLoop(34);
+        
         loopHeroGraphics.drawBoard(plateau, context);
         //loopHeroGraphics.drawInventory(context, hero);
 
@@ -94,9 +95,8 @@ public class Main {
 		
 		if (pos <= 0 ) 
 			pos = plateau.getlistCellsLoop().size();
-		System.out.println("ok");
 		loopHeroGraphics.drawOneCell(plateau, context, plateau.getlistCellsLoop().get(pos-1).i(),plateau.getlistCellsLoop().get(pos-1).j());
-		System.out.println("ok");
+		
 
     	
 	}
@@ -144,8 +144,9 @@ public class Main {
 
 			
 			if(selectedCell != null) {
+				//System.out.println("ok");
 				loopHeroGraphics.drawOneCell(plateau, context, selectedCell.i() , selectedCell.j());
-				//System.out.println("DDEEES");
+				
 			}
 			gameData.selectCell(plateau.getBoardMatrix()[i][j]);
 			loopHeroGraphics.drawSelection(plateau, context, i, j,Color.red);

@@ -29,6 +29,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				
 				graphics.fill(new Rectangle2D.Float(xOrigin,yOrigin,21*taille,12*taille)); // Grand rectangle de toute la surface
 				graphics.draw(new Rectangle2D.Float(xOrigin,yOrigin,21*taille,12*taille));				
+				
 				for (int i = 0; i < boardMatrix.length; i++) {
 					for (int j = 0; j < boardMatrix[0].length; j++) {
 						//System.out.println(boardMatrix[i][j]);
@@ -36,12 +37,12 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 						if (boardMatrix[i][j].isEmpty()) 
 							continue;
 							
-							
-						graphics.setColor(boardMatrix[i][j].getColor()); // On d�finis la couleur de la Tile
-						int x = xOrigin + j*taille;
-						int y = yOrigin + (i*taille);
-						graphics.fill(new Rectangle2D.Float(x,y,taille,taille));
-						graphics.draw(new Rectangle2D.Float(x,y,taille,taille));	
+						this.drawOneCell(plateau, context, i, j);
+						//graphics.setColor(boardMatrix[i][j].getColor()); // On d�finis la couleur de la Tile
+						//int x = xOrigin + j*taille;
+						//int y = yOrigin + (i*taille);
+						//graphics.fill(new Rectangle2D.Float(x,y,taille,taille));
+						//graphics.draw(new Rectangle2D.Float(x,y,taille,taille));	
 					}
 					}
 	
