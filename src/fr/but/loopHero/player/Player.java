@@ -6,40 +6,39 @@ import java.util.Random;
 
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
+import fr.but.loopHero.droppable.Equipement;
+import fr.but.loopHero.droppable.Ressource;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.tiles.LandScape;
 
 public class Player {
 
-	private int maxHealth;
-	private int currentHealth;
-	private double regenPerSecond;
+	private final int maxHealth_default = 250;
+	private int maxHealth = 250;
+	private int currentHealth = maxHealth;
+	private double regenPerSecond = 0;
 	
-	private int defensePoints;
+	private int defensePoints = 0;
 	
-	private int minDamagePoints;
-	private int maxDamagePoints;
+	private int minDamagePoints = 4;
+	private int maxDamagePoints = 6;
 
-	private double counterPercent;
+	private double counterPercent = 0.0;
+	private double evadePercent = 0.0;
+	private double vampirismPercent = 0.0;
 	
-	private final ArrayList<Droppable> playerInventory;
+	private final ArrayList<ArrayList<Droppable>> playerInventory = new ArrayList<ArrayList<Droppable>>();
 	
 	private int currentNumOfCell = 0;
 	
 	
 	
 	public Player() {
-		this.playerInventory = new ArrayList<>();
-		playerInventory.addAll(LoopHeroGameData.START_CARDS);
-		this.maxHealth = 250;
-		this.currentHealth = 250;
-		this.regenPerSecond = 0;
+		playerInventory.add(new ArrayList<Droppable>());
+		playerInventory.add(new ArrayList<Droppable>());
+		playerInventory.add(new ArrayList<Droppable>());
 		
-		this.defensePoints = 0;
-		this.counterPercent = 0.0;
-	
-		this.minDamagePoints = 4;
-		this.maxDamagePoints = 6;
+		playerInventory.get(0).addAll(LoopHeroGameData.START_CARDS);
 		
 	}
 	
@@ -82,19 +81,31 @@ public class Player {
 		currentHealth = (currentHealth+hp > maxHealth ? maxHealth : currentHealth+hp);
 	}
 
-	public void addInventory(ArrayList<Droppable> droppedItems) {
-		playerInventory.addAll(droppedItems);
+	public void addInventory(ArrayList<ArrayList<Droppable>> droppedItems) {
+		playerInventory.get(0).addAll(droppedItems.get(0));
+		playerInventory.get(1).addAll(droppedItems.get(1));
+		playerInventory.get(2).addAll(droppedItems.get(2));
 		
 	}
+	
+	public void addCard(Card card) {
+		playerInventory.get(0).add(card);
+	}
+	public void addEquipement(Equipement equipement) {
+		playerInventory.get(1).add(equipement);
+	}
+	public void addRessource(Ressource ressource) {
+		playerInventory.get(2).add(ressource);
+	}
 
-	public ArrayList<Droppable> getInventory() {
+	public ArrayList<ArrayList<Droppable>> getInventory() {
 		
 		return playerInventory;
 	}
 
 	
-	public void deleteFromInventory(Droppable drop) {
-		playerInventory.remove(drop);
+	public void deleteCardFromInventory(Droppable drop) {
+		playerInventory.get(0).remove(drop);
 		
 		
 	}
@@ -104,8 +115,35 @@ public class Player {
 		
 	}
 	
+	public String getIntervalDamage() {
+		return this.minDamagePoints+" - "+this.maxDamagePoints;
+	}
 	
 	
+	// Accesseurs pour l'affichage
+	public double maxHealth() {
+		return this.maxHealth-maxHealth_default;
+	}
+	
+	public int defensePoints() {
+		return this.defensePoints;
+	}
+	
+	public double counterPercent() {
+		return this.counterPercent;
+	}
+	
+	public double evadePercent() {
+		return this.evadePercent;
+	}
+	
+	public double regenPerSecond() {
+		return this.regenPerSecond;
+	}
+	
+	public double vampirismPercent() {
+		return this.vampirismPercent;
+	}
 	
 	
 	

@@ -120,7 +120,7 @@ public class LoopHeroGameData {
 		
 		for (Cell[] cells : matricePlateau) {
 			for (Cell cell : cells) {
-				cell.type().doEffects(context, hero,plateau,this,cell);
+				cell.type().doNewDayEffects(context, hero,plateau,this,cell);
 			
 			}
 		}

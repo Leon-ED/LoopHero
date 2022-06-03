@@ -20,13 +20,14 @@ public class Rock extends PlacedTiles {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
 	@Override
-	public void doEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
+	public void doEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas) {
 		
 		if (!placedEffectDone) {
 			hero.increaseMaxHealth( (int)(hero.getHealths()[1]*0.01));
 		}
-		System.out.println(hero.getHealths()[1]);
 	}
 	
 	

@@ -30,13 +30,14 @@ public class Main {
     	LoopHeroGameData.generateDroppableItems();
         plateau.fill(); 
         plateau.createLoop(34);
-        
         loopHeroGraphics.drawBoard(plateau, context);
         //loopHeroGraphics.drawInventory(context, hero);
 
         while (true) {
+        	loopHeroGraphics.drawHeroInformations(context, hero);
             loopHeroGraphics.drawInventory(context, hero);
         	loopHeroGraphics.drawLevel(context);
+        	
         //	loopHeroGraphics.drawOutlineLoop(plateau, context);
         	
         	if(Combat.combatAvailable(plateau.getlistCellsLoop().get(hero.getCurrentCellIndex()))) {
@@ -52,7 +53,7 @@ public class Main {
         		
         		
         	}
-        	plateau.getlistCellsLoop().get(0).type().doEffects(context, hero, plateau, gameData, null);
+        	plateau.getlistCellsLoop().get(0).type().doNewDayEffects(context, hero, plateau, gameData, null);
         	loopHeroGraphics.drawMobs(context, plateau);
         	//loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData,hero.getCurrentCellIndex());
         	doEvent(context);
@@ -149,14 +150,16 @@ public class Main {
 			gameData.selectCell(plateau.getBoardMatrix()[i][j]);
 			loopHeroGraphics.drawSelection(plateau, context, i, j,Color.red);
 			
-			if(gameData.getSelectedCard() != null)
-				placeCard(context);			
+			if(gameData.getSelectedCard() != null) { 
+				placeCard(context);	
+				}
+			
 			return;
 		}
 		
 		if(i == 12) {
 			// En dehors de la liste
-			if(j >= hero.getInventory().size() )
+			if(j >= hero.getInventory().get(0).size() )
 				return;
 			Card selectedCard = gameData.getSelectedCard();
 
@@ -164,7 +167,7 @@ public class Main {
 				System.out.println("Une seule selection possible");
 				return;
 			}
-			gameData.selectCard(hero.getInventory().get(j));
+			gameData.selectCard(hero.getInventory().get(0).get(j));
 			loopHeroGraphics.drawSelection(plateau, context, i, j,Color.RED);
 			return;
 		}
@@ -212,8 +215,12 @@ public class Main {
 //			plateau.getBoardMatrix()[i][j].setType(new RoadSide(selectedCard.displayName(), selectedCard.cardType().getColor()));
 //		}
 		
+		gameData.getSelectedCard().cardType().doEffects(context, hero,plateau,gameData); // On applique l'effet de la carte posée
+		
 		loopHeroGraphics.drawOneCell(plateau, context, i, j);
-		hero.deleteFromInventory(selectedCard);
+		hero.deleteCardFromInventory(selectedCard);
+		
+		
 		
 		//On supprime la sélection du joueur
 		gameData.selectCard(null);

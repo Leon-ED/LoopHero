@@ -33,7 +33,7 @@ public class CampFire extends Road{
 	}
 	
 	@Override
-	public void doEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
+	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
 		if(hero.getCurrentCellIndex() == 0) {
 			int currentHealth = hero.getHealths()[0];
 			int toAdd =  (int) ((int) currentHealth*0.2); 

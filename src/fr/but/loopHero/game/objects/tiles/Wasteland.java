@@ -14,12 +14,9 @@ public class Wasteland extends Road {
 
 	public Wasteland() {
 		super("Wasteland",Color.gray);
-		// TODO Auto-generated constructor stub
 	}
 
-	
-	@Override
-	public void doEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
+	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
 		if (!cell.hasMob()) { 			
 			Random rand = new Random();
 			int rand_number = rand.nextInt(99);

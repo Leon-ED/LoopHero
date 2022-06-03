@@ -9,6 +9,7 @@ import java.util.Random;
 
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
+import fr.but.loopHero.droppable.Ressource;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.Cell;
 
@@ -16,10 +17,16 @@ public class Slime extends Mobs{
 
 	
 	
-	public Slime(Cell cell) {		
-		super(5,13,3.3,0.6,Color.green,35,cell);
-		
-		
+	public Slime(Cell cell) {
+		super(5,13,3.3,0.6,Color.green,35,cell,genMobsList());
+	}
+	
+	private static ArrayList<Droppable> genMobsList() {
+		ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<Droppable>();
+		MOBS_DROPPABLE_ITEMS.add(new Ressource("craft_fragment"));// Ressources que le mob peut drop
+		MOBS_DROPPABLE_ITEMS.add(new Ressource("shapeless_mass")); 
+		MOBS_DROPPABLE_ITEMS.addAll(LoopHeroGameData.MOBS_DROPPABLE_ITEMS);
+		return MOBS_DROPPABLE_ITEMS;
 	}
 
 	@Override

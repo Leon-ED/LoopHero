@@ -5,13 +5,24 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Float;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.imageio.ImageIO;
 import javax.swing.plaf.FontUIResource;
 
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
+import fr.but.loopHero.droppable.Equipement;
+import fr.but.loopHero.droppable.Ressource;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.TimeData;
 import fr.but.loopHero.game.objects.Board;
@@ -75,7 +86,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				if (heroNextPos-1 >=0)
 					this.drawOneCell(plateau, context, plateau.getlistCellsLoop().get(heroNextPos-1).i(),plateau.getlistCellsLoop().get(heroNextPos-1).j());
 				graphics.setColor(Color.BLACK);
-				drawBar(graphics, 350, timeData.timeFraction(),0,0,Color.GREEN);
+				drawBar(graphics, 350, timeData.timeFraction(),0,0,Color.GREEN,10);
 				
 
 				//System.out.println(heroNextPos);
@@ -100,13 +111,14 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			});
 		}
 		
-		private void drawBar(Graphics2D graphics, int width, double timeFraction, int xOffset, int yOffset,Color color) {
+		private void drawBar(Graphics2D graphics, int width, double timeFraction, int xOffset, int yOffset,Color color, int height) {
 			graphics.setColor(Color.LIGHT_GRAY);
-			graphics.fill(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width, 10));
+			graphics.fill(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width, height));
 			graphics.setColor(color);
-			graphics.fill(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width * timeFraction, 10));
+			graphics.fill(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width * timeFraction, height));
 			graphics.setColor(Color.BLACK);
-			graphics.draw(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width, 10));
+			graphics.draw(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width, height));
+			
 		}
 		
 		private Color getHealthColor(int[] healths) {
@@ -137,8 +149,9 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 
 			context.renderFrame(graphics ->{
 				//System.out.println(healthRatio);
-				drawBar(graphics, 400, healthRatio, 1300,400,color);
-				
+				drawBar(graphics, 400, healthRatio, 1300,400,color,30);
+				graphics.setFont(new FontUIResource("Arial", 0, 25));
+				graphics.drawString((int)currentHealth+"/"+(int)maxHealth,1500, 455);
 				
 				
 				
@@ -165,40 +178,114 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 					if (cell.hasMob()) {
 						cell.getFirstMob().draw(graphics,taille);
 					}
-				
 				}
 			});
 		}
 
 
 		public void drawInventory(ApplicationContext context,Player hero) {
-			context.renderFrame( graphics ->{		
-				ArrayList<Droppable> inventory = hero.getInventory();
+			ArrayList<ArrayList<Droppable>> inventory = hero.getInventory();
+			drawInventoryCards(context,hero,inventory.get(0));
+			//drawInventoryEquipements(context,hero,inventory.get(1));
+			drawInventoryRessources(context,hero,inventory.get(2));
+			
+			
+//			context.renderFrame( graphics ->{		
+//				
+//				
+//				
+//				
+//				for (ArrayList<Droppable> listDrop : inventory) {
+//					int i = 0;
+//					for (Droppable droppable : listDrop) {
+//						droppable.draw(context, i);
+//					}
+//				}	
+//			});
+		}
+		
+		private void drawInventoryCards(ApplicationContext context,Player hero,ArrayList<Droppable> Cards) {
+			context.renderFrame( graphics ->{
 				graphics.setColor(LoopHeroGameData.BG_COLOR);
 				graphics.fill(new Rectangle2D.Float(xOrigin, yOrigin+(12*taille), taille*12, taille*2));
-				
-				int i = 0;
-				for (Droppable droppable : inventory) {
-					if(droppable instanceof Card) {
-						drawCard(context, (Card) droppable,i);
-						i++;				
-					}
-					
-					
-					
-				}
-			
-			
 			});
+			for (int i=0; i<Cards.size();i++)
+				drawCard(context, Cards.get(i), i);
+		}
+		
+		
+		private void drawInventoryEquipements(ApplicationContext context,Player hero,ArrayList<Droppable> Equipements) {
+			context.renderFrame( graphics ->{
+				graphics.setColor(LoopHeroGameData.BG_COLOR);
+				graphics.fill(new Rectangle2D.Float(xOrigin, yOrigin+(12*taille), taille*12, taille*2));
+			});
+			for (int i=0; i<Equipements.size();i++)
+				drawEquipement(context, Equipements.get(i), i);
+		}
+		
+		private void drawInventoryRessources(ApplicationContext context,Player hero,ArrayList<Droppable> Ressources) {
+			
+			context.renderFrame( graphics ->{
+				graphics.setColor(LoopHeroGameData.BG_COLOR);
+				//graphics.setColor(Color.red);
+				graphics.fill(new Rectangle2D.Float(xOrigin, yOrigin+(12*taille)+taille*2, taille*12, taille*2));
+			});
+			 
+			HashMap<String,Integer> dict_ressources = new HashMap<String,Integer>();
+			
+			for (Droppable droppable : Ressources) {
+				if (dict_ressources.containsKey(droppable.displayName())) {
+					dict_ressources.put(droppable.displayName(), dict_ressources.get(droppable.displayName())+1);
+				}
+				else 
+					dict_ressources.put(droppable.displayName(), 1);
+			}
+			
+			
+			
+			int count = 0;
+			
+			
+			
+			for (HashMap.Entry<String, Integer> ressource : dict_ressources.entrySet()) {
+				
+				count++;
+				String key = ressource.getKey();
+				Integer val = ressource.getValue();
+				drawRessource(context,key,count,val);
+				
+			}
+				
+				
+			
+		}
+		
+
+		private void drawRessource(ApplicationContext context, String name, int position, int occurence) {
+			
+			context.renderFrame( graphics ->{
+				graphics.setColor(Color.BLACK);
+				graphics.draw(new Rectangle2D.Float(xOrigin+(taille*position), yOrigin+(12*taille)+taille*2, taille, taille));
+									
+				graphics.setColor(Color.RED); 
+				graphics.setFont(new FontUIResource("Arial", 0, 10));
+				graphics.drawString(name, xOrigin+(taille*position), yOrigin+(12*taille)+taille*2+taille+15);
+				
+				graphics.setFont(new FontUIResource("Arial", 0, 20));
+				graphics.drawString(occurence+"", xOrigin+(taille*position), yOrigin+(12*taille)+taille*2+taille);
+				
+			});	
+		}
+		
+		private void drawEquipement(ApplicationContext context,Droppable droppable,int i) {
+
 		}
 
-		private void drawCard(ApplicationContext context,Card card,int i) {
+		private void drawCard(ApplicationContext context,Droppable droppable,int i) { 
 			context.renderFrame( graphics ->{
-				graphics.setColor(Color.GRAY);
-				//graphics.fill(new Rectangle2D.Float(xOrigin+(taille*2*i), yOrigin+900, taille*2, taille*2));
 				graphics.setColor(Color.BLACK);
 				graphics.draw(new Rectangle2D.Float(xOrigin+(taille*i), yOrigin+(12*taille), taille, taille));
-				String cardName = card.displayName();
+				String cardName = droppable.displayName();
 				
 				graphics.setColor(Color.RED);
 				graphics.setFont(new FontUIResource("Arial", 0, 17));
@@ -247,6 +334,54 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				graphics.drawString("Vitesse : x"+speedFactor, 500, 40);
 				//drawBar(graphics, 400, healthRatio, 1300,400,color);
 			});
+		}
+		
+		// MARCHE PASS
+		private void drawImage(ApplicationContext context,int x, int y, Path path) {
+	        try (InputStream in = Files.newInputStream(path)) {
+	            BufferedImage img = ImageIO.read(in);
+	            context.renderFrame(graphics ->{
+	            	graphics.drawImage(img, x, y, null);
+	            //graphics.drawImage(img, scaling, xOrigin + column * squareSize, yOrigin + line * squareSize);
+	            });
+	        } catch (IOException e) {
+	            throw new RuntimeException("problÃ¨me d'affichage : " + path.getFileName());
+	        }
+	    }
+
+		// Affiche les informations du héros
+		public void drawHeroInformations(ApplicationContext context, Player hero) {
+			context.renderFrame(graphics ->{
+				//graphics.setColor(LoopHeroGameData.BG_COLOR);
+				graphics.setColor(Color.red);
+				graphics.fillRect(1350, 500, 400, 400);
+				
+				graphics.setColor(LoopHeroGameData.TXT_COLOR);
+				graphics.setFont(new FontUIResource("Arial", 0, 30));
+				graphics.drawString("Statistiques", 1475, 550);
+				
+				graphics.setFont(new FontUIResource("Arial", 0, 25));
+				graphics.drawString("Dégâts : "+hero.getIntervalDamage(), 1360, 610);
+				
+				graphics.setFont(new FontUIResource("Arial", 0, 25));
+				graphics.drawString("PV max : +"+(int)hero.maxHealth(), 1360, 650);
+				
+				graphics.setFont(new FontUIResource("Arial", 0, 25));
+				graphics.drawString("Défense : "+hero.defensePoints(), 1360, 690);
+				
+				graphics.setFont(new FontUIResource("Arial", 0, 25));
+				graphics.drawString("Contre : "+(int)hero.counterPercent()+"%", 1360, 730);
+				
+				graphics.setFont(new FontUIResource("Arial", 0, 25));
+				graphics.drawString("Esquive : "+(int)hero.evadePercent()+"%", 1360, 770);
+				
+				graphics.setFont(new FontUIResource("Arial", 0, 25));
+				graphics.drawString("Régénération par sec : +"+(int)hero.regenPerSecond(), 1360, 810);
+				
+				graphics.setFont(new FontUIResource("Arial", 0, 25));
+				graphics.drawString("Vampirisme : "+(int)hero.vampirismPercent()+"%", 1360, 850);
+			});
+			
 		}
 }
 

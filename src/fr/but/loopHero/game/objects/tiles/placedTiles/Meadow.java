@@ -21,7 +21,7 @@ public class Meadow extends PlacedTiles {
 	}
 
 	@Override
-	public void doEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
+	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
 		hero.regenHero(2);
 	}
 

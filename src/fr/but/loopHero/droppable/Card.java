@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import fr.but.loopHero.game.objects.tiles.Tile;
 import fr.but.loopHero.game.objects.tiles.placedTiles.PlacedTiles;
+import fr.umlv.zen5.ApplicationContext;
 
 public class Card implements Droppable {
 	
@@ -40,6 +41,12 @@ public class Card implements Droppable {
 			return false;
 		Card other = (Card) obj;
 		return Objects.equals(cardType, other.cardType) && Objects.equals(name, other.name);
+	}
+
+	@Override
+	public void draw(ApplicationContext context, int i) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
