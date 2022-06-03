@@ -11,8 +11,13 @@ public class TimeData {
 	private long combatLastAttackTick = 0;
 	
 	private boolean stopped;
-	public final static double DAY_MILLISECONDS = 24_000;//24_000;
-	public final static int HERO_DELAY = 100;//1_500; // 1_500
+	
+	public final static double DAY_MILLISECONDS_DEFAULT = 24_000;
+	public static double DAY_MILLISECONDS = 24_000; //24_000;
+	
+	public final static int HERO_DELAY_DEFAULT = 1_500;
+	public static int HERO_DELAY = 1_500; // 1_500
+	
 	private double previousTick = 1;
 	
 
@@ -95,6 +100,20 @@ public class TimeData {
 		combatLastAttackTick = 0;
 	}
 
-
+	public int accelerateTime() {
+		DAY_MILLISECONDS /= 2;
+		HERO_DELAY /= 2;
+		
+		return (int) HERO_DELAY_DEFAULT/HERO_DELAY;
+	}
+	
+	public int decelerateTime() {
+		if (DAY_MILLISECONDS<DAY_MILLISECONDS_DEFAULT) {
+			DAY_MILLISECONDS *= 2;
+			HERO_DELAY *= 2;
+		}
+		
+		return (int) HERO_DELAY_DEFAULT/HERO_DELAY;
+	}
 	
 }

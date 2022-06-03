@@ -45,6 +45,8 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 						//graphics.draw(new Rectangle2D.Float(x,y,taille,taille));	
 					}
 					}
+				
+				drawSpeedIndicator(context,1);
 	
 			});
 		}
@@ -234,7 +236,18 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			});
 		}
 
-
+		public void drawSpeedIndicator(ApplicationContext context, int speedFactor) {
+			context.renderFrame(graphics ->{
+				graphics.setColor(LoopHeroGameData.BG_COLOR);
+				graphics.fillRect(500, 15, 200, 35);
+				
+				graphics.setColor(LoopHeroGameData.TXT_COLOR);
+				
+				graphics.setFont(new FontUIResource("Arial", 0, 30));
+				graphics.drawString("Vitesse : x"+speedFactor, 500, 40);
+				//drawBar(graphics, 400, healthRatio, 1300,400,color);
+			});
+		}
 }
 
 

@@ -4,26 +4,13 @@ import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
-import fr.but.loopHero.game.objects.tiles.LandScape;
-import fr.but.loopHero.game.objects.tiles.Road;
-import fr.but.loopHero.game.objects.tiles.RoadSide;
-import fr.but.loopHero.game.objects.tiles.Tile;
-import fr.but.loopHero.mobs.Mobs;
-import fr.but.loopHero.mobs.Slime;
 import fr.but.loopHero.player.Player;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Float;
-import java.util.ArrayList;
-import java.util.Objects;
-
 import fr.umlv.zen5.Application;
 import fr.umlv.zen5.ApplicationContext;
 import fr.umlv.zen5.Event;
-import fr.umlv.zen5.ScreenInfo;
 
 
 
@@ -33,11 +20,13 @@ public class Main {
     private final Board plateau = new Board(12,21);
     private final Player hero = new Player();
     private final LoopHeroGameData gameData = new LoopHeroGameData();
-    private final static int USER_ACTION_DELAY = 1_500;
+    
 
     
     
     private void loopHero(ApplicationContext context) {
+    	//Boucle principale du jeu
+    	
     	LoopHeroGameData.generateDroppableItems();
         plateau.fill(); 
         plateau.createLoop(34);
@@ -58,7 +47,7 @@ public class Main {
         	moveHeroAndDraw(context);
         	if (loopHeroTimeData.isDayPased()) {
         		gameData.doNewDayEffects(context,hero,plateau);
-        		gameData.LEVEL++;
+        		LoopHeroGameData.LEVEL++;
         		//plateau.spawnEntity();	
         		
         		
@@ -84,6 +73,9 @@ public class Main {
 		}
 		case S -> {loopHeroTimeData.stop(); System.out.println("Jeux mis en pause");}
 		case D -> {loopHeroTimeData.start(); System.out.println("Reprise du jeux");}
+		case RIGHT ->  { loopHeroGraphics.drawSpeedIndicator(context,loopHeroTimeData.accelerateTime()); System.out.println("Accélération du temps");}
+		case LEFT ->  { loopHeroGraphics.drawSpeedIndicator(context,loopHeroTimeData.decelerateTime()); System.out.println("Ralentissement du temps");}
+		
 		default -> System.out.println("Touche inactive : " + event.getKey());
 		}
 	}
@@ -112,7 +104,7 @@ public class Main {
 
     
     private void doEvent(ApplicationContext context) {
-    	Event event = context.pollOrWaitEvent(USER_ACTION_DELAY);
+    	Event event = context.pollOrWaitEvent(TimeData.HERO_DELAY);
 		if (event == null) { // no event
 			return;
 		}
