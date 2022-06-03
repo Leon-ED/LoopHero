@@ -12,7 +12,6 @@ public class TimeData {
 	
 	private boolean stopped;
 	
-	public final static double DAY_MILLISECONDS_DEFAULT = 24_000;
 	public static double DAY_MILLISECONDS = 24_000; //24_000;
 	
 	public final static int HERO_DELAY_DEFAULT = 1_500;
@@ -38,7 +37,7 @@ public class TimeData {
 		if (!stopped) {
 			tickTock();
 		}
-		return (elapsedTotal % DAY_MILLISECONDS) / (double) DAY_MILLISECONDS;
+		return (elapsedTotal*(HERO_DELAY_DEFAULT/HERO_DELAY) % DAY_MILLISECONDS) / (double) DAY_MILLISECONDS;
 	}
 
 	public long elapsedBob() {
@@ -101,15 +100,13 @@ public class TimeData {
 	}
 
 	public int accelerateTime() {
-		DAY_MILLISECONDS /= 2;
 		HERO_DELAY /= 2;
 		
 		return (int) HERO_DELAY_DEFAULT/HERO_DELAY;
 	}
 	
 	public int decelerateTime() {
-		if (DAY_MILLISECONDS<DAY_MILLISECONDS_DEFAULT) {
-			DAY_MILLISECONDS *= 2;
+		if (HERO_DELAY<HERO_DELAY_DEFAULT) {
 			HERO_DELAY *= 2;
 		}
 		

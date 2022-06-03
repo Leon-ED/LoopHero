@@ -54,7 +54,7 @@ public class Player {
 	public int addCurrentNumOfCell() {
 		if (currentNumOfCell >= 34) {
 			currentNumOfCell = 0;
-			LoopHeroGameData.LEVEL +=1;
+			LoopHeroGameData.LEVEL++;
 		}
 		currentNumOfCell++; 
 		return currentNumOfCell-1;

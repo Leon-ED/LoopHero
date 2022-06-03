@@ -47,7 +47,7 @@ public class Main {
         	moveHeroAndDraw(context);
         	if (loopHeroTimeData.isDayPased()) {
         		gameData.doNewDayEffects(context,hero,plateau);
-        		LoopHeroGameData.LEVEL++;
+        		
         		//plateau.spawnEntity();	
         		
         		
