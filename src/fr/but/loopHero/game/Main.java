@@ -31,6 +31,7 @@ public class Main {
         plateau.fill(); 
         plateau.createLoop(34);
         loopHeroGraphics.drawBoard(plateau, context);
+        loopHeroGraphics.drawStaticInventory(context);
         //loopHeroGraphics.drawInventory(context, hero);
 
         while (true) {

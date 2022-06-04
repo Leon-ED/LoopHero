@@ -33,14 +33,18 @@ public class LoopHeroGameData {
 	 * 
 	 */
 	public static int LEVEL = 1;
-	public static Color BG_COLOR = Color.WHITE;
-	public static Color TXT_COLOR_BLK = Color.BLACK;
-	public static Color TXT_COLOR_WHT = Color.WHITE;
+	public static final Color BG_COLOR = Color.WHITE;
+	public static final Color TXT_COLOR_BLK = Color.BLACK;
+	public static final Color TXT_COLOR_WHT = Color.WHITE;
 	
-	public static ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<>();
-	public static ArrayList<Mobs> SPAWNABLE_MOBS = new ArrayList<>();
+	public static final int INV_WIDTH = 4;
+	public static final int INV_HEIGHT = 3;
 	
-	public static List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()));
+	
+	public static final ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<>();
+	public static final ArrayList<Mobs> SPAWNABLE_MOBS = new ArrayList<>();
+	
+	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()));
 	// 
 	
 	

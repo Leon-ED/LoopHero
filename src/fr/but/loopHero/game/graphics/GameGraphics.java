@@ -149,9 +149,9 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 
 			context.renderFrame(graphics ->{
 				//System.out.println(healthRatio);
-				drawBar(graphics, 400, healthRatio, 1300,400,color,30);
+				drawBar(graphics, 400, healthRatio, 1300,450,color,30);
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
-				graphics.drawString((int)currentHealth+"/"+(int)maxHealth,1500, 455);
+				graphics.drawString((int)currentHealth+"/"+(int)maxHealth,1500, 505);
 				
 				
 				
@@ -191,7 +191,32 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 
 		}
 		
-		
+		public void drawStaticInventory(ApplicationContext context) {
+			int startX = taille*23;
+			int startY = taille*4;
+			context.renderFrame(graphics->{
+				
+				for(int i = 0; i< LoopHeroGameData.INV_HEIGHT; i++) {
+					for(int j = 0; j<LoopHeroGameData.INV_WIDTH; j++) {
+						int x = startX + (xOrigin + j*taille);
+						int y = startY + (yOrigin + (i*taille));		
+						graphics.drawRect(x, y, taille, taille);
+						
+						graphics.drawRect(x, y-taille*4, taille, taille);
+						
+					}
+					
+				}
+				
+				
+				
+				
+				
+			});
+			
+			
+			
+		}
 	
 
 		
@@ -342,6 +367,10 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 
 		// Affiche les informations du héros
 		public void drawHeroInformations(ApplicationContext context, Player hero) {
+			
+			int startX = taille*23;
+			int startY = taille*3;
+			
 			context.renderFrame(graphics ->{
 				//graphics.setColor(LoopHeroGameData.BG_COLOR);
 				graphics.setColor(Color.BLACK);
@@ -349,7 +378,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				
 				graphics.setColor(LoopHeroGameData.TXT_COLOR_WHT);
 				graphics.setFont(new FontUIResource("Arial", 0, 30));
-				graphics.drawString("Statistiques", 1475, 530);
+				graphics.drawString("Statistiques", 1475, 540);
 				
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
 				graphics.drawString("Dégâts : "+hero.getIntervalDamage(), 1360, 610);
@@ -374,6 +403,8 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			});
 			
 		}
+
+
 }
 
 
