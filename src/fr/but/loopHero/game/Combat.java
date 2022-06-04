@@ -62,6 +62,7 @@ public class Combat {
         		System.out.println("Attaque joueur = " +heroAttack+" Attaque mob = "+ mobAttack);
     			mob.takeDamage(heroAttack);
     			hero.takeDamage(mobAttack);
+    			
     			graphics.drawDamages(context,heroAttack,mobAttack);
     			graphics.drawHealthInfos(context, hero);
     		}

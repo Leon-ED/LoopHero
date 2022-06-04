@@ -31,30 +31,32 @@ import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
 
-public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int taille) {
+public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int taille, Board plateau) {
+	
+	
+		private void drawBoardBackGround(ApplicationContext context, Board plateau, Color color) {
+			context.renderFrame(graphics->{
+				
+				graphics.setColor(color);
+				graphics.fill(new Rectangle2D.Float(xOrigin,yOrigin,21*taille,12*taille));
+				graphics.draw(new Rectangle2D.Float(xOrigin,yOrigin,21*taille,12*taille));	
+				
+			});
+		}
+	
 	
 		public void drawBoard(Board plateau, ApplicationContext context) {
 			context.renderFrame( graphics ->{
 				Cell[][] boardMatrix = plateau.getBoardMatrix();
 				
 				graphics.setColor(Color.DARK_GRAY);
-				
-				graphics.fill(new Rectangle2D.Float(xOrigin,yOrigin,21*taille,12*taille)); // Grand rectangle de toute la surface
-				graphics.draw(new Rectangle2D.Float(xOrigin,yOrigin,21*taille,12*taille));				
+				drawBoardBackGround(context, plateau, Color.DARK_GRAY);			
 				
 				for (int i = 0; i < boardMatrix.length; i++) {
 					for (int j = 0; j < boardMatrix[0].length; j++) {
-						//System.out.println(boardMatrix[i][j]);
-						
 						if (boardMatrix[i][j].isEmpty()) 
 							continue;
-							
-						this.drawOneCell(plateau, context, i, j);
-						//graphics.setColor(boardMatrix[i][j].getColor()); // On d�finis la couleur de la Tile
-						//int x = xOrigin + j*taille;
-						//int y = yOrigin + (i*taille);
-						//graphics.fill(new Rectangle2D.Float(x,y,taille,taille));
-						//graphics.draw(new Rectangle2D.Float(x,y,taille,taille));	
+						drawOneCell(plateau, context, i, j);
 					}
 					}
 				
@@ -406,7 +408,13 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		}
 		
 		public void drawCombat(ApplicationContext context, Combat combat) {
-			
+			drawBoardBackGround(context, plateau, LoopHeroGameData.TXT_COLOR_ERROR);
+			context.renderFrame(graphics->{
+
+				
+				
+				
+			});
 		}
 
 		public void drawDamages(ApplicationContext context, int heroAttack, int mobAttack) {

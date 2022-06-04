@@ -15,9 +15,10 @@ import fr.umlv.zen5.Event;
 
 
 public class Main {
-    private final GameGraphics loopHeroGraphics  = new GameGraphics(50,50,50,50,60);
+
     private final TimeData loopHeroTimeData = new TimeData();
     private final Board plateau = new Board(12,21);
+    private final GameGraphics loopHeroGraphics  = new GameGraphics(50,50,50,50,60,plateau);
     private final Player hero = new Player();
     private final LoopHeroGameData gameData = new LoopHeroGameData();
     
@@ -39,19 +40,19 @@ public class Main {
             loopHeroGraphics.drawInventory(context, hero);
         	loopHeroGraphics.drawLevel(context);
         	Cell heroCurrentCell = plateau.getlistCellsLoop().get(hero.getCurrentCellIndex());
-        //	loopHeroGraphics.drawOutlineLoop(plateau, context);
         	
         	if(Combat.combatAvailable(heroCurrentCell)) {
         		loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData,hero.getCurrentCellIndex());
         		new Combat(hero, heroCurrentCell, context, loopHeroTimeData, gameData, loopHeroGraphics);
-        		//Combat.startCombat(context, hero, loopHeroTimeData,plateau.getlistCellsLoop().get(hero.getCurrentCellIndex()),gameData, loopHeroGraphics, plateau);
+        		loopHeroGraphics.drawBoard(plateau, context);
+        
         	}
         	loopHeroGraphics.drawHealthInfos(context, hero);
         	moveHeroAndDraw(context);
         	if (loopHeroTimeData.isDayPased()) {
         		gameData.doNewDayEffects(context,hero,plateau);
         		
-        		//plateau.spawnEntity();	
+
         		
         		
         	}
@@ -121,11 +122,6 @@ public class Main {
 			}
 			break;
 		}
-	
-    	
-    	
-    	
-    	
     }
     
 	private void doMouseAction(ApplicationContext context, Event event) {
@@ -173,8 +169,7 @@ public class Main {
 			loopHeroGraphics.drawSelection(plateau, context, i, j,Color.RED);
 			return;
 		}
-		
-		
+
 
 	}
     
@@ -184,8 +179,6 @@ public class Main {
 		if(gameData.getSelectedCard() == null || gameData.getSelectedCell() == null)
 			
 			return;
-
-		// Un carte et une cellule sont choisies, on vérifie si elle peut être posée
 			
 		
 		if(!gameData.canBePlaced()) {
@@ -195,30 +188,15 @@ public class Main {
 			return;
 		}
 
-		
-	//	System.out.println("PLACEEEEJINOZERIHOZOHI");
+
 		
 		Cell selectedCell = gameData.getSelectedCell();
 		Card selectedCard = gameData.getSelectedCard();
 		int i = selectedCell.i();
 		int j = selectedCell.j();
 		
-		plateau.getBoardMatrix()[i][j].setType(selectedCard.cardType().generateNew());
-//		if((selectedCell.type()  instanceof Road)) {
-//			plateau.getBoardMatrix()[i][j].setType(new Road(selectedCard.displayName(), selectedCard.cardType().getColor()));
-//			System.out.println(plateau.getBoardMatrix()[i][j].type().name());
-//		}
-//
-//		if((selectedCell.type()  instanceof LandScape)) {
-//			plateau.getBoardMatrix()[i][j].setType(new LandScape(selectedCard.displayName(), selectedCard.cardType().getColor()));
-//		}
-//
-//		if((selectedCell.type()  instanceof RoadSide)) {
-//			plateau.getBoardMatrix()[i][j].setType(new RoadSide(selectedCard.displayName(), selectedCard.cardType().getColor()));
-//		}
-		
-		gameData.getSelectedCard().cardType().doEffects(context, hero,plateau,gameData); // On applique l'effet de la carte posée
-		
+		plateau.getBoardMatrix()[i][j].setType(selectedCard.cardType().generateNew());		
+		gameData.getSelectedCard().cardType().doEffects(context, hero,plateau,gameData); // On applique l'effet de la carte posée	
 		loopHeroGraphics.drawOneCell(plateau, context, i, j);
 		hero.deleteCardFromInventory(selectedCard);
 		
