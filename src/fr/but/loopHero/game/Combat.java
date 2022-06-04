@@ -58,15 +58,47 @@ public class Combat {
     	int attaque = 0;
     	while(!(mob.isDead() || hero.isDead())) {
     		if(timedata.readyToAttack()) {
-    			int heroAttack = hero.attack();
-    			int mobAttack = mob.attack();
-        		System.out.println("Attaque joueur = " +heroAttack+" Attaque mob = "+ mobAttack);
-    			mob.takeDamage(heroAttack);
-    			hero.takeDamage(mobAttack);
+    			graphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);//Vie du joueur
+    			graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob
     			
-    			graphics.drawDamages(context,heroAttack,mobAttack);
-    			graphics.drawHealthInfos(context, hero);
+	   			 try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+	   			 
+	   			 
+    			int heroAttack = hero.attack();
+    			// int mobRealDamages = mob.takeDamage(heroAttack);
+    			mob.takeDamage(heroAttack);
+    			graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob
+    			graphics.drawDamages(context,0,heroAttack,attaque);
     			attaque++;
+    			
+    			 try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+    			 
+     			int mobAttack = mob.attack();
+     			int heroRealDamages = hero.takeDamage(mobAttack);
+    			graphics.drawDamages(context,heroRealDamages,0,attaque);
+    			attaque++;
+     			System.out.println("Attaque joueur = " +heroAttack+" Attaque mob = "+ mobAttack);
+     			
+     			try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+     			
+    			graphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);//Vie du joueur
+    			
+//    			graphics.drawDamages(context,0,heroAttack);
+
+    			
+    			
     		}
     	}	
     }
@@ -95,5 +127,7 @@ public class Combat {
     public Mobs getOpponent() {
     	return mob;
     }
-
+    public Player getHero() {
+    	return hero;
+    }
 }

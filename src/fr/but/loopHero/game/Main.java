@@ -50,7 +50,7 @@ public class Main {
         		loopHeroGraphics.drawBoard(plateau, context);
         
         	}
-        	loopHeroGraphics.drawHealthInfos(context, hero);
+        	loopHeroGraphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);
         	moveHeroAndDraw(context);
         	if (loopHeroTimeData.isDayPased()) {
         		gameData.doNewDayEffects(context,hero,plateau);

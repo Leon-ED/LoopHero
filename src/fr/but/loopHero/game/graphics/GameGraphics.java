@@ -146,18 +146,18 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			
 		}
 		
-		public void drawHealthInfos(ApplicationContext context,Player hero) {
-			int[] healths = hero.getHealths();
+		public void drawHealthInfos(ApplicationContext context,int healths[],int epaisseur,int x, int y,int hauteur) {
 			double currentHealth = healths[0];
 			double maxHealth = healths[1];
 			double healthRatio = (currentHealth/maxHealth);
 			Color color = getHealthColor(healths);
-			drawBar(context, 400, healthRatio, 1300,450,color,30);
+			drawBar(context, epaisseur, healthRatio, x,y,color,hauteur);
 			context.renderFrame(graphics ->{
 				//System.out.println(healthRatio);
 				
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
-				graphics.drawString((int)currentHealth+"/"+(int)maxHealth,1500, 505);
+				if(healths[1] >= 250)
+					graphics.drawString((int)currentHealth+"/"+(int)maxHealth,1500, 505);
 				
 				
 				
@@ -415,6 +415,11 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			drawString(context, "En combat contre : "+combat.getOpponent().getName(), LoopHeroGameData.TXT_COLOR_WHT,30, (int)width/2, yOrigin+100);
 			context.renderFrame(graphics->{
 				combat.getOpponent().drawInCombat(graphics, 60);
+				graphics.setColor(Color.BLACK);
+				int startingPointx = 200;
+				int startingPointy = 400;	
+				graphics.fillOval(startingPointx,startingPointy,60,60);
+								
 		
 
 				
@@ -423,13 +428,32 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			});
 		}
 
-		public void drawDamages(ApplicationContext context, int heroAttack, int mobAttack) {
+		public void drawDamages(ApplicationContext context, int mobAttack, int heroAttack,int nbAttaque) {
 			context.renderFrame(graphics->{
-				graphics.setColor(LoopHeroGameData.TXT_COLOR_WARNING);
-				graphics.clearRect(xOrigin+500, yOrigin+500, 20, 20);
-				graphics.drawString("-"+ heroAttack+" HP", xOrigin+500, yOrigin+500);
-				
-				
+				// Degats subis par le joueur
+				graphics.setColor(Color.DARK_GRAY);
+				int startingPointx;
+				int startingPointy;	
+				if(mobAttack != 0) {
+					startingPointx = 250;
+					startingPointy = 400;
+					graphics.fillRect(startingPointx, startingPointy-20, 60, 20);
+					drawString(context, "Le héro a subi : "+ mobAttack+" HP de dégats !", Color.WHITE, 20, width/2,300+(50*nbAttaque) );
+					drawString(context, "-"+ mobAttack+" HP", Color.YELLOW, 20, startingPointx, startingPointy);
+
+				}
+
+				//Degats subis par le mob
+
+				if(heroAttack != 0) {
+					startingPointx = 1100;
+					startingPointy = 400;	
+					graphics.fillRect(startingPointx, startingPointy-20, 60, 30);
+					drawString(context, "Le mob a subi : "+ heroAttack+" HP de dégats !", Color.BLUE.brighter(), 20, width/2,300+(50*nbAttaque) );
+					drawString(context, "-"+ heroAttack+" HP", Color.YELLOW, 20, startingPointx, startingPointy);
+		
+				}
+			
 				
 				
 			});

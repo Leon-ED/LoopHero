@@ -139,6 +139,16 @@ public abstract class Mobs {
 		return name;
 	}
 
+
+	public int[] getHealths() {
+		int[] vies = new int[2];
+		vies[0] = healthPoint;
+		vies[1] = maxHealth;
+		
+		return vies;
+	}
+	
+
 	
 	
 }
