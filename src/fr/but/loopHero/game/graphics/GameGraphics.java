@@ -165,9 +165,9 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				graphics.setColor(LoopHeroGameData.BG_COLOR);
 				graphics.fillRect(1800, 20, 100, 35);
 				
-				graphics.setColor(LoopHeroGameData.TXT_COLOR);
-				graphics.setFont(new FontUIResource("Arial", 0, 30));
-				graphics.drawString("LVL: "+LoopHeroGameData.LEVEL, 1800, 50);
+				graphics.setColor(Color.RED);
+				graphics.setFont(new FontUIResource("Arial", 0, 25));
+				graphics.drawString("Niveau: "+LoopHeroGameData.LEVEL, 1360, 570);
 			});	
 		}
 		
@@ -188,21 +188,12 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			drawInventoryCards(context,hero,inventory.get(0));
 			//drawInventoryEquipements(context,hero,inventory.get(1));
 			drawInventoryRessources(context,hero,inventory.get(2));
-			
-			
-//			context.renderFrame( graphics ->{		
-//				
-//				
-//				
-//				
-//				for (ArrayList<Droppable> listDrop : inventory) {
-//					int i = 0;
-//					for (Droppable droppable : listDrop) {
-//						droppable.draw(context, i);
-//					}
-//				}	
-//			});
+
 		}
+		
+		
+	
+
 		
 		private void drawInventoryCards(ApplicationContext context,Player hero,ArrayList<Droppable> Cards) {
 			context.renderFrame( graphics ->{
@@ -328,7 +319,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				graphics.setColor(LoopHeroGameData.BG_COLOR);
 				graphics.fillRect(500, 15, 200, 35);
 				
-				graphics.setColor(LoopHeroGameData.TXT_COLOR);
+				graphics.setColor(LoopHeroGameData.TXT_COLOR_BLK);
 				
 				graphics.setFont(new FontUIResource("Arial", 0, 30));
 				graphics.drawString("Vitesse : x"+speedFactor, 500, 40);
@@ -353,12 +344,12 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		public void drawHeroInformations(ApplicationContext context, Player hero) {
 			context.renderFrame(graphics ->{
 				//graphics.setColor(LoopHeroGameData.BG_COLOR);
-				graphics.setColor(Color.red);
+				graphics.setColor(Color.BLACK);
 				graphics.fillRect(1350, 500, 400, 400);
 				
-				graphics.setColor(LoopHeroGameData.TXT_COLOR);
+				graphics.setColor(LoopHeroGameData.TXT_COLOR_WHT);
 				graphics.setFont(new FontUIResource("Arial", 0, 30));
-				graphics.drawString("Statistiques", 1475, 550);
+				graphics.drawString("Statistiques", 1475, 530);
 				
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
 				graphics.drawString("Dégâts : "+hero.getIntervalDamage(), 1360, 610);

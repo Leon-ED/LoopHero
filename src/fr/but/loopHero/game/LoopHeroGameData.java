@@ -34,7 +34,8 @@ public class LoopHeroGameData {
 	 */
 	public static int LEVEL = 1;
 	public static Color BG_COLOR = Color.WHITE;
-	public static Color TXT_COLOR = Color.BLACK;
+	public static Color TXT_COLOR_BLK = Color.BLACK;
+	public static Color TXT_COLOR_WHT = Color.WHITE;
 	
 	public static ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<>();
 	public static ArrayList<Mobs> SPAWNABLE_MOBS = new ArrayList<>();
