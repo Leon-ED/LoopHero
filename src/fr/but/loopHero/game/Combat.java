@@ -8,6 +8,7 @@ import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.mobs.Mobs;
+import fr.but.loopHero.player.CombatEffects;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
 
@@ -37,9 +38,10 @@ public class Combat {
 	
     private void initiateCombat(ApplicationContext context,TimeData timedata,LoopHeroGameData data,GameGraphics graphics) {
 		graphics.drawCombat(context,this);
+		try {Thread.sleep(500);} catch (InterruptedException e) {	e.printStackTrace(); }    		
 		
 		timedata.resetElapsedBob();
-    	timedata.stop();
+    	//timedata.stop();
     	System.out.println("En combat !");
     	timedata.startCombat();
     	
@@ -50,57 +52,66 @@ public class Combat {
     		return;
     	}
     	heroVictory(context, graphics);
+    	try {Thread.sleep(500);} catch (InterruptedException e) {	e.printStackTrace(); }    		
     	endCombat(timedata);
     	
     }
     
     private void makeCombat(ApplicationContext context,TimeData timedata,LoopHeroGameData data,GameGraphics graphics) {
     	int attaque = 0;
+    	int attaquant = 0;
+		graphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);//Vie du joueur
+		graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob		
+			try {Thread.sleep(500);} catch (InterruptedException e) {	e.printStackTrace(); }    		
+		
     	while(!(mob.isDead() || hero.isDead())) {
+    		// Si les 1 secondes sont passées
     		if(timedata.readyToAttack()) {
+    			
+    			
+    			// Le joueur attaque
+    			if(attaquant == 0) {
+    				attaquant = 1;
+    				int heroAttack = hero.attack();
+    				CombatEffects usedSpecialEffect = mob.useSpecialEffect();
+    				int mobRealDamages = mob.takeDamage(heroAttack, usedSpecialEffect, graphics, context, attaque);    				
+    				
+    				
+     
+        			graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob
+        			graphics.drawDamages(context,0,mobRealDamages,attaque);
+        			// int mobRealDamages = mob.takeDamage(heroAttack);
+        			
+    			}else {
+    				attaquant = 0;
+        			int mobAttack = mob.attack();
+        			CombatEffects usedSpecialEffect = hero.useSpecialEffect();
+         			int heroRealDamages = hero.takeDamage(mobAttack,usedSpecialEffect,graphics,context,attaque);
+         			if(heroRealDamages < 0) {
+         				attaque++;
+         				mob.takeDamage(Math.abs(heroRealDamages), null, graphics, context, attaque);
+         			}
+         			graphics.drawDamages(context,heroRealDamages,0,attaque);
+        			
+         			
+    				
+    			}
+    			attaque++;
     			graphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);//Vie du joueur
     			graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob
     			
-	   			 try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-	   			 
-	   			 
-    			int heroAttack = hero.attack();
-    			// int mobRealDamages = mob.takeDamage(heroAttack);
-    			mob.takeDamage(heroAttack);
-    			graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob
-    			graphics.drawDamages(context,0,heroAttack,attaque);
-    			attaque++;
-    			
-    			 try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-    			 
-     			int mobAttack = mob.attack();
-     			int heroRealDamages = hero.takeDamage(mobAttack);
-    			graphics.drawDamages(context,heroRealDamages,0,attaque);
-    			attaque++;
-     			System.out.println("Attaque joueur = " +heroAttack+" Attaque mob = "+ mobAttack);
+
+     			//System.out.println("Attaque joueur = " +heroAttack+" Attaque mob = "+ mobAttack);
      			
-     			try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-     			
-    			graphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);//Vie du joueur
-    			
-//    			graphics.drawDamages(context,0,heroAttack);
 
     			
-    			
     		}
+    	
     	}	
+		graphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);//Vie du joueur
+		graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob
+		
+		
     }
     
     private boolean isHeroWinner() {
@@ -122,7 +133,7 @@ public class Combat {
     private void endCombat(TimeData timedata) {
     	cell.removeMob(mob);
     	timedata.stopCombat();
-    	timedata.start();
+    	//timedata.start();
     }
     public Mobs getOpponent() {
     	return mob;
@@ -130,4 +141,9 @@ public class Combat {
     public Player getHero() {
     	return hero;
     }
+
+
+
+
+
 }

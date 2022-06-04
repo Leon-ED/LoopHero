@@ -18,7 +18,7 @@ public class Slime extends Mobs{
 	
 	
 	public Slime(Cell cell) {
-		super("Gluant",5,13,3.3,0.6,Color.green,35,cell,genMobsList());
+		super("Gluant",5,13,3.3,0.6,Color.green,35,cell,genMobsList(),0);
 	}
 	
 	private static ArrayList<Droppable> genMobsList() {

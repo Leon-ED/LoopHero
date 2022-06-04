@@ -28,6 +28,7 @@ import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.TimeData;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
+import fr.but.loopHero.player.CombatEffects;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
 
@@ -396,10 +397,10 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				graphics.drawString("Défense : "+hero.defensePoints(), 1360, 690);
 				
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
-				graphics.drawString("Contre : "+(int)hero.counterPercent()+"%", 1360, 730);
+				graphics.drawString("Contre : "+hero.counterPercent()*100+"%", 1360, 730);
 				
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
-				graphics.drawString("Esquive : "+(int)hero.evadePercent()+"%", 1360, 770);
+				graphics.drawString("Esquive : "+hero.evadePercent()*100+"%", 1360, 770);
 				
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
 				graphics.drawString("Régénération par sec : +"+(int)hero.regenPerSecond(), 1360, 810);
@@ -438,7 +439,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 					startingPointx = 250;
 					startingPointy = 400;
 					graphics.fillRect(startingPointx, startingPointy-20, 60, 20);
-					drawString(context, "Le héro a subi : "+ mobAttack+" HP de dégats !", Color.WHITE, 20, width/2,300+(50*nbAttaque) );
+					//drawString(context, "Le héro a subi : "+ mobAttack+" HP de dégats !", Color.WHITE, 20, width/2,300+(50*nbAttaque) );
 					drawString(context, "-"+ mobAttack+" HP", Color.YELLOW, 20, startingPointx, startingPointy);
 
 				}
@@ -449,7 +450,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 					startingPointx = 1100;
 					startingPointy = 400;	
 					graphics.fillRect(startingPointx, startingPointy-20, 60, 30);
-					drawString(context, "Le mob a subi : "+ heroAttack+" HP de dégats !", Color.BLUE.brighter(), 20, width/2,300+(50*nbAttaque) );
+					//drawString(context, "Le mob a subi : "+ heroAttack+" HP de dégats !", Color.BLUE.brighter(), 20, width/2,300+(50*nbAttaque) );
 					drawString(context, "-"+ heroAttack+" HP", Color.YELLOW, 20, startingPointx, startingPointy);
 		
 				}
@@ -472,6 +473,16 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				graphics.drawString(string, x, y);
 				
 			});
+		}
+
+
+		public void showEffect(ApplicationContext context,int attaque,String txt,Color color) {
+				drawString(context, txt,color,20,width/2,300+(50*attaque));
+			
+			
+			
+			
+			
 		}
 
 }

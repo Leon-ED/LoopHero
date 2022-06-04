@@ -16,7 +16,7 @@ public class Ratwolf extends Mobs {
 
 	
 	public Ratwolf(Cell cell) {
-		super("RatWolf",-1,16,3.6,0.75,new Color(139,69,19),0.40,cell,genMobsList());
+		super("RatWolf",-1,16,3.6,0.75,new Color(139,69,19),0.40,cell,genMobsList(),10);
 
 		
 	}
