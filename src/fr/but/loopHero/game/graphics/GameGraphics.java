@@ -84,12 +84,13 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		}
 		
 		
-		public void drawHero(Board plateau, ApplicationContext context, Player hero, TimeData timeData,int heroNextPos) {
+		public void drawHero(Board plateau, ApplicationContext context, Player hero) {
+			int heroNextPos = hero.getCurrentCellIndex();
 			context.renderFrame( graphics ->{
 				if (heroNextPos-1 >=0)
 					this.drawOneCell(plateau, context, plateau.getlistCellsLoop().get(heroNextPos-1).i(),plateau.getlistCellsLoop().get(heroNextPos-1).j());
 				graphics.setColor(Color.BLACK);
-				drawBar(graphics, 350, timeData.timeFraction(),0,0,Color.GREEN,10);
+//				drawBar(graphics, 350, timeData.timeFraction(),0,0,Color.GREEN,10);
 				
 
 				//System.out.println(heroNextPos);
@@ -114,13 +115,15 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			});
 		}
 		
-		private void drawBar(Graphics2D graphics, int width, double timeFraction, int xOffset, int yOffset,Color color, int height) {
+		public void drawBar(ApplicationContext context, int width, double timeFraction, int xOffset, int yOffset,Color color, int height) {
+			context.renderFrame(graphics->{
 			graphics.setColor(Color.LIGHT_GRAY);
 			graphics.fill(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width, height));
 			graphics.setColor(color);
 			graphics.fill(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width * timeFraction, height));
 			graphics.setColor(Color.BLACK);
 			graphics.draw(new Rectangle2D.Double(xOrigin+xOffset, (yOrigin - 20)+yOffset, width, height));
+			});
 			
 		}
 		
@@ -149,10 +152,10 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			double maxHealth = healths[1];
 			double healthRatio = (currentHealth/maxHealth);
 			Color color = getHealthColor(healths);
-
+			drawBar(context, 400, healthRatio, 1300,450,color,30);
 			context.renderFrame(graphics ->{
 				//System.out.println(healthRatio);
-				drawBar(graphics, 400, healthRatio, 1300,450,color,30);
+				
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
 				graphics.drawString((int)currentHealth+"/"+(int)maxHealth,1500, 505);
 				
@@ -408,8 +411,11 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		}
 		
 		public void drawCombat(ApplicationContext context, Combat combat) {
-			drawBoardBackGround(context, plateau, LoopHeroGameData.TXT_COLOR_ERROR);
+			drawBoardBackGround(context, plateau, Color.DARK_GRAY);
+			drawString(context, "En combat contre : "+combat.getOpponent().getName(), LoopHeroGameData.TXT_COLOR_WHT,30, (int)width/2, yOrigin+100);
 			context.renderFrame(graphics->{
+				combat.getOpponent().drawInCombat(graphics, 60);
+		
 
 				
 				
@@ -435,6 +441,14 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			
 		}
 
+		public void drawString(ApplicationContext context,String string,Color color,int taille, int x, int y) {
+			context.renderFrame(graphics->{
+				graphics.setFont(new FontUIResource("Arial", 0, taille));
+				graphics.setColor(color);
+				graphics.drawString(string, x, y);
+				
+			});
+		}
 
 }
 

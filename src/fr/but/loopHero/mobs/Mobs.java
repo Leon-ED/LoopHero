@@ -17,7 +17,7 @@ public abstract class Mobs {
 	
 	
 	private final int percentageOfSpawn;
-	
+	private final String name;
 	private final  int maxHealth;
 	private  int healthPoint;
 	private final double strenght;
@@ -29,10 +29,11 @@ public abstract class Mobs {
 	private final ArrayList<Droppable> MOBS_DROPPABLE_ITEMS;
 	
 	
-	public Mobs(int percentageOfSpawn,int healthPoint,double strenght,double speed,Color color,double dropChance,Cell cell, ArrayList<Droppable> MOBS_DROPPABLE_ITEMS) {
+	public Mobs(String string, int percentageOfSpawn,int healthPoint,double strenght,double speed,Color color,double dropChance,Cell cell, ArrayList<Droppable> MOBS_DROPPABLE_ITEMS) {
+		this.name = Objects.requireNonNull(string);
 		this.percentageOfSpawn = percentageOfSpawn;
-		this.maxHealth = healthPoint;
-		this.healthPoint = healthPoint;
+		this.maxHealth = (int) ((int) (healthPoint*LoopHeroGameData.LEVEL)*(1+(LoopHeroGameData.LEVEL-1)*0.02));
+		this.healthPoint = maxHealth;
 		this.strenght = strenght;
 		this.speed = speed;
 		this.color = Objects.requireNonNull(color);
@@ -44,6 +45,9 @@ public abstract class Mobs {
 	
 	
 	public abstract void draw(Graphics2D graphics, int taille);
+	
+	public abstract void drawInCombat(Graphics2D graphics, int taille);
+	
 	
 	public boolean isDead() {
 		if (health() <= 0) { // a supprimer quand on aura fait despawn les mobs morts
@@ -129,6 +133,11 @@ public abstract class Mobs {
 	public void changeCell(Cell cell) {
 		this.cell = Objects.requireNonNull(cell);
 		}
+
+
+	public String getName() {
+		return name;
+	}
 
 	
 	

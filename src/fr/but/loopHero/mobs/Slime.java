@@ -18,7 +18,7 @@ public class Slime extends Mobs{
 	
 	
 	public Slime(Cell cell) {
-		super(5,13,3.3,0.6,Color.green,35,cell,genMobsList());
+		super("Gluant",5,13,3.3,0.6,Color.green,35,cell,genMobsList());
 	}
 	
 	private static ArrayList<Droppable> genMobsList() {
@@ -43,6 +43,19 @@ public class Slime extends Mobs{
 		
 	}
 	
-
+	@Override
+	public void drawInCombat(Graphics2D graphics, int taille) {
+		int minus = -10;
+		
+		graphics.setColor(super.getColor()); // Couleur du slime
+		int startingPointx = 1000;
+		int startingPointy = 400;
+		graphics.fillOval(startingPointx,startingPointy,taille,taille);
+		
+		graphics.setColor(Color.black); // Contour du slime
+		graphics.drawOval(startingPointx,startingPointy,taille,taille);
+		
+		
+	}
 	
 }

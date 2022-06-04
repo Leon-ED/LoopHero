@@ -18,7 +18,7 @@ public class Main {
 
     private final TimeData loopHeroTimeData = new TimeData();
     private final Board plateau = new Board(12,21);
-    private final GameGraphics loopHeroGraphics  = new GameGraphics(50,50,50,50,60,plateau);
+    private final GameGraphics loopHeroGraphics  = new GameGraphics(50,50,1920,1080,60,plateau);
     private final Player hero = new Player();
     private final LoopHeroGameData gameData = new LoopHeroGameData();
     
@@ -39,10 +39,13 @@ public class Main {
         	loopHeroGraphics.drawHeroInformations(context, hero);
             loopHeroGraphics.drawInventory(context, hero);
         	loopHeroGraphics.drawLevel(context);
+        	loopHeroGraphics.drawBar(context,350, loopHeroTimeData.timeFraction(),0,0,Color.GREEN,10);
+        	
+        	
         	Cell heroCurrentCell = plateau.getlistCellsLoop().get(hero.getCurrentCellIndex());
         	
         	if(Combat.combatAvailable(heroCurrentCell)) {
-        		loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData,hero.getCurrentCellIndex());
+        		loopHeroGraphics.drawHero(plateau, context, hero);
         		new Combat(hero, heroCurrentCell, context, loopHeroTimeData, gameData, loopHeroGraphics);
         		loopHeroGraphics.drawBoard(plateau, context);
         
@@ -93,7 +96,7 @@ public class Main {
     		pos = hero.getCurrentCellIndex();
     	}
     	
-		loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData,pos);
+		loopHeroGraphics.drawHero(plateau, context, hero);
 		
 		if (pos <= 0 ) 
 			pos = plateau.getlistCellsLoop().size();

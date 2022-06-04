@@ -55,6 +55,7 @@ public class Combat {
     }
     
     private void makeCombat(ApplicationContext context,TimeData timedata,LoopHeroGameData data,GameGraphics graphics) {
+    	int attaque = 0;
     	while(!(mob.isDead() || hero.isDead())) {
     		if(timedata.readyToAttack()) {
     			int heroAttack = hero.attack();
@@ -65,6 +66,7 @@ public class Combat {
     			
     			graphics.drawDamages(context,heroAttack,mobAttack);
     			graphics.drawHealthInfos(context, hero);
+    			attaque++;
     		}
     	}	
     }
@@ -89,6 +91,9 @@ public class Combat {
     	cell.removeMob(mob);
     	timedata.stopCombat();
     	timedata.start();
+    }
+    public Mobs getOpponent() {
+    	return mob;
     }
 
 }

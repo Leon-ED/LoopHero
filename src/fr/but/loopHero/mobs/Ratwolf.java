@@ -16,7 +16,7 @@ public class Ratwolf extends Mobs {
 
 	
 	public Ratwolf(Cell cell) {
-		super(-1,16,3.6,0.75,new Color(139,69,19),0.40,cell,genMobsList());
+		super("RatWolf",-1,16,3.6,0.75,new Color(139,69,19),0.40,cell,genMobsList());
 
 		
 	}
@@ -49,6 +49,19 @@ public class Ratwolf extends Mobs {
 	@Override
 	public boolean equals(Object obj) {
 		return true;
+		
+		
+	}
+
+	@Override
+	public void drawInCombat(Graphics2D graphics, int taille) {
+		graphics.setColor(super.getColor()); // Couleur du slime
+		int startingPointx = taille + 15 * taille;
+		int startingPointy = taille + 6* taille;
+		graphics.fillOval(startingPointx,startingPointy,taille/2,taille/2);
+		
+		graphics.setColor(Color.black); // Contour du slime
+		graphics.drawOval(startingPointx,startingPointy,taille/2,taille/2);
 		
 		
 	}

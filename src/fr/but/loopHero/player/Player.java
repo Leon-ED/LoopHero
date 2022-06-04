@@ -61,11 +61,16 @@ public class Player {
 
 	public int attack() {
 		Random r = new Random();
-		return r.nextInt(maxDamagePoints-minDamagePoints)+maxDamagePoints;
+		return r.nextInt(minDamagePoints, maxDamagePoints+1);
+		//return r.nextInt(maxDamagePoints-minDamagePoints)+minDamagePoints;
 	}
 
-	public void takeDamage(int damages) {
-		currentHealth -= damages;
+	
+	// Prends en param les degats supposements subis et retourne la vraie valeur en fonction des autres param.
+	public int takeDamage(int damages) {
+		int realDamages = damages-defensePoints;
+		currentHealth -= realDamages;
+		return realDamages;
 		
 	}
 	
