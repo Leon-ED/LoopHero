@@ -23,6 +23,7 @@ import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.droppable.Equipement;
 import fr.but.loopHero.droppable.Ressource;
+import fr.but.loopHero.game.Combat;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.TimeData;
 import fr.but.loopHero.game.objects.Board;
@@ -401,6 +402,28 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
 				graphics.drawString("Vampirisme : "+(int)hero.vampirismPercent()+"%", 1360, 850);
 			});
+			
+		}
+		
+		public void drawCombat(ApplicationContext context, Combat combat) {
+			
+		}
+
+		public void drawDamages(ApplicationContext context, int heroAttack, int mobAttack) {
+			context.renderFrame(graphics->{
+				graphics.setColor(LoopHeroGameData.TXT_COLOR_WARNING);
+				graphics.clearRect(xOrigin+500, yOrigin+500, 20, 20);
+				graphics.drawString("-"+ heroAttack+" HP", xOrigin+500, yOrigin+500);
+				
+				
+				
+				
+			});
+			
+		}
+
+		public void drawDeathScreen(ApplicationContext context, Player hero, Combat combat) {
+			// TODO Auto-generated method stub
 			
 		}
 

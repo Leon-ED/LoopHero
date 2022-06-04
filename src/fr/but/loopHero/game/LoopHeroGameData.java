@@ -36,7 +36,8 @@ public class LoopHeroGameData {
 	public static final Color BG_COLOR = Color.WHITE;
 	public static final Color TXT_COLOR_BLK = Color.BLACK;
 	public static final Color TXT_COLOR_WHT = Color.WHITE;
-	
+	public static final Color TXT_COLOR_ERROR = Color.RED;
+	public static final Color TXT_COLOR_WARNING = Color.YELLOW;	
 	public static final int INV_WIDTH = 4;
 	public static final int INV_HEIGHT = 3;
 	

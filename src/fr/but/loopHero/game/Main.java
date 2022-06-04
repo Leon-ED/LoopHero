@@ -38,12 +38,13 @@ public class Main {
         	loopHeroGraphics.drawHeroInformations(context, hero);
             loopHeroGraphics.drawInventory(context, hero);
         	loopHeroGraphics.drawLevel(context);
-        	
+        	Cell heroCurrentCell = plateau.getlistCellsLoop().get(hero.getCurrentCellIndex());
         //	loopHeroGraphics.drawOutlineLoop(plateau, context);
         	
-        	if(Combat.combatAvailable(plateau.getlistCellsLoop().get(hero.getCurrentCellIndex()))) {
+        	if(Combat.combatAvailable(heroCurrentCell)) {
         		loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData,hero.getCurrentCellIndex());
-        		Combat.startCombat(context, hero, loopHeroTimeData,plateau.getlistCellsLoop().get(hero.getCurrentCellIndex()),gameData, loopHeroGraphics, plateau);
+        		new Combat(hero, heroCurrentCell, context, loopHeroTimeData, gameData, loopHeroGraphics);
+        		//Combat.startCombat(context, hero, loopHeroTimeData,plateau.getlistCellsLoop().get(hero.getCurrentCellIndex()),gameData, loopHeroGraphics, plateau);
         	}
         	loopHeroGraphics.drawHealthInfos(context, hero);
         	moveHeroAndDraw(context);

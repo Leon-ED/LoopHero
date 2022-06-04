@@ -1,5 +1,9 @@
 package fr.but.loopHero.game;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
+import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
@@ -17,15 +21,40 @@ public class Combat {
 		
 	}
 	
+	private final Player hero;
+	private final Cell cell;
+	private final Mobs mob;
+	private final ArrayList<ArrayList<Droppable>> loot;
 	
-    public static void startCombat(ApplicationContext context, Player hero,TimeData timedata,Cell cell,LoopHeroGameData data,GameGraphics graphics,Board plateau) {
-		
+	public Combat(Player hero, Cell cell,ApplicationContext context,TimeData timedata,LoopHeroGameData data,GameGraphics graphics) {
+		this.hero = Objects.requireNonNull(hero);
+		this.cell = Objects.requireNonNull(cell);
+		this.mob = Objects.requireNonNull(cell.getFirstMob());
+		this.loot = Objects.requireNonNull(mob.getDroppedItems());
+		initiateCombat(context, timedata, data, graphics);
+	}
+	
+	
+    private void initiateCombat(ApplicationContext context,TimeData timedata,LoopHeroGameData data,GameGraphics graphics) {
+		graphics.drawCombat(context,this);
 		
 		timedata.resetElapsedBob();
     	timedata.stop();
-    	Mobs mob = cell.getFirstMob();
     	System.out.println("En combat !");
     	timedata.startCombat();
+    	
+    	makeCombat(context, timedata, data, graphics);
+
+    	if(isHeroWinner()) {
+    		heroDefeat(context, graphics);
+    		return;
+    	}
+    	heroVictory(context, graphics);
+    	endCombat(timedata);
+    	
+    }
+    
+    private void makeCombat(ApplicationContext context,TimeData timedata,LoopHeroGameData data,GameGraphics graphics) {
     	while(!(mob.isDead() || hero.isDead())) {
     		if(timedata.readyToAttack()) {
     			int heroAttack = hero.attack();
@@ -33,19 +62,32 @@ public class Combat {
         		System.out.println("Attaque joueur = " +heroAttack+" Attaque mob = "+ mobAttack);
     			mob.takeDamage(heroAttack);
     			hero.takeDamage(mobAttack);
+    			graphics.drawDamages(context,heroAttack,mobAttack);
     			graphics.drawHealthInfos(context, hero);
     		}
-    	}
-    	if(hero.isDead()) {
-    		System.out.println("LE HERO EST MORT, VIVE LE HERO");
-    		context.exit(0);
-    	}else {
-    		hero.addInventory(mob.getDroppedItems());
-    	}
+    	}	
+    }
+    
+    private boolean isHeroWinner() {
+    	return hero.isDead();
+    }
+    
+    
+    private void heroVictory(ApplicationContext context,GameGraphics graphics) {
+		hero.addInventory(loot);
+		graphics.drawInventory(context, hero);
+    }
+    
+    private void heroDefeat(ApplicationContext context,GameGraphics graphics) {
+		System.out.println("LE HERO EST MORT, VIVE LE HERO");
+		graphics.drawDeathScreen(context,hero,this);
+		context.exit(0);
+    }
+    
+    private void endCombat(TimeData timedata) {
+    	cell.removeMob(mob);
     	timedata.stopCombat();
     	timedata.start();
-    	cell.removeMob(mob);
-    	
     }
 
 }
