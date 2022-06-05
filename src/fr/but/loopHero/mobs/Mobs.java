@@ -8,8 +8,8 @@ import java.util.Random;
 
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
-import fr.but.loopHero.droppable.Equipement;
 import fr.but.loopHero.droppable.Ressource;
+import fr.but.loopHero.droppable.equipment.Equipement;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Cell;

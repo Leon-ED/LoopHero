@@ -9,6 +9,7 @@ import org.w3c.dom.css.RGBColor;
 
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
+import fr.but.loopHero.droppable.equipment.Shield;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.game.objects.tiles.LandScape;
@@ -51,9 +52,10 @@ public class LoopHeroGameData {
 	
 	
 	public static void generateDroppableItems() {
-		MOBS_DROPPABLE_ITEMS.add(new Card("Grove", new Grove()));
-		MOBS_DROPPABLE_ITEMS.add(new Card("Rock", new Rock()));
-		MOBS_DROPPABLE_ITEMS.add(new Card("Meadow", new Meadow()));
+//		MOBS_DROPPABLE_ITEMS.add(new Card("Grove", new Grove()));
+//		MOBS_DROPPABLE_ITEMS.add(new Card("Rock", new Rock()));
+//		MOBS_DROPPABLE_ITEMS.add(new Card("Meadow", new Meadow()));
+		MOBS_DROPPABLE_ITEMS.add(new Shield());
 	}
 	
 	

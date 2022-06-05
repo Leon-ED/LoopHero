@@ -27,6 +27,13 @@ public class Ressource implements Droppable {
 	public String displayName() {
 		return name;
 	}
+
+
+	@Override
+	public void draw(ApplicationContext context, int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

@@ -7,8 +7,9 @@ import java.util.Random;
 
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
-import fr.but.loopHero.droppable.Equipement;
 import fr.but.loopHero.droppable.Ressource;
+import fr.but.loopHero.droppable.equipment.Equipement;
+import fr.but.loopHero.droppable.equipment.Modifier;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.tiles.LandScape;
@@ -31,17 +32,20 @@ public class Player {
 	private double vampirismPercent = 0.0;
 	
 	private final ArrayList<ArrayList<Droppable>> playerInventory = new ArrayList<ArrayList<Droppable>>();
+	private final ArrayList<Equipement> playerEquipedEquipement = new ArrayList<>();
 	
 	private int currentNumOfCell = 0;
 	
 	
 	
 	public Player() {
-		playerInventory.add(new ArrayList<Droppable>());
-		playerInventory.add(new ArrayList<Droppable>());
-		playerInventory.add(new ArrayList<Droppable>());
+		playerInventory.add(new ArrayList<Droppable>()); // 0 : Cartes
+		playerInventory.add(new ArrayList<Droppable>()); // 1 : Equipement
+		playerInventory.add(new ArrayList<Droppable>()); // 2 : Ressource
 		
 		playerInventory.get(0).addAll(LoopHeroGameData.START_CARDS);
+		
+		
 		
 	}
 	
@@ -123,11 +127,45 @@ public class Player {
 	}
 	
 	public void addCard(Card card) {
-		playerInventory.get(0).add(card);
+		ArrayList<Droppable> liste = playerInventory.get(1);
+		if(liste.size()+1 > 13)
+			liste.remove(0);
+		liste.add(card);
 	}
+	
+	
 	public void addEquipement(Equipement equipement) {
-		playerInventory.get(1).add(equipement);
+		ArrayList<Droppable> liste = playerInventory.get(1);
+		if(liste.size()+1 > 12)
+			liste.remove(0);
+		liste.add(equipement);
+		changeStats(equipement.getModifier(),equipement.getModifierValue(),true);
+		
 	}
+	
+	private void changeStats(Modifier modifier, int quantity,boolean added) {
+		switch (modifier) {
+		case Defense -> {
+			if(added)
+				defensePoints += quantity;
+			else
+				defensePoints -= quantity;
+		}case MaximumHP ->{
+			if(added)
+				maxHealth += quantity;
+			else
+				maxHealth -= quantity;
+		}
+		
+		default ->
+		throw new IllegalArgumentException("Unexpected value: " + modifier);
+		}
+		
+	}
+	
+	
+	
+	
 	public void addRessource(Ressource ressource) {
 		playerInventory.get(2).add(ressource);
 	}

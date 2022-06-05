@@ -21,8 +21,8 @@ import javax.swing.plaf.FontUIResource;
 
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
-import fr.but.loopHero.droppable.Equipement;
 import fr.but.loopHero.droppable.Ressource;
+import fr.but.loopHero.droppable.equipment.Equipement;
 import fr.but.loopHero.game.Combat;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.TimeData;
@@ -193,7 +193,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		public void drawInventory(ApplicationContext context,Player hero) {
 			ArrayList<ArrayList<Droppable>> inventory = hero.getInventory();
 			drawInventoryCards(context,hero,inventory.get(0));
-			//drawInventoryEquipements(context,hero,inventory.get(1));
+			drawInventoryEquipements(context,hero,inventory.get(1));
 			drawInventoryRessources(context,hero,inventory.get(2));
 
 		}
@@ -212,17 +212,11 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 						graphics.drawRect(x, y-taille*4, taille, taille);
 						
 					}
-					
+	
 				}
-				
-				
-				
-				
-				
+	
 			});
-			
-			
-			
+	
 		}
 	
 
@@ -240,10 +234,10 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		private void drawInventoryEquipements(ApplicationContext context,Player hero,ArrayList<Droppable> Equipements) {
 			context.renderFrame( graphics ->{
 				graphics.setColor(LoopHeroGameData.BG_COLOR);
-				graphics.fill(new Rectangle2D.Float(xOrigin, yOrigin+(12*taille), taille*12, taille*2));
+				//graphics.fill(new Rectangle2D.Float(xOrigin, yOrigin+(12*taille), taille*12, taille*2));
 			});
 			for (int i=0; i<Equipements.size();i++)
-				drawEquipement(context, Equipements.get(i), i);
+				drawEquipement(context, (Equipement)Equipements.get(i), i/LoopHeroGameData.INV_WIDTH,i%LoopHeroGameData.INV_WIDTH);
 		}
 		
 		private void drawInventoryRessources(ApplicationContext context,Player hero,ArrayList<Droppable> Ressources) {
@@ -300,9 +294,24 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			});	
 		}
 		
-		private void drawEquipement(ApplicationContext context,Droppable droppable,int i) {
+		private void drawEquipement(ApplicationContext context,Equipement droppable,int i,int j) {
+			int startX = taille*23;
+			int startY = taille*4;
+			context.renderFrame(graphics->{
+						graphics.setColor(droppable.getColor());
+						int x = startX + (xOrigin + j*taille);
+						int y = startY + (yOrigin + (i*taille));		
+						graphics.fillRect(x, y, taille, taille);	
+						drawString(context, droppable.displayName(), Color.WHITE, 10, x, y);
+						//graphics.drawRect(x, y-taille*4, taille, taille);
+						
 
+	
+			});
+	
 		}
+
+		
 
 		private void drawCard(ApplicationContext context,Droppable droppable,int i) { 
 			context.renderFrame( graphics ->{
