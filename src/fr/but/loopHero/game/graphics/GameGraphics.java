@@ -206,14 +206,17 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		public void drawStaticInventory(ApplicationContext context) {
 			int startX = taille*23;
 			int startY = taille*4;
+			
+			
 			context.renderFrame(graphics->{
 				
 				for(int i = 0; i< LoopHeroGameData.INV_HEIGHT; i++) {
 					for(int j = 0; j<LoopHeroGameData.INV_WIDTH; j++) {
+						int index = (i)*4+(j);
 						int x = startX + (xOrigin + j*taille);
 						int y = startY + (yOrigin + (i*taille));		
 						graphics.drawRect(x, y, taille, taille);
-						
+						drawString(context, LoopHeroGameData.EQUIPED_EQUIPEMENT_ORDER.get(index).toString(), Color.MAGENTA,15 , x, y-taille*3);
 						graphics.drawRect(x, y-taille*4, taille, taille);
 						
 					}
@@ -242,7 +245,8 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				//graphics.fill(new Rectangle2D.Float(xOrigin, yOrigin+(12*taille), taille*12, taille*2));
 			});
 			for (int i=0; i<Equipements.size();i++)
-				drawEquipement(context, (Equipement)Equipements.get(i), i/LoopHeroGameData.INV_WIDTH,i%LoopHeroGameData.INV_WIDTH);
+				drawEquipement(context, (Equipement)Equipements.get(i), (i/LoopHeroGameData.INV_WIDTH)+4,((i%LoopHeroGameData.INV_WIDTH)+23));
+				//drawEquipement(context, (Equipement)Equipements.get(i), 0,23);
 		}
 		private void drawInventoryRessources(ApplicationContext context,Player hero,ArrayList<Droppable> Ressources) {
 			context.renderFrame( graphics ->{
@@ -283,10 +287,11 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			});	
 		}
 		
-		private void drawEquipement(ApplicationContext context,Equipement droppable,int i,int j) {
-			int startX = taille*23;
-			int startY = taille*4;
+		public void drawEquipement(ApplicationContext context,Equipement droppable,int i,int j) {
+			int startX = 0;
+			int startY = 0;
 			context.renderFrame(graphics->{
+				System.out.println("oui"+i+" "+j);
 						graphics.setColor(droppable.getColor());
 						int x = startX + (xOrigin + j*taille);
 						int y = startY + (yOrigin + (i*taille));		
@@ -295,6 +300,8 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 						drawString(context, "("+droppable.getValue()+")", Color.BLACK, 15, x, y+taille);
 						graphics.setColor(Color.black);
 						graphics.drawRect(x, y, taille, taille);
+						
+						//graphics.fillRect(x, y, 500, 500);
 						
 
 	
@@ -332,13 +339,14 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			return indexFromReaCoord(x, xOrigin);
 		}
 
-		public void drawSelection(Board plateau, ApplicationContext context, int i, int j, Color color) {
+		public void drawSelection(ApplicationContext context, int i, int j, Color color) {
 			
 			context.renderFrame( graphics ->{
 				graphics.setColor(color); // On d�finis la couleur de la Tile
 				int x = xOrigin + j*taille;
 				int y = yOrigin + (i*taille);
-				graphics.draw(new Rectangle2D.Float(x,y,taille,taille));
+				//graphics.draw(new Rectangle2D.Float(x,y,taille,taille));
+				graphics.drawRect(x, y,taille,taille);
 			});
 		}
 

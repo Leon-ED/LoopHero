@@ -144,7 +144,7 @@ public class Player {
 		if(liste.size()+1 > 12)
 			liste.remove(0);
 		liste.add(equipement);
-		changeStats(equipement.getModifier(),equipement.getModifierValue(),true);
+
 		
 	}
 	
@@ -281,6 +281,12 @@ public class Player {
 		
 		
 		
+		
+	}
+
+	public void equipEquipement(Equipement selectedEquipement) {
+		changeStats(selectedEquipement.getModifier(),selectedEquipement.getModifierValue(),true);
+		playerEquipedEquipement.add(selectedEquipement);
 		
 	}
 	

@@ -9,7 +9,7 @@ import fr.umlv.zen5.ApplicationContext;
 public class Shield extends Equipement {
 
 	public Shield() {
-		super("Bouclier",randomRarity() , LoopHeroGameData.LEVEL, (4*LoopHeroGameData.LEVEL),Modifier.Defense, (4*LoopHeroGameData.LEVEL));
+		super("Bouclier",randomRarity() , LoopHeroGameData.LEVEL, (4*LoopHeroGameData.LEVEL),Modifier.Defense, (4*LoopHeroGameData.LEVEL),Placement.Shield);
 		// TODO Auto-generated constructor stub
 	}
 

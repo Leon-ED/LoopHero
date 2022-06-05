@@ -11,6 +11,7 @@ import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.droppable.equipment.Armor;
 import fr.but.loopHero.droppable.equipment.Equipement;
+import fr.but.loopHero.droppable.equipment.Placement;
 import fr.but.loopHero.droppable.equipment.Shield;
 import fr.but.loopHero.droppable.equipment.Weapon;
 import fr.but.loopHero.game.objects.Board;
@@ -51,7 +52,11 @@ public class LoopHeroGameData {
 	
 	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()));
 	// 
-	
+	public static final List<Placement> EQUIPED_EQUIPEMENT_ORDER = List.of(
+			Placement.Weapon,Placement.Empty,Placement.Empty,Placement.Empty,
+			Placement.Ring,Placement.Empty,Placement.Empty,Placement.Empty,
+			Placement.Shield,Placement.Armor,Placement.Empty,Placement.Empty);
+
 	
 	
 	public static void generateDroppableItems() {
@@ -88,6 +93,7 @@ public class LoopHeroGameData {
 	private Cell selectedCell;
 	private Card selectedCard;
 	private Equipement selectedEquipement;
+	private Placement selectedInventoryEquipement;
 	
 	public LoopHeroGameData() {
 		this.selectedCell = null;
@@ -156,6 +162,7 @@ public class LoopHeroGameData {
 		this.selectedEquipement = (Equipement) liste.get(index);
 		return true;
 		}catch(IndexOutOfBoundsException e) {
+			this.selectedEquipement = null;
 			return false;	
 		}
 	}
@@ -164,5 +171,23 @@ public class LoopHeroGameData {
 		return selectedEquipement;
 	}	
 	
+	public boolean selectEquipementPlacement(int index) {
+		try {
+		this.selectedInventoryEquipement = EQUIPED_EQUIPEMENT_ORDER.get(index);
+		return true;
+		}catch(IndexOutOfBoundsException e) {
+			this.selectedInventoryEquipement = null;
+			return false;	
+		}
+	}
+	
+	public Placement getSelectedInventoryPlacement() {
+		return selectedInventoryEquipement;
+	}
+
+
+	public boolean canPlaceEquipement() {
+		return selectedEquipement.placement() == getSelectedInventoryPlacement();
+	}
 	
 }

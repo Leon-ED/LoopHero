@@ -36,21 +36,23 @@ public class Main {
         //loopHeroGraphics.drawInventory(context, hero);
 
         while (true) {
-        	loopHeroGraphics.drawHeroInformations(context, hero);
-            loopHeroGraphics.drawInventory(context, hero);
-        	loopHeroGraphics.drawLevel(context);
-        	loopHeroGraphics.drawBar(context,350, loopHeroTimeData.timeFraction(),0,0,Color.GREEN,10);
-        	
+        	if(! loopHeroTimeData.stopped()) {
+	        	loopHeroGraphics.drawHeroInformations(context, hero);
+	            loopHeroGraphics.drawInventory(context, hero);
+	        	loopHeroGraphics.drawLevel(context);
+	        	loopHeroGraphics.drawBar(context,350, loopHeroTimeData.timeFraction(),0,0,Color.GREEN,10);
+	        	loopHeroGraphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);
+        	}
         	
         	Cell heroCurrentCell = plateau.getlistCellsLoop().get(hero.getCurrentCellIndex());
         	
-        	if(Combat.combatAvailable(heroCurrentCell)) {
+        	if(Combat.combatAvailable(heroCurrentCell) && ! loopHeroTimeData.stopped() ) {
         		loopHeroGraphics.drawHero(plateau, context, hero);
         		new Combat(hero, heroCurrentCell, context, loopHeroTimeData, gameData, loopHeroGraphics);
         		loopHeroGraphics.drawBoard(plateau, context);
         
         	}
-        	loopHeroGraphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);
+        	
         	moveHeroAndDraw(context);
         	if (loopHeroTimeData.isDayPased()) {
         		gameData.doNewDayEffects(context,hero,plateau);
@@ -128,6 +130,8 @@ public class Main {
     }
     
 	private void doMouseAction(ApplicationContext context, Event event) {
+		
+		
 		Point2D.Float location = event.getLocation();
 		System.out.println("X " + location.x+" y "+location.y);
 		int i = loopHeroGraphics.lineFromY(location.y);
@@ -149,7 +153,7 @@ public class Main {
 				
 			}
 			gameData.selectCell(plateau.getBoardMatrix()[i][j]);
-			loopHeroGraphics.drawSelection(plateau, context, i, j,Color.red);
+			loopHeroGraphics.drawSelection(context, i, j,Color.red);
 			
 			if(gameData.getSelectedCard() != null) { 
 				placeCard(context);	
@@ -168,35 +172,66 @@ public class Main {
 				return;
 			}
 			gameData.selectCard(hero.getInventory().get(0).get(j));
-			loopHeroGraphics.drawSelection(plateau, context, i, j,Color.RED);
+			loopHeroGraphics.drawSelection(context, i, j,Color.RED);
 			return;
 		}
 
-		//Selection dans l'equipement disponible :
 		
+		//Selection dans l'equipement disponible :
 		if((i>= 4 && i<= 6) && (j>= 23 && j<=26)) {
 			int offsetI = 4;
 			int offsetJ = 23;
-			int index = (i-offsetI)*3+(j-offsetJ);
+			int index = (i-offsetI)*4+(j-offsetJ);
+			
 			if(gameData.selectEquipement(hero.getEquipementInventory(),index)){ //Equipement selectionne avec succes
-				loopHeroGraphics.drawOneCell(plateau, context, i , j );
+				loopHeroGraphics.drawSelection(context, i, j,Color.RED);
 				System.out.println(index);
 				System.out.println("Selected : "+gameData.getSelectedEquipement().displayName());
-			}else {
-				System.out.println("Selection invalide");
-				System.out.println(index);
+				return;
 			}
+			//Echec de selection
+			System.out.println("Selection invalide");
+			System.out.println(index);
+			return;
 			
-			
-			
-			
-			
+		}
+		// Si on clique dans les cases pour s'equiper ET qu'on a deja un item selectionne		
+		if(((i>= 0 && i<= 2) && (j>= 23 && j<=26)) && gameData.getSelectedEquipement() != null) { 
+			int offsetJ = 23;
+			int offsetI = 0;
+			int index = (i-offsetI)*4+(j-offsetJ);
+			gameData.selectEquipementPlacement(index);
+			System.out.println(gameData.getSelectedInventoryPlacement());
+			if(gameData.getSelectedInventoryPlacement() != null) {
+				placeEquipement(context,i,j);
+		
+			}
 		}
 		
 		
 
 	}
     
+	private void placeEquipement(ApplicationContext context,int i,int j) {
+		if(gameData.getSelectedEquipement() == null || gameData.getSelectedInventoryPlacement() == null)
+			return;
+		System.out.println(gameData.getSelectedInventoryPlacement().toString());
+		if(!gameData.canPlaceEquipement()) {
+			System.out.println("non");
+			return;
+		}
+		System.out.println("oui");
+		loopHeroGraphics.drawEquipement(context, gameData.getSelectedEquipement(), i, j);
+		hero.equipEquipement(gameData.getSelectedEquipement());
+		loopHeroGraphics.drawHeroInformations(context, hero);
+		
+		
+		
+		
+		gameData.selectEquipementPlacement(-1);
+		gameData.selectEquipementPlacement(-1);
+		
+	}
     
 	private void placeCard(ApplicationContext context) {
 		//System.out.println("PLACEEEEJINOZERIHOZOHI");

@@ -7,7 +7,7 @@ import fr.umlv.zen5.ApplicationContext;
 public class Weapon extends Equipement {
 
 	public Weapon(String name) {
-		super(name, randomRarity(), LoopHeroGameData.LEVEL, 5*LoopHeroGameData.LEVEL, Modifier.Damage, 0);
+		super(name, randomRarity(), LoopHeroGameData.LEVEL, 5*LoopHeroGameData.LEVEL, Modifier.Damage, 0,Placement.Weapon);
 		// TODO Auto-generated constructor stub
 	}
 

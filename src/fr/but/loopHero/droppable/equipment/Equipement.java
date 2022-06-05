@@ -16,6 +16,7 @@ public abstract class Equipement implements Droppable {
 	private final int level;
 	private final int value;
 	
+	private final Placement InventoryPlacement;
 	private final Modifier providedModifier;
 	
 	private final int modifierInteger;
@@ -34,13 +35,14 @@ public abstract class Equipement implements Droppable {
 	
 	
 	
-	public Equipement(String name, Rarity rarity,int level, int value,Modifier providedModifier,int modifierInteger) {
+	public Equipement(String name, Rarity rarity,int level, int value,Modifier providedModifier,int modifierInteger,Placement inventoryPlacement) {
 		this.name = Objects.requireNonNull(name);
 		this.rarity = Objects.requireNonNull(rarity);
 		this.level = level;
 		this.value = value;
 		this.providedModifier = Objects.requireNonNull(providedModifier);
 		this.modifierInteger = modifierInteger;
+		this.InventoryPlacement = Objects.requireNonNull(inventoryPlacement);
 	}
 	
 	
@@ -82,6 +84,13 @@ public abstract class Equipement implements Droppable {
 	
 	public int getValue() {
 		return value;
+	}
+
+
+
+	public Placement placement() {
+		// TODO Auto-generated method stub
+		return InventoryPlacement;
 	}
 	
 }
