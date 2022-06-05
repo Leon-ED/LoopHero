@@ -1,7 +1,9 @@
 package fr.but.loopHero.droppable.equipment;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.droppable.Rarity;
@@ -54,6 +56,38 @@ public abstract class Equipement implements Droppable {
 		return Rarity.Gris;
 	}
 	
+	public static Modifier randomModifier() {
+		List<Modifier> list = List.of(Modifier.Counter,Modifier.Vampirism,Modifier.Regen,Modifier.Evade,Modifier.Defense);
+		Random r = new Random();
+		return list.get(r.nextInt(list.size()));
+	}
+	
+	public static int getModifierInteger(Modifier mod) {
+		int lvl = LoopHeroGameData.LEVEL;
+		switch (mod) {
+		case Counter -> {
+			return 8 + (lvl-1)*4;
+		}
+		case Vampirism ->{
+			return (int) Math.floor(8 + (lvl-1)*1.5);
+		}
+		case Regen ->{
+			return (int) ((int) lvl*0.6);
+		}
+		case Evade ->{
+			return (int) (8+(lvl-1)*2);
+		}
+		case Defense ->{
+			return (int) (lvl*1.5);
+		}
+		
+		
+		
+		default ->
+		throw new IllegalArgumentException("Unexpected value: " + mod);
+		}
+		
+	}
 	
 	
 	public Equipement(String name, Rarity rarity,int level, int value,Modifier providedModifier,int modifierInteger,Placement inventoryPlacement) {
@@ -70,7 +104,12 @@ public abstract class Equipement implements Droppable {
 	public abstract Equipement makeNew(String name);
 	
 	@Override
-	public abstract void draw(ApplicationContext context, int i);
+	public void draw(ApplicationContext context, int i) {
+		
+	}
+	public void draw(ApplicationContext context, int i,int j) {
+		
+	}
 
 	@Override
 	public String displayName() {
@@ -113,6 +152,15 @@ public abstract class Equipement implements Droppable {
 	public Placement placement() {
 		// TODO Auto-generated method stub
 		return InventoryPlacement;
+	}
+	
+	
+	// Fonction un peu dégueu :/
+	public static Ring newRing(String name) {
+		Modifier mod = randomModifier();
+		int modInt = getModifierInteger(mod);
+//		(String name, Rarity rarity,int level, int value,Modifier providedModifier,int modifierInteger,Placement inventoryPlacement)
+		return new Ring(name,randomRarity(),LoopHeroGameData.LEVEL,modInt,mod,modInt,Placement.Ring);
 	}
 	
 }

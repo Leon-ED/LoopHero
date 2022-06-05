@@ -35,20 +35,6 @@ public class Shield extends Equipement {
 
 
 
-	@Override
-	public void draw(ApplicationContext context, int i) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void draw(ApplicationContext context, int i, int j) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 
 	@Override

@@ -17,17 +17,6 @@ public class Weapon extends Equipement {
 		this.maxAttack = 6*LoopHeroGameData.LEVEL;
 	}
 
-	@Override
-	public void draw(ApplicationContext context, int i, int j) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void draw(ApplicationContext context, int i) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 	public int[] weaponModifierInteger() {

@@ -27,17 +27,7 @@ public class Armor extends Equipement {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void draw(ApplicationContext context, int i, int j) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void draw(ApplicationContext context, int i) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public Equipement makeNew(String name) {

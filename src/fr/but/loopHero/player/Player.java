@@ -170,6 +170,30 @@ public class Player {
 			}else {
 			
 			}
+		}case Vampirism ->{
+			if(added) {
+				vampirismPercent = quantity;
+			}else {
+			
+			}
+		}case Counter ->{
+			if(added) {
+				counterPercent = quantity;
+			}else {
+			
+			}
+		}case Regen ->{
+			if(added) {
+				return;
+			}else {
+			
+			}
+		}case Evade ->{
+			if(added) {
+				evadePercent = quantity;
+			}else {
+			
+			}
 		}
 		
 		default ->

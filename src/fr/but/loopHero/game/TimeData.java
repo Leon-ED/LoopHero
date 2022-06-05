@@ -27,11 +27,6 @@ public class TimeData {
 		tick = tock;
 	}
 	
-	
-	
-	
-	
-
 
 	public double timeFraction() {
 		if (!stopped) {

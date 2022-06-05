@@ -99,8 +99,6 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				int startingPointy = yOrigin + plateau.getlistCellsLoop().get(heroNextPos).i()* taille +taille/4;
 				
 				graphics.fillOval(startingPointx,startingPointy,taille/2,taille/2);
-				
-
 			
 			});
 			
