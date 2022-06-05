@@ -11,6 +11,27 @@ import fr.umlv.zen5.ApplicationContext;
 
 public abstract class Equipement implements Droppable {
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(InventoryPlacement, level, modifierInteger, name, providedModifier, rarity, value);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Equipement))
+			return false;
+		Equipement other = (Equipement) obj;
+		return InventoryPlacement == other.InventoryPlacement && level == other.level
+				&& modifierInteger == other.modifierInteger && Objects.equals(name, other.name)
+				&& providedModifier == other.providedModifier && rarity == other.rarity && value == other.value;
+	}
+
+
+
 	private final String name;
 	private final Rarity rarity;
 	private final int level;
@@ -46,6 +67,7 @@ public abstract class Equipement implements Droppable {
 	}
 	
 	
+	public abstract Equipement makeNew(String name);
 	
 	@Override
 	public abstract void draw(ApplicationContext context, int i);
@@ -73,7 +95,7 @@ public abstract class Equipement implements Droppable {
 	public Color getColor() {
 		switch (rarity) {
 		case Gris -> {return Color.gray;}
-		case Bleu -> {return Color.BLUE.brighter().brighter().brighter().brighter();}
+		case Bleu -> {return Color.CYAN;}
 		case Orange ->{return Color.orange;}
 		case Jaune ->{return Color.yellow;}
 		

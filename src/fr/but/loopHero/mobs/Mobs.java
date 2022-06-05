@@ -147,8 +147,11 @@ public abstract class Mobs {
 			if ((d -= dropChance) < 0) {
     			if (drop instanceof Card)
     				toDrop.get(0).add(drop);
-    			if (drop instanceof Equipement)
-    				toDrop.get(1).add(drop);
+    			if (drop instanceof Equipement) {
+    				Equipement e = (Equipement) drop;
+    				toDrop.get(1).add(e.makeNew(e.displayName()));
+    			}
+    				
     			if (drop instanceof Ressource)
     				toDrop.get(2).add(drop);
     			
@@ -208,7 +211,7 @@ public abstract class Mobs {
 //		}
 		
 		case Evade ->{
-			if(chance < evadeChance*100)
+			if(chance < evadeChance)
 				return CombatEffects.Evade;
 		}		
 

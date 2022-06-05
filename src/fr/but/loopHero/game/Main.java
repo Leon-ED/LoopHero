@@ -39,9 +39,7 @@ public class Main {
         	if(! loopHeroTimeData.stopped()) {
 	        	loopHeroGraphics.drawHeroInformations(context, hero);
 	            loopHeroGraphics.drawInventory(context, hero);
-	        	loopHeroGraphics.drawLevel(context);
 	        	loopHeroGraphics.drawBar(context,350, loopHeroTimeData.timeFraction(),0,0,Color.GREEN,10);
-	        	loopHeroGraphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);
         	}
         	
         	Cell heroCurrentCell = plateau.getlistCellsLoop().get(hero.getCurrentCellIndex());
@@ -224,7 +222,7 @@ public class Main {
 		loopHeroGraphics.drawEquipement(context, gameData.getSelectedEquipement(), i, j);
 		hero.equipEquipement(gameData.getSelectedEquipement());
 		loopHeroGraphics.drawHeroInformations(context, hero);
-		
+		loopHeroGraphics.drawInventory(context, hero);
 		
 		
 		
@@ -264,6 +262,7 @@ public class Main {
 		//On supprime la sélection du joueur
 		gameData.selectCard(null);
 		gameData.selectCell(null);
+		loopHeroGraphics.drawInventory(context, hero);
 		
 	
 

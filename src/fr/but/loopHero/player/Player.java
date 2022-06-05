@@ -10,6 +10,7 @@ import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.droppable.Ressource;
 import fr.but.loopHero.droppable.equipment.Equipement;
 import fr.but.loopHero.droppable.equipment.Modifier;
+import fr.but.loopHero.droppable.equipment.Weapon;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.tiles.LandScape;
@@ -152,9 +153,9 @@ public class Player {
 		switch (modifier) {
 		case Defense -> {
 			if(added)
-				defensePoints += quantity;
+				defensePoints = quantity;
 			else
-				defensePoints -= quantity;
+				defensePoints = quantity;
 		}case MaximumHP ->{
 			//System.out.println(quantity +"vie plus");
 			if(added) {
@@ -275,43 +276,24 @@ public class Player {
 		
 		
 		return null;
-		
-		
-		
-		
-		
-		
-		
+
 	}
 
 	public void equipEquipement(Equipement selectedEquipement) {
+		if(selectedEquipement instanceof Weapon) {
+			Weapon weapon = (Weapon) selectedEquipement;
+			int[] attack = weapon.weaponModifierInteger();
+			minDamagePoints = attack[0];
+			maxDamagePoints = attack[1];
+			System.out.println(minDamagePoints + " :" + maxDamagePoints);
+			getEquipementInventory().remove(weapon);
+			return;
+		}
+		
 		changeStats(selectedEquipement.getModifier(),selectedEquipement.getModifierValue(),true);
 		playerEquipedEquipement.add(selectedEquipement);
+		getEquipementInventory().remove(selectedEquipement);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
