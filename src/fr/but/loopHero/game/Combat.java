@@ -74,7 +74,7 @@ public class Combat {
     				CombatEffects usedSpecialEffect = mob.useSpecialEffect();
     				int mobRealDamages = mob.takeDamage(heroAttack, usedSpecialEffect, graphics, context, attaque);    				
         			graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob
-        			graphics.drawDamages(context,0,mobRealDamages,attaque);
+        			//graphics.drawDamages(context,0,mobRealDamages,attaque);
 	
     			}else {
     				attaquant = 0;
@@ -85,7 +85,7 @@ public class Combat {
          				attaque++;
          				mob.takeDamage(Math.abs(heroRealDamages), null, graphics, context, attaque);
          			}
-         			graphics.drawDamages(context,heroRealDamages,0,attaque);
+         			//graphics.drawDamages(context,heroRealDamages,0,attaque);
     			}
     			attaque++;
     			graphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);//Vie du joueur

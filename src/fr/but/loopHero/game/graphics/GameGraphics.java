@@ -473,7 +473,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 
 
 		public void showEffect(ApplicationContext context,int attaque,String txt,Color color) {
-				drawString(context, txt,color,20,width/2,300+(50*attaque));
+				drawString(context, txt,color,20,width/2,200+(30*attaque));
 			
 			
 			
