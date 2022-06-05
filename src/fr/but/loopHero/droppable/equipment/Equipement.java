@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.droppable.Rarity;
+import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.player.CombatEffects;
 import fr.umlv.zen5.ApplicationContext;
 
@@ -21,13 +22,14 @@ public abstract class Equipement implements Droppable {
 	
 	
 	public static Rarity randomRarity() {
+		//return Rarity.Gris;
+		double d = Math.random() * 100;
+		if ((d -= 35) < 0) return Rarity.Gris;
+		if ((d -= 30) < 0) return Rarity.Bleu;
+		if ((d -= 20) < 0) return Rarity.Jaune;
+		if(LoopHeroGameData.LEVEL >= 3)
+			if ((d -= 15) < 0) return Rarity.Orange;
 		return Rarity.Gris;
-//		double d = Math.random() * 100;
-//		if ((d -= 35) < 0) return Rarity.Gris;
-//		if ((d -= 30) < 0) return Rarity.Bleu;
-//		if ((d -= 20) < 0) return Rarity.Jaune;
-//		if ((d -= 15) < 0) return Rarity.Orange;
-//		throw new IllegalStateException("L'objet n'a aucune rarité");	
 	}
 	
 	
@@ -69,7 +71,7 @@ public abstract class Equipement implements Droppable {
 	public Color getColor() {
 		switch (rarity) {
 		case Gris -> {return Color.gray;}
-		case Bleu -> {return Color.BLUE;}
+		case Bleu -> {return Color.BLUE.brighter().brighter().brighter().brighter();}
 		case Orange ->{return Color.orange;}
 		case Jaune ->{return Color.yellow;}
 		
@@ -78,6 +80,8 @@ public abstract class Equipement implements Droppable {
 		}
 	}
 	
-	
+	public int getValue() {
+		return value;
+	}
 	
 }

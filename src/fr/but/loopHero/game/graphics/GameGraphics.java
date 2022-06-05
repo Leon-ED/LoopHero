@@ -108,7 +108,12 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		
 		public void drawOneCell(Board plateau, ApplicationContext context, int i, int j) {
 			context.renderFrame( graphics ->{
+				try {
 				graphics.setColor(plateau.getBoardMatrix()[i][j].getColor()); // On d�finis la couleur de la Tile
+				}catch (ArrayIndexOutOfBoundsException e) {
+					
+					graphics.setColor(Color.red);
+				}
 				int x = xOrigin + j*taille;
 				int y = yOrigin + (i*taille);
 				graphics.fill(new Rectangle2D.Float(x,y,taille,taille));
@@ -239,17 +244,12 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			for (int i=0; i<Equipements.size();i++)
 				drawEquipement(context, (Equipement)Equipements.get(i), i/LoopHeroGameData.INV_WIDTH,i%LoopHeroGameData.INV_WIDTH);
 		}
-		
 		private void drawInventoryRessources(ApplicationContext context,Player hero,ArrayList<Droppable> Ressources) {
-			
 			context.renderFrame( graphics ->{
 				graphics.setColor(LoopHeroGameData.BG_COLOR);
-				//graphics.setColor(Color.red);
 				graphics.fill(new Rectangle2D.Float(xOrigin, yOrigin+(12*taille)+taille*2, taille*12, taille*2));
-			});
-			 
+			}); 
 			HashMap<String,Integer> dict_ressources = new HashMap<String,Integer>();
-			
 			for (Droppable droppable : Ressources) {
 				if (dict_ressources.containsKey(droppable.displayName())) {
 					dict_ressources.put(droppable.displayName(), dict_ressources.get(droppable.displayName())+1);
@@ -257,24 +257,13 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				else 
 					dict_ressources.put(droppable.displayName(), 1);
 			}
-			
-			
-			
 			int count = 0;
-			
-			
-			
-			for (HashMap.Entry<String, Integer> ressource : dict_ressources.entrySet()) {
-				
+			for (HashMap.Entry<String, Integer> ressource : dict_ressources.entrySet()) {	
 				count++;
 				String key = ressource.getKey();
 				Integer val = ressource.getValue();
 				drawRessource(context,key,count,val);
-				
 			}
-				
-				
-			
 		}
 		
 
@@ -302,8 +291,10 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 						int x = startX + (xOrigin + j*taille);
 						int y = startY + (yOrigin + (i*taille));		
 						graphics.fillRect(x, y, taille, taille);	
-						drawString(context, droppable.displayName(), Color.WHITE, 10, x, y);
-						//graphics.drawRect(x, y-taille*4, taille, taille);
+						drawString(context, droppable.displayName(), Color.BLACK, 15, x, y+taille-20);
+						drawString(context, "("+droppable.getValue()+")", Color.BLACK, 15, x, y+taille);
+						graphics.setColor(Color.black);
+						graphics.drawRect(x, y, taille, taille);
 						
 
 	
@@ -325,10 +316,6 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			
 			});	
 		}
-
-
-
-
 
 
 		private int indexFromReaCoord(float coord, int origin) {

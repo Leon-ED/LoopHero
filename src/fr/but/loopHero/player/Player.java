@@ -121,7 +121,12 @@ public class Player {
 
 	public void addInventory(ArrayList<ArrayList<Droppable>> droppedItems) {
 		playerInventory.get(0).addAll(droppedItems.get(0));
-		playerInventory.get(1).addAll(droppedItems.get(1));
+		
+		for (Droppable item : droppedItems.get(1)) {
+			addEquipement((Equipement) item);
+		}
+		
+	
 		playerInventory.get(2).addAll(droppedItems.get(2));
 		
 	}
@@ -151,10 +156,19 @@ public class Player {
 			else
 				defensePoints -= quantity;
 		}case MaximumHP ->{
-			if(added)
+			//System.out.println(quantity +"vie plus");
+			if(added) {
 				maxHealth += quantity;
-			else
+			}else {
 				maxHealth -= quantity;
+			}
+		}case Damage ->{
+			if(added) {
+				minDamagePoints = 4*LoopHeroGameData.LEVEL;
+				maxDamagePoints = 6*LoopHeroGameData.LEVEL;
+			}else {
+			
+			}
 		}
 		
 		default ->
@@ -175,6 +189,10 @@ public class Player {
 		return playerInventory;
 	}
 
+	public ArrayList<Droppable> getEquipementInventory() {
+		return playerInventory.get(1);
+	}
+	
 	
 	public void deleteCardFromInventory(Droppable drop) {
 		playerInventory.get(0).remove(drop);

@@ -67,21 +67,15 @@ public class Combat {
     	while(!(mob.isDead() || hero.isDead())) {
     		// Si les 1 secondes sont passées
     		if(timedata.readyToAttack()) {
-    			
-    			
     			// Le joueur attaque
     			if(attaquant == 0) {
     				attaquant = 1;
     				int heroAttack = hero.attack();
     				CombatEffects usedSpecialEffect = mob.useSpecialEffect();
     				int mobRealDamages = mob.takeDamage(heroAttack, usedSpecialEffect, graphics, context, attaque);    				
-    				
-    				
-     
         			graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob
         			graphics.drawDamages(context,0,mobRealDamages,attaque);
-        			// int mobRealDamages = mob.takeDamage(heroAttack);
-        			
+	
     			}else {
     				attaquant = 0;
         			int mobAttack = mob.attack();
@@ -92,21 +86,12 @@ public class Combat {
          				mob.takeDamage(Math.abs(heroRealDamages), null, graphics, context, attaque);
          			}
          			graphics.drawDamages(context,heroRealDamages,0,attaque);
-        			
-         			
-    				
     			}
     			attaque++;
     			graphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);//Vie du joueur
     			graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob
-    			
 
-     			//System.out.println("Attaque joueur = " +heroAttack+" Attaque mob = "+ mobAttack);
-     			
-
-    			
     		}
-    	
     	}	
 		graphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);//Vie du joueur
 		graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob

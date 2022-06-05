@@ -129,10 +129,10 @@ public class Main {
     
 	private void doMouseAction(ApplicationContext context, Event event) {
 		Point2D.Float location = event.getLocation();
-		//System.out.println("X " + location.x+" y "+location.y);
+		System.out.println("X " + location.x+" y "+location.y);
 		int i = loopHeroGraphics.lineFromY(location.y);
 		int j = loopHeroGraphics.columnFromX(location.x);
-	//	System.out.println("i "+loopHeroGraphics.lineFromY(location.y)+" j "+loopHeroGraphics.columnFromX(location.x));
+		System.out.println("i "+loopHeroGraphics.lineFromY(location.y)+" j "+loopHeroGraphics.columnFromX(location.x));
 		
 		// Si la sélection est invalide
 		if(i< 0 || j < 0) 
@@ -157,7 +157,6 @@ public class Main {
 			
 			return;
 		}
-		
 		if(i == 12) {
 			// En dehors de la liste
 			if(j >= hero.getInventory().get(0).size() )
@@ -173,6 +172,28 @@ public class Main {
 			return;
 		}
 
+		//Selection dans l'equipement disponible :
+		
+		if((i>= 4 && i<= 6) && (j>= 23 && j<=26)) {
+			int offsetI = 4;
+			int offsetJ = 23;
+			int index = (i-offsetI)*3+(j-offsetJ);
+			if(gameData.selectEquipement(hero.getEquipementInventory(),index)){ //Equipement selectionne avec succes
+				loopHeroGraphics.drawOneCell(plateau, context, i , j );
+				System.out.println(index);
+				System.out.println("Selected : "+gameData.getSelectedEquipement().displayName());
+			}else {
+				System.out.println("Selection invalide");
+				System.out.println(index);
+			}
+			
+			
+			
+			
+			
+		}
+		
+		
 
 	}
     

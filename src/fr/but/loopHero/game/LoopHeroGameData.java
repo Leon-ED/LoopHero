@@ -9,7 +9,10 @@ import org.w3c.dom.css.RGBColor;
 
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
+import fr.but.loopHero.droppable.equipment.Armor;
+import fr.but.loopHero.droppable.equipment.Equipement;
 import fr.but.loopHero.droppable.equipment.Shield;
+import fr.but.loopHero.droppable.equipment.Weapon;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.game.objects.tiles.LandScape;
@@ -52,10 +55,17 @@ public class LoopHeroGameData {
 	
 	
 	public static void generateDroppableItems() {
-//		MOBS_DROPPABLE_ITEMS.add(new Card("Grove", new Grove()));
-//		MOBS_DROPPABLE_ITEMS.add(new Card("Rock", new Rock()));
-//		MOBS_DROPPABLE_ITEMS.add(new Card("Meadow", new Meadow()));
+		//Cartes
+		MOBS_DROPPABLE_ITEMS.add(new Card("Grove", new Grove()));
+		MOBS_DROPPABLE_ITEMS.add(new Card("Rock", new Rock()));
+		MOBS_DROPPABLE_ITEMS.add(new Card("Meadow", new Meadow()));
+
+		
+		//Equipement
+		MOBS_DROPPABLE_ITEMS.add(new Weapon("Epee"));
+		MOBS_DROPPABLE_ITEMS.add(new Weapon("Hache"));
 		MOBS_DROPPABLE_ITEMS.add(new Shield());
+		MOBS_DROPPABLE_ITEMS.add(new Armor());
 	}
 	
 	
@@ -77,10 +87,12 @@ public class LoopHeroGameData {
 	
 	private Cell selectedCell;
 	private Card selectedCard;
+	private Equipement selectedEquipement;
 	
 	public LoopHeroGameData() {
 		this.selectedCell = null;
 		this.selectedCard = null;
+		this.selectedEquipement = null;
 	}
 
 	public void selectCell (Cell cell) {
@@ -137,8 +149,20 @@ public class LoopHeroGameData {
 		
 		
 	}
+
+
+	public boolean selectEquipement(ArrayList<Droppable> liste,int index) {
+		try {
+		this.selectedEquipement = (Equipement) liste.get(index);
+		return true;
+		}catch(IndexOutOfBoundsException e) {
+			return false;	
+		}
+	}
 	
-	
+	public Equipement getSelectedEquipement() {
+		return selectedEquipement;
+	}	
 	
 	
 }

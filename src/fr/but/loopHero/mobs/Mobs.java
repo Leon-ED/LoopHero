@@ -8,6 +8,7 @@ import java.util.Random;
 
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
+import fr.but.loopHero.droppable.Rarity;
 import fr.but.loopHero.droppable.Ressource;
 import fr.but.loopHero.droppable.equipment.Equipement;
 import fr.but.loopHero.game.LoopHeroGameData;
@@ -142,9 +143,8 @@ public abstract class Mobs {
 		toDrop.add(new ArrayList<Droppable>());
 		
 		for(Droppable drop : this.MOBS_DROPPABLE_ITEMS) {
-    		Random rand = new Random();
-    		int rand_number = rand.nextInt(99);
-    		if (rand_number < dropChance) {
+			double d = Math.random() * 100;
+			if ((d -= dropChance) < 0) {
     			if (drop instanceof Card)
     				toDrop.get(0).add(drop);
     			if (drop instanceof Equipement)
@@ -217,8 +217,6 @@ public abstract class Mobs {
 		}
 				
 		}
-		
-		
 		return null;
 		
 		
