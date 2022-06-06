@@ -1,12 +1,10 @@
 package fr.but.loopHero.game;
 
 import java.awt.Color;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import org.w3c.dom.css.RGBColor;
-
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.droppable.equipment.Armor;
@@ -14,12 +12,8 @@ import fr.but.loopHero.droppable.equipment.Equipement;
 import fr.but.loopHero.droppable.equipment.Placement;
 import fr.but.loopHero.droppable.equipment.Shield;
 import fr.but.loopHero.droppable.equipment.Weapon;
-import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
-import fr.but.loopHero.game.objects.tiles.LandScape;
-import fr.but.loopHero.game.objects.tiles.Road;
-import fr.but.loopHero.game.objects.tiles.RoadSide;
 import fr.but.loopHero.game.objects.tiles.placedTiles.BattleField;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Cemetery;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Grove;
@@ -54,6 +48,18 @@ public class LoopHeroGameData {
 	public static final Color TXT_COLOR_WARNING = Color.YELLOW;	
 	public static final int INV_WIDTH = 4;
 	public static final int INV_HEIGHT = 3;
+	
+	public static final Path GAME_RECAP_PATH  = Paths.get("./files/recap.txt");
+	public static final Path GAME_SAVE_PATH  = Paths.get("./files/save.hero");
+	public static int KILLED_ENEMIES = 0;
+	public static int LOST_HP = 0;
+	public static int USED_ITEMS = 0;
+	public static int MOVED_SQUARES = 0;
+	public static int USED_CARDS = 0;
+	public static long startedTick = System.currentTimeMillis();
+	public static int ATTACKS;
+	public static int TAKEN_DAMAGES;
+	public static int MADE_DAMAGES;
 	
 	
 	public static final ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<>();
@@ -100,6 +106,8 @@ public class LoopHeroGameData {
 	}
 	
 	
+
+
 	public static void generateMobsList() {
 		SPAWNABLE_MOBS.add(new Slime(null));
 	}

@@ -2,6 +2,7 @@ package fr.but.loopHero.player;
 
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,8 +19,9 @@ import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.tiles.LandScape;
 import fr.umlv.zen5.ApplicationContext;
 
-public class Player {
+public class Player implements Serializable {
 
+	private static final long serialVersionIUD = 1L;
 	private final int maxHealth_default = 250;
 	private int maxHealth = 250;
 	private int currentHealth = maxHealth;
@@ -44,7 +46,7 @@ public class Player {
 	
 	
 	
-	public Player() {
+	public Player()  {
 		playerInventory.add(new ArrayList<Droppable>()); // 0 : Cartes
 		playerInventory.add(new ArrayList<Droppable>()); // 1 : Equipement
 		playerInventory.add(new ArrayList<Droppable>()); // 2 : Ressource
@@ -69,12 +71,16 @@ public class Player {
 			LoopHeroGameData.LEVEL++;
 		}
 		currentNumOfCell++; 
+		LoopHeroGameData.MOVED_SQUARES++;
 		return currentNumOfCell-1;
 	}
 
 	public int attack() {
 		Random r = new Random();
-		return r.nextInt(minDamagePoints, maxDamagePoints+1);
+		LoopHeroGameData.ATTACKS++;
+		int dmg = r.nextInt(minDamagePoints, maxDamagePoints+1);
+		LoopHeroGameData.MADE_DAMAGES += dmg;
+		return dmg;
 		//return r.nextInt(maxDamagePoints-minDamagePoints)+minDamagePoints;
 	}
 
@@ -86,6 +92,7 @@ public class Player {
 			graphics.showEffect(context, attaque, "Le héro a perdu : "+damages+" HP", Color.RED);
 		int realDamages = damages-defensePoints;
 		currentHealth -= realDamages;
+		LoopHeroGameData.TAKEN_DAMAGES += realDamages;
 		return realDamages;
 			
 		}
@@ -230,6 +237,7 @@ public class Player {
 	
 	
 	public void deleteCardFromInventory(Droppable drop) {
+		LoopHeroGameData.USED_CARDS++;
 		playerInventory.get(0).remove(drop);
 		
 		
@@ -314,6 +322,7 @@ public class Player {
 	}
 
 	public void equipEquipement(Equipement selectedEquipement) {
+		LoopHeroGameData.USED_ITEMS ++;
 		if(selectedEquipement instanceof Weapon) {
 			Weapon weapon = (Weapon) selectedEquipement;
 			int[] attack = weapon.weaponModifierInteger();
@@ -346,5 +355,17 @@ public class Player {
 		
 		
 	}
+	
+	@Override
+	public String toString() {
+		return "Player [maxHealth_default=" + maxHealth_default + ", maxHealth=" + maxHealth + ", currentHealth="
+				+ currentHealth + ", regenPerSecond=" + regenPerSecond + ", defensePoints=" + defensePoints
+				+ ", minDamagePoints=" + minDamagePoints + ", maxDamagePoints=" + maxDamagePoints + ", counterPercent="
+				+ counterPercent + ", evadePercent=" + evadePercent + ", vampirismPercent=" + vampirismPercent
+				+ ", ring=" + ring + ", armor=" + armor + ", playerInventory=" + playerInventory
+				+ ", playerEquipedEquipement=" + playerEquipedEquipement + ", currentNumOfCell=" + currentNumOfCell
+				+ "]";
+	}
+	
 	
 }
