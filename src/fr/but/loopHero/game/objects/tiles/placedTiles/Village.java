@@ -14,42 +14,25 @@ import fr.umlv.zen5.ApplicationContext;
 
 public class Village extends PlacedTiles {
 
-	private int lastSpawn;
-	
-	private Mobs spawnedMobs;
 	
 	public Village() {
-		super("Grove", new Wasteland(), Color.GREEN.darker());
-		this.lastSpawn = -1;
-		this.spawnedMobs = null;
+		super("Village", new Wasteland(), new Color(112,102,44));
 	}
 
-	@Override
-	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
-		//moveSpawnedRatWolf(plateau);
-		if (spawnedMobs == null || spawnedMobs.isDead()) {
-			if((lastSpawn == -1 || lastSpawn >= 1)) {
-				lastSpawn = 0;
-				Mobs mob = new Ratwolf(cell);
-				spawnedMobs = mob;
-				cell.addMob(mob);
-				//System.out.println(cell.hasMob());	
-			}
-			else
-				lastSpawn++;
-		}
-		
-	}
-	
 	
 
 
 	@Override
 	public Tile generateNew() {
-		// TODO Auto-generated method stub
 		return new Village();
 	}
 	
+	
+	@Override
+	public void doHeroOnEffect(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
+		hero.regenHero(15+5*LoopHeroGameData.LEVEL);
+		
+	}
 	
 	
 	
