@@ -27,6 +27,7 @@ import fr.but.loopHero.game.objects.tiles.placedTiles.Oblivion;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Rock;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Spider_Coccon;
 import fr.but.loopHero.game.objects.tiles.placedTiles.VampireMansion;
+import fr.but.loopHero.game.objects.tiles.placedTiles.Village;
 import fr.but.loopHero.mobs.Mobs;
 import fr.but.loopHero.mobs.Slime;
 import fr.but.loopHero.player.Player;
