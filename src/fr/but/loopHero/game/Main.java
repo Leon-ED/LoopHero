@@ -4,6 +4,7 @@ import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
+import fr.but.loopHero.game.objects.ReadDatas;
 import fr.but.loopHero.game.objects.tiles.CampFire;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Rock;
 import fr.but.loopHero.player.Player;
@@ -32,6 +33,8 @@ public class Main {
     	
     	LoopHeroGameData.generateDroppableItems();
         plateau.fill(); 
+           
+        	
         plateau.createLoop(34);
         loopHeroGraphics.drawBoard(plateau, context);
         loopHeroGraphics.drawStaticInventory(context);
@@ -68,7 +71,8 @@ public class Main {
         	
         		
         	}
-        	plateau.getlistCellsLoop().get(0).type().doNewDayEffects(context, hero, plateau, gameData, null);
+        	System.out.println(plateau.getlistCellsLoop().get(0).type());
+        	//plateau.getlistCellsLoop().get(0).type().doNewDayEffects(context, hero, plateau, gameData, null);
         	loopHeroGraphics.drawMobs(context, plateau);
         	//loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData,hero.getCurrentCellIndex());
         	

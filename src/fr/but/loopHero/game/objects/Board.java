@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.tiles.CampFire;
 import fr.but.loopHero.game.objects.tiles.Road;
 import fr.but.loopHero.game.objects.tiles.RoadSide;
@@ -19,7 +20,7 @@ public class Board {
     private final int boardHeight;
     private final int boardWidht;
     private final Cell[][] boardMatrix;
-    private final ArrayList<Cell> listCellsLoop;
+    public final ArrayList<Cell> listCellsLoop;
     
     
     public Board(int boardHeight, int boardWidht) {
@@ -41,70 +42,16 @@ public class Board {
     public void createLoop(int numberOfCells) {
     	
     	
+    	ReadDatas readData = new ReadDatas();
+        
+        try {
+        	readData.readPathFromFile(LoopHeroGameData.BOUCLE_PATH, this, listCellsLoop);
+        }
+        catch (Exception e){
+        	System.out.println("Problème dans la lecture du fichier");
+        }
     	
-    	boardMatrix[4-1][10-1].setType(new CampFire("CampFire")); // Feu de camps (10,4)
-    	listCellsLoop.add(boardMatrix[3][9]);
-    	boardMatrix[3][9].setIndex(0);
-    	
-    	for (int i=0;i<6;i++) {
-    		boardMatrix[3][10+i].setType(new Wasteland()); // Première ligne 
-    		listCellsLoop.add(boardMatrix[3][10+i]);
-    		boardMatrix[3][10+i].setIndex(i+1);
-    	
-    	}
-    	
-    	boardMatrix[4][15].setType(new Wasteland());
-    	boardMatrix[4][15].setIndex(7);
-    	listCellsLoop.add(boardMatrix[4][15]);
-    	
-    	
-    	boardMatrix[5][15].setType(new Wasteland());
-    	boardMatrix[5][15].setIndex(8);
-    	listCellsLoop.add(boardMatrix[5][15]);
-    	
-    	
-    	
-    	boardMatrix[5][14].setType(new Wasteland());
-    	boardMatrix[5][14].setIndex(9);
-    	listCellsLoop.add(boardMatrix[5][14]);
-    	
-    	
-    	for (int i=0;i<5;i++) {boardMatrix[6][14-i].setType(new Wasteland());listCellsLoop.add(boardMatrix[6][14-i]);boardMatrix[6][14-i].setIndex(10+i);}
-    	for (int i=0;i<2;i++) {boardMatrix[7+i][10].setType(new Wasteland());listCellsLoop.add(boardMatrix[7+i][10]);boardMatrix[7+i][10].setIndex(15+i);;}
-    	
-    	boardMatrix[8][9].setType(new Wasteland());
-    	boardMatrix[8][9].setIndex(17);
-    	listCellsLoop.add(boardMatrix[8][9]);
-    	
-    	
-    	boardMatrix[9][9].setType(new Wasteland());
-    	boardMatrix[9][9].setIndex(18);
-    	listCellsLoop.add(boardMatrix[9][9]);
-    	
-    	
-    	for (int i=0;i<1;i++) {boardMatrix[9][8-i].setType(new Wasteland());listCellsLoop.add(boardMatrix[9][8-i]);boardMatrix[9][8-i].setIndex(19+i);}
-    	for (int i=0;i<4;i++) {boardMatrix[9-i][7].setType(new Wasteland());listCellsLoop.add(boardMatrix[9-i][7]);boardMatrix[9-i][7].setIndex(20+i);}
-    	
-    	boardMatrix[6][6].setType(new Wasteland());
-    	boardMatrix[6][6].setIndex(24);
-    	listCellsLoop.add(boardMatrix[6][6]);
-    	
-    	
-    	boardMatrix[6][5].setType(new Wasteland());
-    	boardMatrix[6][5].setIndex(25);
-    	listCellsLoop.add(boardMatrix[6][5]);
-    	
-    	for (int i=0;i<2;i++) {boardMatrix[5-i][5].setType(new Wasteland());listCellsLoop.add(boardMatrix[5-i][5]);boardMatrix[5-i][5].setIndex(26+i);}
-    	
-    	boardMatrix[4][6].setType(new Wasteland());
-    	listCellsLoop.add(boardMatrix[4][6]);
-    	boardMatrix[4][6].setIndex(28);
-    	
-    	for (int i=0;i<2;i++) {boardMatrix[3-i][6].setType(new Wasteland());listCellsLoop.add(boardMatrix[3-i][6]);boardMatrix[3-i][6].setIndex(29+i);}
-    	for (int i=0;i<3;i++) {boardMatrix[2][7+i].setType(new Wasteland());listCellsLoop.add(boardMatrix[2][7+i]);boardMatrix[2][7+i].setIndex(31+i);}
-    	
-    	
-    	// Permet de générer les RoadSide en fonction de la boucle (des Road)
+    		// Permet de générer les RoadSide en fonction de la boucle (des Road)
     	for (Cell cell : listCellsLoop) {
     		int i = cell.i();
     		int j = cell.j();

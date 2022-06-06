@@ -1,12 +1,10 @@
 package fr.but.loopHero.game;
 
 import java.awt.Color;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import org.w3c.dom.css.RGBColor;
-
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.droppable.equipment.Armor;
@@ -14,12 +12,8 @@ import fr.but.loopHero.droppable.equipment.Equipement;
 import fr.but.loopHero.droppable.equipment.Placement;
 import fr.but.loopHero.droppable.equipment.Shield;
 import fr.but.loopHero.droppable.equipment.Weapon;
-import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
-import fr.but.loopHero.game.objects.tiles.LandScape;
-import fr.but.loopHero.game.objects.tiles.Road;
-import fr.but.loopHero.game.objects.tiles.RoadSide;
 import fr.but.loopHero.game.objects.tiles.placedTiles.BattleField;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Cemetery;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Grove;
@@ -56,10 +50,12 @@ public class LoopHeroGameData {
 	public static final int INV_HEIGHT = 3;
 	
 	
+	public static Path BOUCLE_PATH = Paths.get("./files/board.txt");
+	
 	public static final ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<>();
 	public static final ArrayList<Mobs> SPAWNABLE_MOBS = new ArrayList<>();
 	
-	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()),new Card("Wheat Fields", new WheatFields())
+	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()),new Card("Rock", new Rock())
 			
 			
 			);
