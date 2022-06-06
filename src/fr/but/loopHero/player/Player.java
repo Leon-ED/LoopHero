@@ -8,6 +8,7 @@ import java.util.Random;
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.droppable.Ressource;
+import fr.but.loopHero.droppable.equipment.Armor;
 import fr.but.loopHero.droppable.equipment.Equipement;
 import fr.but.loopHero.droppable.equipment.Modifier;
 import fr.but.loopHero.droppable.equipment.Ring;
@@ -34,6 +35,7 @@ public class Player {
 	private double vampirismPercent = 0.0;
 	
 	private Ring ring = null;
+	private Armor armor = null;
 	
 	private final ArrayList<ArrayList<Droppable>> playerInventory = new ArrayList<ArrayList<Droppable>>();
 	private final ArrayList<Equipement> playerEquipedEquipement = new ArrayList<>();
@@ -125,7 +127,9 @@ public class Player {
 	}
 
 	public void addInventory(ArrayList<ArrayList<Droppable>> droppedItems) {
-		playerInventory.get(0).addAll(droppedItems.get(0));
+		for (Droppable item : droppedItems.get(0)) {
+			addCard((Card) item);
+		}
 		
 		for (Droppable item : droppedItems.get(1)) {
 			addEquipement((Equipement) item);
@@ -137,7 +141,7 @@ public class Player {
 	}
 	
 	public void addCard(Card card) {
-		ArrayList<Droppable> liste = playerInventory.get(1);
+		ArrayList<Droppable> liste = playerInventory.get(0);
 		if(liste.size()+1 > 13)
 			liste.remove(0);
 		liste.add(card);
@@ -163,9 +167,9 @@ public class Player {
 		}case MaximumHP ->{
 			System.out.println(quantity +"vie plus");
 			if(added) {
-				maxHealth = quantity+(maxHealth-maxHealth_default);
+				maxHealth = maxHealth+quantity;
 			}else {
-				maxHealth = quantity-(maxHealth-maxHealth_default);
+				maxHealth = maxHealth-quantity;
 			}
 		}case Damage ->{
 			if(added) {
@@ -320,13 +324,20 @@ public class Player {
 			return;
 		}
 		if (selectedEquipement instanceof Ring) {
-			System.out.println("RINGGGGGGGGGGGGGGGGGGGG A TRABLE");
 			if (ring != null) {
 				
 				changeStats(ring.getModifier(),ring.getModifierValue(),false);
 				
 			}
 			ring = (Ring) selectedEquipement;
+		}
+		if (selectedEquipement instanceof Armor) {
+			if (armor != null) {
+				
+				changeStats(armor.getModifier(),armor.getModifierValue(),false);
+				
+			}
+			armor = (Armor) selectedEquipement;
 		}
 		changeStats(selectedEquipement.getModifier(),selectedEquipement.getModifierValue(),true);
 		

@@ -76,6 +76,7 @@ public class LoopHeroGameData {
 		MOBS_DROPPABLE_ITEMS.add(new Card("Vampire Mansion", new VampireMansion()));
 		MOBS_DROPPABLE_ITEMS.add(new Card("Spider Coccon", new Spider_Coccon()));
 		MOBS_DROPPABLE_ITEMS.add(new Card("BattleField", new BattleField()));
+		MOBS_DROPPABLE_ITEMS.add(new Card("Village", new Village()));
 		
 //
 //		

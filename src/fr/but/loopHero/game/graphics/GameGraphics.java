@@ -238,7 +238,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		private void drawInventoryCards(ApplicationContext context,Player hero,ArrayList<Droppable> Cards) {
 			context.renderFrame( graphics ->{
 				graphics.setColor(LoopHeroGameData.BG_COLOR);
-				graphics.fill(new Rectangle2D.Float(xOrigin, yOrigin+(12*taille), taille*12, taille*2));
+				graphics.fill(new Rectangle2D.Float(xOrigin, yOrigin+(12*taille), taille*14, (taille*3)+12));
 			});
 			for (int i=0; i<Cards.size();i++)
 				drawCard(context, Cards.get(i), i);
@@ -325,9 +325,14 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				String cardName = droppable.displayName();
 				
 				graphics.setColor(Color.RED);
-				graphics.setFont(new FontUIResource("Arial", 0, 17));
+				graphics.setFont(new FontUIResource("Arial", 0, 12));
+				if(cardName.split(" ").length == 2) {
+					graphics.drawString(cardName.split(" ")[0], xOrigin+(taille*i), yOrigin+(12*taille)+taille+15);
+					graphics.drawString(cardName.split(" ")[1], xOrigin+(taille*i), yOrigin+(12*taille)+taille+35);
+					
+				}else {
 				graphics.drawString(cardName, xOrigin+(taille*i), yOrigin+(12*taille)+taille+15);
-			
+			}
 			});	
 		}
 
