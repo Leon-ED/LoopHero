@@ -24,7 +24,9 @@ public class Main {
 
 	private void loopHero(ApplicationContext context) {
 		// Boucle principale du jeu
-
+		if(LoopHeroGameData.IS_DED)
+			return;
+		
 		LoopHeroGameData.generateDroppableItems();
 		plateau.fill();
 
@@ -34,6 +36,7 @@ public class Main {
 		loopHeroGraphics.drawOptions(context);
 
 		while (true) {
+ 
 			if (!loopHeroTimeData.stopped()) {
 				loopHeroGraphics.drawHeroInformations(context, hero);
 				loopHeroGraphics.drawInventory(context, hero);

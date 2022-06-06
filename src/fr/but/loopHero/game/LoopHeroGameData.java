@@ -97,6 +97,7 @@ public class LoopHeroGameData {
 	}
 
 	public static Cell selectedCell;
+	public static boolean IS_DED = false;
 	private Card selectedCard;
 	private Equipement selectedEquipement;
 	private Placement selectedInventoryEquipement;

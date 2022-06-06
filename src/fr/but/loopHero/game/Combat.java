@@ -119,11 +119,19 @@ public class Combat {
 	private void heroDefeat(ApplicationContext context, GameGraphics graphics) {
 		System.out.println("LE HERO EST MORT, VIVE LE HERO");
 		graphics.drawDeathScreen(context, hero, this);
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		context.exit(0);
 	}
 
 	private void endCombat(TimeData timedata) {
 		cell.removeMob(mob);
+		LoopHeroGameData.IS_DED = true;
 		timedata.stopCombat();
 	}
 

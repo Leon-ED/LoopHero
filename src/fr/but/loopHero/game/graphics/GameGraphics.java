@@ -1,8 +1,11 @@
 package fr.but.loopHero.game.graphics;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -419,7 +422,18 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 	}
 
 	public void drawDeathScreen(ApplicationContext context, Player hero, Combat combat) {
-		drawString(context, "LE HERO EST MORT, VIVE LE HERO !", Color.BLACK, 50, 0, 500);
+		context.renderFrame(graphics->{
+			graphics.setColor(Color.WHITE);
+			graphics.fillRect(0, 0, 9000, 9000);
+			
+			
+		});
+		drawString(context, "WASTED", Color.RED, 100, 300, 300);
+		drawString(context, "LE HERO EST MORT, VIVE LE HERO !", Color.BLACK, 100, 0, 500);
+		File f = new File("./img/wasted.png");
+	    Desktop dt = Desktop.getDesktop();
+	    try {dt.open(f);} catch (IOException e){}
+
 	}
 
 	public void drawString(ApplicationContext context, String string, Color color, int taille, int x, int y) {
