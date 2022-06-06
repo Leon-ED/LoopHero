@@ -72,6 +72,7 @@ public class Combat {
     			graphics.drawBar(context,350, timedata.timeFraction(),0,0,Color.GREEN,10);
     			
     			// On dessine le stats du mobs
+    			graphics.drawMobInCombat(context,mob);
     			
     			
     			// Le joueur attaque

@@ -111,7 +111,6 @@ public abstract class Mobs {
 	
 
 	public int health() {
-		// TODO Auto-generated method stub
 		return healthPoint;
 	}
 	
@@ -221,14 +220,34 @@ public abstract class Mobs {
 				
 		}
 		return null;
-		
-		
-		
-		
-		
-		
-		
 	}
+		
+		// Accesseurs pour l'affichage
+		public int defensePoints() {
+			return 0;
+		}
+		
+		public double counterPercent() {
+			return 0;
+		}
+		
+		public double evadePercent() {
+			return evadeChance;
+		}
+		
+		public double vampirismPercent() {
+			return 0;
+		}
+		
+		public double damagePossible() {
+			int lvl = LoopHeroGameData.LEVEL;
+			return (int) ((int) (strenght*lvl)*(1+(lvl-1)*0.02));
+		}
+		
+		public double speed() {
+			return speed;
+		}
+	
 	
 
 	
