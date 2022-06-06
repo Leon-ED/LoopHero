@@ -1,5 +1,8 @@
 package fr.but.loopHero.game;
 
+import java.awt.Color;
+import java.awt.geom.Point2D;
+
 import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
@@ -7,9 +10,6 @@ import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.game.objects.SaveDatas;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Rock;
 import fr.but.loopHero.player.Player;
-
-import java.awt.Color;
-import java.awt.geom.Point2D;
 import fr.umlv.zen5.Application;
 import fr.umlv.zen5.ApplicationContext;
 import fr.umlv.zen5.Event;

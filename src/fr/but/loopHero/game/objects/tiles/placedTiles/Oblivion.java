@@ -1,6 +1,7 @@
 package fr.but.loopHero.game.objects.tiles.placedTiles;
 
 import java.awt.Color;
+
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.tiles.Tile;
 import fr.but.loopHero.game.objects.tiles.Wasteland;
