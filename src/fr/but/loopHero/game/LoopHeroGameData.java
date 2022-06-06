@@ -29,6 +29,7 @@ import fr.but.loopHero.game.objects.tiles.placedTiles.Ruins;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Spider_Coccon;
 import fr.but.loopHero.game.objects.tiles.placedTiles.VampireMansion;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Village;
+import fr.but.loopHero.game.objects.tiles.placedTiles.WheatFields;
 import fr.but.loopHero.mobs.Mobs;
 import fr.but.loopHero.mobs.Slime;
 import fr.but.loopHero.player.Player;
@@ -57,7 +58,7 @@ public class LoopHeroGameData {
 	public static final ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<>();
 	public static final ArrayList<Mobs> SPAWNABLE_MOBS = new ArrayList<>();
 	
-	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()),new Card("Ruins", new Ruins())
+	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()),new Card("Wheat Fields", new WheatFields())
 			
 			
 			);
@@ -81,6 +82,7 @@ public class LoopHeroGameData {
 		MOBS_DROPPABLE_ITEMS.add(new Card("Oblivion", new Oblivion()));
 		MOBS_DROPPABLE_ITEMS.add(new Card("Village", new Village()));
 		MOBS_DROPPABLE_ITEMS.add(new Card("Ruins", new Ruins()));
+		MOBS_DROPPABLE_ITEMS.add(new Card("Wheat Fields", new WheatFields()));
 		
 //
 //		
