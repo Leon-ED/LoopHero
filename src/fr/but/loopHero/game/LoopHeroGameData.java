@@ -14,6 +14,7 @@ import fr.but.loopHero.droppable.equipment.Equipement;
 import fr.but.loopHero.droppable.equipment.Placement;
 import fr.but.loopHero.droppable.equipment.Shield;
 import fr.but.loopHero.droppable.equipment.Weapon;
+import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.game.objects.tiles.LandScape;

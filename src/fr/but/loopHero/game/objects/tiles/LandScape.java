@@ -16,6 +16,8 @@ public class LandScape extends Tile {
 	
 	@Override
 	public boolean allowToPlace(Card card) {
+		if(card == null)
+			return false;
 		return card.cardType().getParentTile().getClass().equals(this.getClass());
 	}
 	@Override

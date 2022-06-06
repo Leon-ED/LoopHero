@@ -520,6 +520,46 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			});
 		}
 
+
+		public void drawOptions(ApplicationContext context) {
+			drawString(context, "Sauvegarder données",LoopHeroGameData.TXT_COLOR_BLK, 20, 1400, 930);
+			context.renderFrame(graphics->{
+				graphics.drawRect(1400, 910, 200, 30);
+				graphics.drawRect(1400, 950, 200, 30);
+				graphics.drawRect(1400, 990, 200, 30);
+				
+				
+			});
+			
+			
+			
+			drawString(context, "Sauvegarder partie",LoopHeroGameData.TXT_COLOR_BLK, 20, 1400, 970);
+			drawString(context, "Charger partie",LoopHeroGameData.TXT_COLOR_BLK, 20, 1400, 1010);
+			
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		public void drawSelectionPlacement(ApplicationContext context, Card selectedCard,Board plateau) {
+			Cell[][] matrice = plateau.getBoardMatrix();
+			for (Cell[] liste : matrice) {
+				for (Cell cell : liste) {
+					if(cell.type() != null && cell.type().allowToPlace(selectedCard)) {
+						context.renderFrame(graphics->{
+							graphics.setColor(Color.orange);
+							graphics.drawRect(xOrigin+cell.j()*taille, yOrigin+cell.i()*taille, taille, taille);
+							
+						});
+					}
+					
+					
+				}
+				
+			}
+			
+		}
+
 }
 
 

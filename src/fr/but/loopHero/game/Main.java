@@ -34,6 +34,7 @@ public class Main {
         plateau.createLoop(34);
         loopHeroGraphics.drawBoard(plateau, context);
         loopHeroGraphics.drawStaticInventory(context);
+        loopHeroGraphics.drawOptions(context);
         //loopHeroGraphics.drawInventory(context, hero);
 
         while (true) {
@@ -176,9 +177,14 @@ public class Main {
 
 			if(selectedCard != null) {
 				System.out.println("Une seule selection possible");
-				return;
+				loopHeroGraphics.drawInventory(context, hero);
+				loopHeroGraphics.drawBoard(plateau, context);
+				
+				
 			}
+			
 			gameData.selectCard(hero.getInventory().get(0).get(j));
+			loopHeroGraphics.drawSelectionPlacement(context, gameData.getSelectedCard(), plateau);
 			loopHeroGraphics.drawSelection(context, i, j,Color.RED);
 			return;
 		}
@@ -262,6 +268,7 @@ public class Main {
 		gameData.getSelectedCard().cardType().doEffects(context, hero,plateau,gameData); // On applique l'effet de la carte posée	
 		loopHeroGraphics.drawBoard(plateau, context);
 		//loopHeroGraphics.drawOneCell(plateau, context, i, j);
+		
 		hero.deleteCardFromInventory(selectedCard);
 		
 		
