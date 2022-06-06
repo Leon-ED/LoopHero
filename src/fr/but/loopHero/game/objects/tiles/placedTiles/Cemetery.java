@@ -36,7 +36,7 @@ public class Cemetery extends PlacedTiles{
 				Mobs squeleton = new Skeleton(cell);
 				spawnedMobs = squeleton;
 				cell.addMob(squeleton);
-				System.out.println(cell.hasMob());	
+				//System.out.println(cell.hasMob());	
 			}
 			else
 				lastSpawn++;

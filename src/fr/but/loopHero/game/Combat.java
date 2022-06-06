@@ -109,6 +109,7 @@ public class Combat {
     }
     
     
+    
     private void heroVictory(ApplicationContext context,GameGraphics graphics) {
 		hero.addInventory(loot);
 		graphics.drawInventory(context, hero);

@@ -32,7 +32,7 @@ public class Grove extends PlacedTiles {
 				Mobs mob = new Ratwolf(cell);
 				spawnedMobs = mob;
 				cell.addMob(mob);
-				System.out.println(cell.hasMob());	
+				//System.out.println(cell.hasMob());	
 			}
 			else
 				lastSpawn++;
