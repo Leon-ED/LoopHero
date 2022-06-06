@@ -4,11 +4,8 @@ import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
-<<<<<<< HEAD
 import fr.but.loopHero.game.objects.ReadDatas;
-=======
 import fr.but.loopHero.game.objects.SaveDatas;
->>>>>>> ce6f3538f85ed5ca0ab33ed9e9f22e0947b09306
 import fr.but.loopHero.game.objects.tiles.CampFire;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Rock;
 import fr.but.loopHero.player.Player;
