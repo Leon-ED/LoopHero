@@ -29,6 +29,7 @@ import fr.but.loopHero.game.TimeData;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.game.objects.tiles.placedTiles.PlacedTiles;
+import fr.but.loopHero.mobs.Mobs;
 import fr.but.loopHero.player.CombatEffects;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
@@ -497,11 +498,26 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 
 		public void showEffect(ApplicationContext context,int attaque,String txt,Color color) {
 				drawString(context, txt,color,20,width/2,200+(30*attaque));
-			
-			
-			
-			
-			
+						
+		}
+
+
+		public void drawMobInCombat(ApplicationContext context, Mobs mob) {
+			context.renderFrame(graphics->{
+				graphics.setColor(Color.BLACK);
+				graphics.fillRect(900, 490, 300, 250);
+				
+				drawString(context, "Statistiques",Color.white,20,1000,510);
+				
+				drawString(context, "Dégâts : "+mob.damagePossible(),Color.white,20,900,540);
+				drawString(context, "PV : "+mob.health()+"/"+(int)mob.getHealths()[1],Color.white,20,900,570);
+				drawString(context, "Défense : "+mob.defensePoints(),Color.white,20,900,600);
+				drawString(context, "Contre : "+(int) mob.counterPercent()+"%",Color.white,20,900,630);
+				drawString(context, "Esquive : "+(int) mob.evadePercent(),Color.white,20,900,660);
+				drawString(context, "Vampirisme : "+(int) mob.vampirismPercent(),Color.white,20,900,690);
+				drawString(context, "Vitesse d'attaque : "+mob.speed(),Color.white,20,900,720);
+				
+			});
 		}
 
 }
