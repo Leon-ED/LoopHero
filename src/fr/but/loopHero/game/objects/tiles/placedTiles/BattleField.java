@@ -35,7 +35,6 @@ public class BattleField extends PlacedTiles{
 		public void doNewLoopEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
 			//Check si une cell peut accueil le mob
 			ArrayList<Cell> liste = cell.getAdjacentsCells(false,plateau,cell.i(),cell.j());
-			System.out.println(liste);
 			for (Cell cellToAdd : liste) {
 				if(cellToAdd.hasMob()) {
 					continue;

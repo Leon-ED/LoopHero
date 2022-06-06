@@ -5,6 +5,7 @@ import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.game.objects.tiles.CampFire;
+import fr.but.loopHero.game.objects.tiles.placedTiles.Rock;
 import fr.but.loopHero.player.Player;
 
 import java.awt.Color;
@@ -165,6 +166,7 @@ public class Main {
 			
 			if(gameData.getSelectedCard() != null) { 
 				placeCard(context);	
+				
 				}
 			
 			return;
@@ -257,7 +259,7 @@ public class Main {
 			return;
 		}
 
-
+		
 		
 		Cell selectedCell = gameData.getSelectedCell();
 		Card selectedCard = gameData.getSelectedCard();
@@ -266,6 +268,8 @@ public class Main {
 		
 		plateau.getBoardMatrix()[i][j].setType(selectedCard.cardType().generateNew());		
 		gameData.getSelectedCard().cardType().doEffects(context, hero,plateau,gameData); // On applique l'effet de la carte posée	
+		if (selectedCard.cardType().equals(new Rock()))  // Si rock, on check les voisins pour ajt + de bonus
+			Rock.doNeighborsEffects(plateau,selectedCell,hero);
 		loopHeroGraphics.drawBoard(plateau, context);
 		//loopHeroGraphics.drawOneCell(plateau, context, i, j);
 		
