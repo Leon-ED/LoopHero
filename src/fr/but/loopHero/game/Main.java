@@ -4,7 +4,11 @@ import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
+<<<<<<< HEAD
 import fr.but.loopHero.game.objects.ReadDatas;
+=======
+import fr.but.loopHero.game.objects.SaveDatas;
+>>>>>>> ce6f3538f85ed5ca0ab33ed9e9f22e0947b09306
 import fr.but.loopHero.game.objects.tiles.CampFire;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Rock;
 import fr.but.loopHero.player.Player;
@@ -228,6 +232,8 @@ public class Main {
 		}
 		if((1400 <= location.x && location.x <= 1500) && (910 <= location.y && location.y <= 940)) {
 				System.out.println("Sauvegarde");
+				SaveDatas game_recap = new SaveDatas(hero, gameData);
+
 			
 		}
 		

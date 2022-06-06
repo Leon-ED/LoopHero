@@ -1,6 +1,8 @@
 package fr.but.loopHero.game.objects.tiles.placedTiles;
 
 import java.awt.Color;
+import java.io.Serializable;
+
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
@@ -11,7 +13,20 @@ import fr.but.loopHero.mobs.Ratwolf;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
 
-public class Grove extends PlacedTiles {
+public class Grove extends PlacedTiles implements Serializable {
+	private static final long serialVersionUID = -857875196878755747L;
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Grove [lastSpawn=");
+		builder.append(lastSpawn);
+		builder.append(", spawnedMobs=");
+		builder.append(spawnedMobs);
+		builder.append("]");
+		return builder.toString();
+	}
+
 
 	private int lastSpawn;
 	
@@ -22,6 +37,16 @@ public class Grove extends PlacedTiles {
 		this.lastSpawn = -1;
 		this.spawnedMobs = null;
 	}
+	
+	
+
+	public Grove(String name, Tile parentTile, Color color, int lastSpawn, Mobs spawnedMobs) {
+		super(name, parentTile, color);
+		this.lastSpawn = lastSpawn;
+		this.spawnedMobs = spawnedMobs;
+	}
+
+
 
 	@Override
 	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {

@@ -49,6 +49,18 @@ public class LoopHeroGameData {
 	public static final int INV_WIDTH = 4;
 	public static final int INV_HEIGHT = 3;
 	
+	public static final Path GAME_RECAP_PATH  = Paths.get("./files/recap.txt");
+	public static final Path GAME_SAVE_PATH  = Paths.get("./files/save.hero");
+	public static int KILLED_ENEMIES = 0;
+	public static int LOST_HP = 0;
+	public static int USED_ITEMS = 0;
+	public static int MOVED_SQUARES = 0;
+	public static int USED_CARDS = 0;
+	public static long startedTick = System.currentTimeMillis();
+	public static int ATTACKS;
+	public static int TAKEN_DAMAGES;
+	public static int MADE_DAMAGES;
+	
 	
 	public static Path BOUCLE_PATH = Paths.get("./files/board.txt");
 	
@@ -96,6 +108,8 @@ public class LoopHeroGameData {
 	}
 	
 	
+
+
 	public static void generateMobsList() {
 		SPAWNABLE_MOBS.add(new Slime(null));
 	}
