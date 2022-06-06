@@ -81,6 +81,7 @@ public class SaveDatas {
 			writer.write("=============== Recapitulatif de votre partie Loop Hero :\n");
 			writer.write("Jouée le : "+ formatter.format(date)+"\n");
 			writer.write("Vous avez joué pendant : "+(System.currentTimeMillis()-LoopHeroGameData.startedTick)/1000 + " secondes \n");
+			writer.write("Votre niveau était de : "+LoopHeroGameData.LEVEL+"\n");
 			writer.write("Vous avez tué : "+LoopHeroGameData.KILLED_ENEMIES+ " ennemis en ayant fait : "+LoopHeroGameData.MADE_DAMAGES+" de degats en"+ LoopHeroGameData.ATTACKS+" attaques \n");
 			writer.write("En revanche vous avez perdu : "+LoopHeroGameData.TAKEN_DAMAGES+" HP en combat \n");
 			writer.write("Vous avez utilisé : "+LoopHeroGameData.USED_CARDS+" cartes et "+LoopHeroGameData.USED_ITEMS +" équipements \n");
