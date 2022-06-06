@@ -63,7 +63,7 @@ public class Combat {
     	int attaquant = 0;
 		graphics.drawHealthInfos(context, hero.getHealths(),400,1300,450,30);//Vie du joueur
 		graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob		
-			try {Thread.sleep(500);} catch (InterruptedException e) {	e.printStackTrace(); }    		
+			    		
 		
     	while(!(mob.isDead() || hero.isDead())) {
     		
