@@ -1,10 +1,6 @@
 package fr.but.loopHero.droppable.equipment;
 
-import java.util.Random;
-
-import fr.but.loopHero.droppable.Rarity;
 import fr.but.loopHero.game.LoopHeroGameData;
-import fr.umlv.zen5.ApplicationContext;
 
 public class Shield extends Equipement {
 
@@ -12,8 +8,6 @@ public class Shield extends Equipement {
 	public int hashCode() {
 		return super.hashCode();
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -26,29 +20,14 @@ public class Shield extends Equipement {
 		return true;
 	}
 
-
-
 	public Shield() {
-		super("Bouclier",randomRarity() , LoopHeroGameData.LEVEL, (4*LoopHeroGameData.LEVEL),Modifier.Defense, (4*LoopHeroGameData.LEVEL),Placement.Shield);
-		// TODO Auto-generated constructor stub
+		super("Bouclier", randomRarity(), LoopHeroGameData.LEVEL, (4 * LoopHeroGameData.LEVEL), Modifier.Defense,
+				(4 * LoopHeroGameData.LEVEL), Placement.Shield);
 	}
-
-
-
-
 
 	@Override
 	public Equipement makeNew(String name) {
-		// TODO Auto-generated method stub
 		return new Shield();
 	}
-	
-	
 
-	
-
-	
-	
-	
-	
 }

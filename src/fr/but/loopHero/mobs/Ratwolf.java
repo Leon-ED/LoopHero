@@ -10,17 +10,12 @@ import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.Cell;
 
 public class Ratwolf extends Mobs {
-	
 
-	
-
-	
 	public Ratwolf(Cell cell) {
-		super("RatWolf",-1,16,3.6,0.75,new Color(139,69,19),0.40,cell,genMobsList(),10);
+		super("RatWolf", -1, 16, 3.6, 0.75, new Color(139, 69, 19), 0.40, cell, genMobsList(), 10);
 
-		
 	}
-	
+
 	private static ArrayList<Droppable> genMobsList() {
 		ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<Droppable>();
 		MOBS_DROPPABLE_ITEMS.add(new Ressource("living_fabric")); // Ressources que le mob peut drop
@@ -32,13 +27,12 @@ public class Ratwolf extends Mobs {
 	public void draw(Graphics2D graphics, int taille) {
 		graphics.setColor(super.getColor()); // Couleur du rat
 		int startingPointx = taille + super.getCurrentCell().j() * taille;
-		int startingPointy = taille + super.getCurrentCell().i()* taille;
-		graphics.fillOval(startingPointx,startingPointy,taille/2,taille/2);
-		
+		int startingPointy = taille + super.getCurrentCell().i() * taille;
+		graphics.fillOval(startingPointx, startingPointy, taille / 2, taille / 2);
+
 		graphics.setColor(Color.black); // Contour du rat
-		graphics.drawOval(startingPointx,startingPointy,taille/2,taille/2);
-		
-		
+		graphics.drawOval(startingPointx, startingPointy, taille / 2, taille / 2);
+
 	}
 
 	@Override
@@ -49,27 +43,19 @@ public class Ratwolf extends Mobs {
 	@Override
 	public boolean equals(Object obj) {
 		return true;
-		
-		
+
 	}
 
 	@Override
 	public void drawInCombat(Graphics2D graphics, int taille) {
 		graphics.setColor(super.getColor()); // Couleur du slime
 		int startingPointx = taille + 15 * taille;
-		int startingPointy = taille + 6* taille;
-		graphics.fillOval(startingPointx+taille,startingPointy,taille/2,taille/2);
-		
+		int startingPointy = taille + 6 * taille;
+		graphics.fillOval(startingPointx + taille, startingPointy, taille / 2, taille / 2);
+
 		graphics.setColor(Color.black); // Contour du slime
-		graphics.drawOval(startingPointx+taille,startingPointy,taille/2,taille/2);
-		
-		
+		graphics.drawOval(startingPointx + taille, startingPointy, taille / 2, taille / 2);
+
 	}
-
-
-
-	
-
-
 
 }

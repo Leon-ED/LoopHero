@@ -9,22 +9,22 @@ import fr.but.loopHero.droppable.Ressource;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.Cell;
 
-public class Skeleton extends Mobs{
+public class Skeleton extends Mobs {
 
 	public Skeleton(Cell cell) {
-		super("Skeleton",-1,12,9,0.3,Color.white,0.85,cell,genMobsList(),5);
+		super("Skeleton", -1, 12, 9, 0.3, Color.white, 0.85, cell, genMobsList(), 5);
 	}
 
 	@Override
 	public void draw(Graphics2D graphics, int taille) {
 		graphics.setColor(super.getColor()); // Couleur du mob
 		int startingPointx = taille + super.getCurrentCell().j() * taille;
-		int startingPointy = taille + super.getCurrentCell().i()* taille;
-		graphics.fillOval(startingPointx,startingPointy,taille/2,taille/2);
-		
+		int startingPointy = taille + super.getCurrentCell().i() * taille;
+		graphics.fillOval(startingPointx, startingPointy, taille / 2, taille / 2);
+
 		graphics.setColor(Color.black); // Contour du mob
-		graphics.drawOval(startingPointx,startingPointy,taille/2,taille/2);
-		
+		graphics.drawOval(startingPointx, startingPointy, taille / 2, taille / 2);
+
 	}
 
 	private static ArrayList<Droppable> genMobsList() {
@@ -33,25 +33,24 @@ public class Skeleton extends Mobs{
 		MOBS_DROPPABLE_ITEMS.addAll(LoopHeroGameData.MOBS_DROPPABLE_ITEMS);
 		return MOBS_DROPPABLE_ITEMS;
 	}
-	
+
 	@Override
 	public void drawInCombat(Graphics2D graphics, int taille) {
 		graphics.setColor(super.getColor()); // Couleur du mob
 		int startingPointx = taille + 15 * taille;
-		int startingPointy = taille + 6* taille;
-		graphics.fillOval(startingPointx+taille,startingPointy,taille/2,taille/2);
-		
+		int startingPointy = taille + 6 * taille;
+		graphics.fillOval(startingPointx + taille, startingPointy, taille / 2, taille / 2);
+
 		graphics.setColor(Color.black); // Contour du mob
-		graphics.drawOval(startingPointx+taille,startingPointy,taille/2,taille/2);
-		
-		
+		graphics.drawOval(startingPointx + taille, startingPointy, taille / 2, taille / 2);
+
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		return true;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return super.hashCode();

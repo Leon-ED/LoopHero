@@ -14,14 +14,14 @@ import fr.but.loopHero.mobs.SkeletonArcher;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
 
-public class Cemetery extends PlacedTiles{
-	
+public class Cemetery extends PlacedTiles {
+
 	private int lastSpawn;
-	
+
 	private Mobs spawnedMobs;
 
 	public Cemetery() {
-		super("Cemetery", new Wasteland(), new Color(0,69,116));
+		super("Cemetery", new Wasteland(), new Color(0, 69, 116));
 		this.lastSpawn = -1;
 		this.spawnedMobs = null;
 	}
@@ -32,24 +32,23 @@ public class Cemetery extends PlacedTiles{
 	}
 
 	@Override
-	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
+	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau, LoopHeroGameData datas,
+			Cell cell) {
 		if (spawnedMobs == null || spawnedMobs.isDead()) {
-			if((lastSpawn == -1 || lastSpawn >= 3)) {
+			if ((lastSpawn == -1 || lastSpawn >= 3)) {
 				lastSpawn = 0;
 				Random r = new Random();
-				
+
 				Mobs squeleton;
-				if(r.nextInt(2) == 0)
+				if (r.nextInt(2) == 0)
 					squeleton = new Skeleton(cell);
 				else
 					squeleton = new SkeletonArcher(cell);
 				spawnedMobs = squeleton;
 				cell.addMob(squeleton);
-				//System.out.println(cell.hasMob());	
-			}
-			else
+			} else
 				lastSpawn++;
 		}
-		
+
 	}
 }

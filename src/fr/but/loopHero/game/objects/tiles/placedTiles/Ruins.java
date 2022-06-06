@@ -9,7 +9,6 @@ import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.game.objects.tiles.Tile;
 import fr.but.loopHero.game.objects.tiles.Wasteland;
 import fr.but.loopHero.mobs.Mobs;
-import fr.but.loopHero.mobs.Ratwolf;
 import fr.but.loopHero.mobs.ScorchWorm;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
@@ -46,7 +45,6 @@ public class Ruins extends PlacedTiles {
 
 	@Override
 	public Tile generateNew() {
-		// TODO Auto-generated method stub
 		return new Ruins();
 	}
 	

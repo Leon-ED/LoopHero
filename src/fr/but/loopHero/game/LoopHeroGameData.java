@@ -31,26 +31,18 @@ import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
 
 public class LoopHeroGameData {
-	
-	/*
-	 * 
-	 * 
-	 * METHODES STATIQUES !!!!!!
-	 * 
-	 * 
-	 * 
-	 */
+
 	public static int LEVEL = 1;
 	public static final Color BG_COLOR = Color.WHITE;
 	public static final Color TXT_COLOR_BLK = Color.BLACK;
 	public static final Color TXT_COLOR_WHT = Color.WHITE;
 	public static final Color TXT_COLOR_ERROR = Color.RED;
-	public static final Color TXT_COLOR_WARNING = Color.YELLOW;	
+	public static final Color TXT_COLOR_WARNING = Color.YELLOW;
 	public static final int INV_WIDTH = 4;
 	public static final int INV_HEIGHT = 3;
-	
-	public static final Path GAME_RECAP_PATH  = Paths.get("./files/recap.txt");
-	public static final Path GAME_SAVE_PATH  = Paths.get("./files/save.hero");
+
+	public static final Path GAME_RECAP_PATH = Paths.get("./files/recap.txt");
+	public static final Path GAME_SAVE_PATH = Paths.get("./files/save.hero");
 	public static int KILLED_ENEMIES = 0;
 	public static int LOST_HP = 0;
 	public static int USED_ITEMS = 0;
@@ -60,27 +52,22 @@ public class LoopHeroGameData {
 	public static int ATTACKS;
 	public static int TAKEN_DAMAGES;
 	public static int MADE_DAMAGES;
-	
-	
+
 	public static Path BOUCLE_PATH = Paths.get("./files/board.txt");
-	
+
 	public static final ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<>();
 	public static final ArrayList<Mobs> SPAWNABLE_MOBS = new ArrayList<>();
-	
-	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()),new Card("Rock", new Rock())
-			
-			
-			);
-	// 
-	public static final List<Placement> EQUIPED_EQUIPEMENT_ORDER = List.of(
-			Placement.Weapon,Placement.Empty,Placement.Empty,Placement.Empty,
-			Placement.Ring,Placement.Empty,Placement.Empty,Placement.Empty,
-			Placement.Shield,Placement.Armor,Placement.Empty,Placement.Empty);
 
-	
-	
+	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()), new Card("Rock", new Rock()),
+			new Card("Meadow", new Meadow())
+
+	);
+	public static final List<Placement> EQUIPED_EQUIPEMENT_ORDER = List.of(Placement.Weapon, Placement.Empty,
+			Placement.Empty, Placement.Empty, Placement.Ring, Placement.Empty, Placement.Empty, Placement.Empty,
+			Placement.Shield, Placement.Armor, Placement.Empty, Placement.Empty);
+
 	public static void generateDroppableItems() {
-		//Cartes
+		// Cartes
 		MOBS_DROPPABLE_ITEMS.add(new Card("Grove", new Grove()));
 		MOBS_DROPPABLE_ITEMS.add(new Card("Rock", new Rock()));
 		MOBS_DROPPABLE_ITEMS.add(new Card("Meadow", new Meadow()));
@@ -92,10 +79,8 @@ public class LoopHeroGameData {
 		MOBS_DROPPABLE_ITEMS.add(new Card("Village", new Village()));
 		MOBS_DROPPABLE_ITEMS.add(new Card("Ruins", new Ruins()));
 		MOBS_DROPPABLE_ITEMS.add(new Card("Wheat Fields", new WheatFields()));
-		
-//
-//		
-//		//Equipement
+
+		// Equipement
 		MOBS_DROPPABLE_ITEMS.add(new Weapon("Epee"));
 		MOBS_DROPPABLE_ITEMS.add(new Weapon("Hache"));
 		MOBS_DROPPABLE_ITEMS.add(new Weapon("Couteau"));
@@ -104,144 +89,114 @@ public class LoopHeroGameData {
 		MOBS_DROPPABLE_ITEMS.add(Equipement.newRing("Anneau"));
 		MOBS_DROPPABLE_ITEMS.add(Equipement.newRing("Bague"));
 		MOBS_DROPPABLE_ITEMS.add(Equipement.newRing("Anubis"));
-		
-	}
-	
-	
 
+	}
 
 	public static void generateMobsList() {
 		SPAWNABLE_MOBS.add(new Slime(null));
 	}
-	
-	
-	/*
-	 * 
-	 * 
-	 * METHODES PAS STATIQUES !!!!!!
-	 * 
-	 * 
-	 * 
-	 */
-	
-	
-	
+
 	public static Cell selectedCell;
 	private Card selectedCard;
 	private Equipement selectedEquipement;
 	private Placement selectedInventoryEquipement;
-	
+
 	public LoopHeroGameData() {
 		LoopHeroGameData.selectedCell = null;
 		this.selectedCard = null;
 		this.selectedEquipement = null;
 	}
 
-	public void selectCell (Cell cell) {
+	public void selectCell(Cell cell) {
 		LoopHeroGameData.selectedCell = cell;
 	}
-
 
 	public void selectCard(Droppable droppable) {
 		try {
 			Card card = (Card) droppable;
 			this.selectedCard = card;
-			
-		}catch(ClassCastException e) {
-			// Ne devrait pas arriver !
-		throw new IllegalArgumentException("seulement entrer une carte en paramètres !");
-		}
-	
-		
-	}
 
+		} catch (ClassCastException e) {
+			// Ne devrait pas arriver !
+			throw new IllegalArgumentException("seulement entrer une carte en paramètres !");
+		}
+
+	}
 
 	public Cell getSelectedCell() {
 		return selectedCell;
 	}
-
 
 	public Card getSelectedCard() {
 		// TODO Auto-generated method stub
 		return selectedCard;
 	}
 
-	
 	public boolean canBePlaced() {
 
-		if(selectedCard == null || selectedCell == null)
+		if (selectedCard == null || selectedCell == null)
 			return false;
-		if(selectedCard.displayName().equalsIgnoreCase("OBLIVION"))
+		if (selectedCard.displayName().equalsIgnoreCase("OBLIVION"))
 			return true;
-		
+
 		return selectedCell.type().allowToPlace(selectedCard);
 
-		
 	}
-
 
 	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau) {
 		Cell[][] matricePlateau = plateau.getBoardMatrix();
-		
+
 		for (Cell[] cells : matricePlateau) {
 			for (Cell cell : cells) {
-				cell.type().doNewDayEffects(context, hero,plateau,this,cell);
-			
+				cell.type().doNewDayEffects(context, hero, plateau, this, cell);
+
 			}
 		}
-		
-		
-		
-		
+
 	}
-	
+
 	public void doNewLoopEffects(ApplicationContext context, Player hero, Board plateau) {
 		Cell[][] matricePlateau = plateau.getBoardMatrix();
-		
+
 		for (Cell[] cells : matricePlateau) {
 			for (Cell cell : cells) {
-				cell.type().doNewLoopEffects(context, hero,plateau,this,cell);
-			
+				cell.type().doNewLoopEffects(context, hero, plateau, this, cell);
+
 			}
 		}
-		
-		
-		
-		
+
 	}
 
-
-	public boolean selectEquipement(ArrayList<Droppable> liste,int index) {
+	public boolean selectEquipement(ArrayList<Droppable> liste, int index) {
 		try {
-		this.selectedEquipement = (Equipement) liste.get(index);
-		return true;
-		}catch(IndexOutOfBoundsException e) {
+			this.selectedEquipement = (Equipement) liste.get(index);
+			return true;
+		} catch (IndexOutOfBoundsException e) {
 			this.selectedEquipement = null;
-			return false;	
+			return false;
 		}
 	}
-	
+
 	public Equipement getSelectedEquipement() {
 		return selectedEquipement;
-	}	
-	
+	}
+
 	public boolean selectEquipementPlacement(int index) {
 		try {
-		this.selectedInventoryEquipement = EQUIPED_EQUIPEMENT_ORDER.get(index);
-		return true;
-		}catch(IndexOutOfBoundsException e) {
+			this.selectedInventoryEquipement = EQUIPED_EQUIPEMENT_ORDER.get(index);
+			return true;
+		} catch (IndexOutOfBoundsException e) {
 			this.selectedInventoryEquipement = null;
-			return false;	
+			return false;
 		}
 	}
-	
+
 	public Placement getSelectedInventoryPlacement() {
 		return selectedInventoryEquipement;
 	}
 
-
 	public boolean canPlaceEquipement() {
 		return selectedEquipement.placement() == getSelectedInventoryPlacement();
 	}
-	
+
 }

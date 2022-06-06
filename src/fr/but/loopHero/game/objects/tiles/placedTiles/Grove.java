@@ -27,18 +27,15 @@ public class Grove extends PlacedTiles implements Serializable {
 		return builder.toString();
 	}
 
-
 	private int lastSpawn;
-	
+
 	private Mobs spawnedMobs;
-	
+
 	public Grove() {
 		super("Grove", new Wasteland(), Color.GREEN.darker());
 		this.lastSpawn = -1;
 		this.spawnedMobs = null;
 	}
-	
-	
 
 	public Grove(String name, Tile parentTile, Color color, int lastSpawn, Mobs spawnedMobs) {
 		super(name, parentTile, color);
@@ -46,63 +43,26 @@ public class Grove extends PlacedTiles implements Serializable {
 		this.spawnedMobs = spawnedMobs;
 	}
 
-
-
 	@Override
-	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
-		//moveSpawnedRatWolf(plateau);
+	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau, LoopHeroGameData datas,
+			Cell cell) {
 		if (spawnedMobs == null || spawnedMobs.isDead()) {
-			if((lastSpawn == -1 || lastSpawn >= 2)) {
+			if ((lastSpawn == -1 || lastSpawn >= 2)) {
 				lastSpawn = 0;
 				Mobs mob = new Ratwolf(cell);
 				spawnedMobs = mob;
 				cell.addMob(mob);
-				//System.out.println(cell.hasMob());	
-			}
-			else
+			} else
 				lastSpawn++;
 		}
-		
+
 	}
-	
-	
-//	private void moveSpawnedRatWolf(Board plateau) {
-//		for (Mobs mobs : spawnedMobs) {
-//			Cell cell = mobs.getCurrentCell();
-//			
-//			cell.removeMob(mobs);
-//			System.out.println(cell.hasMob() +" ancienne");
-//			
-//			int index = cell.getIndex();
-//			int max = plateau.getlistCellsLoop().size()-1;
-//			
-//			Random rand = new Random();
-//			int rand_number = rand.nextInt(3);
-//			List<Integer> deplacements = List.of(-1,0,1);
-//			rand_number = deplacements.get(rand_number);
-//
-//			if(index+rand_number < 0 || rand_number+index >= max || plateau.getlistCellsLoop().get(rand_number+index).hasMob())
-//				return;
-//			
-//			
-//			plateau.getlistCellsLoop().get(rand_number+index).addMob(mobs);
-//			System.out.println(plateau.getlistCellsLoop().get(rand_number+index).hasMob() +" nouvelle");
-//			
-//			mobs.changeCell(plateau.getlistCellsLoop().get(rand_number+index));
-//			
-//			
-//			
-//		}
-//	}
+
+
 
 	@Override
 	public Tile generateNew() {
-		// TODO Auto-generated method stub
 		return new Grove();
 	}
-	
-	
-	
-	
 
 }

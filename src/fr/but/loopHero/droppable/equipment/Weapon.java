@@ -2,23 +2,20 @@ package fr.but.loopHero.droppable.equipment;
 
 import java.util.Objects;
 
-import fr.but.loopHero.droppable.Rarity;
 import fr.but.loopHero.game.LoopHeroGameData;
-import fr.umlv.zen5.ApplicationContext;
 
 public class Weapon extends Equipement {
-	
+
 	private final int minAttack;
 	private final int maxAttack;
 
 	public Weapon(String name) {
-		super(name, randomRarity(), LoopHeroGameData.LEVEL, 5*LoopHeroGameData.LEVEL, Modifier.Damage, 0,Placement.Weapon);
-		this.minAttack = 4*LoopHeroGameData.LEVEL;
-		this.maxAttack = 6*LoopHeroGameData.LEVEL;
+		super(name, randomRarity(), LoopHeroGameData.LEVEL, 5 * LoopHeroGameData.LEVEL, Modifier.Damage, 0,
+				Placement.Weapon);
+		this.minAttack = 4 * LoopHeroGameData.LEVEL;
+		this.maxAttack = 6 * LoopHeroGameData.LEVEL;
 	}
 
-
-	
 	public int[] weaponModifierInteger() {
 		int[] vies = new int[2];
 		vies[0] = minAttack;
@@ -48,9 +45,8 @@ public class Weapon extends Equipement {
 
 	@Override
 	public Equipement makeNew(String name) {
-		
+
 		return new Weapon(name);
 	}
-	
 
 }

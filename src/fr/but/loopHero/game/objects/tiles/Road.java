@@ -9,7 +9,7 @@ public class Road extends Tile {
 	public Road(String name, Color color) {
 		super(name, color);
 	}
-	
+
 	public Road(String name) {
 		super(name);
 	}
@@ -29,8 +29,7 @@ public class Road extends Tile {
 			return false;
 		return true;
 	}
-	
-	
+
 	@Override
 	public boolean allowToPlace(Card card) {
 		return card.cardType().getParentTile().getClass().equals(this.getClass());
@@ -40,5 +39,5 @@ public class Road extends Tile {
 	public Tile generateNew() {
 		return new Wasteland();
 	}
-	
+
 }

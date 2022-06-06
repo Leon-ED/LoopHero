@@ -9,7 +9,6 @@ import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.game.objects.Tuple;
 import fr.but.loopHero.game.objects.tiles.LandScape;
-import fr.but.loopHero.game.objects.tiles.Road;
 import fr.but.loopHero.game.objects.tiles.Tile;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
@@ -17,24 +16,19 @@ import fr.umlv.zen5.ApplicationContext;
 public class Rock extends PlacedTiles {
 
 	private boolean placedEffectDone = false;
-	
-	
+
 	public Rock() {
 		super("Rock", new LandScape("Rock"), Color.black);
-		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 	@Override
-	public void doEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas) {
-		
+	public void doEffects(ApplicationContext context, Player hero, Board plateau, LoopHeroGameData datas) {
+
 		if (!placedEffectDone) {
-			hero.increaseMaxHealth( (int)(hero.getHealths()[1]*0.01));
+			hero.increaseMaxHealth((int) (hero.getHealths()[1] * 0.01));
 		}
 	}
-	
-	
+
 	public static void doNeighborsEffects(Board plateau, Cell cell, Player hero) {
 		int i = cell.i();
 		int j = cell.j();
@@ -45,21 +39,19 @@ public class Rock extends PlacedTiles {
 		for (Tuple tuple : listIndex) {
 			int x = tuple.i();
 			int y = tuple.j();
-			if (!plateau.isOutOfBounds(x+i, y+j)) {
-				Cell celle = boardMatrix[x+i][y+j];
-				if(celle.type() instanceof Rock) {
+			if (!plateau.isOutOfBounds(x + i, y + j)) {
+				Cell celle = boardMatrix[x + i][y + j];
+				if (celle.type() instanceof Rock) {
 					liste.add(celle);
 				}
-			
-			
+
 			}
 		}
-		
-		System.out.println(liste );
+
 		for (Cell cellToAdd : liste) {
 			if (cellToAdd.type() instanceof Rock) {
 				System.out.println("ok");
-				hero.increaseMaxHealth( (int)(hero.getHealths()[1]*0.01));
+				hero.increaseMaxHealth((int) (hero.getHealths()[1] * 0.01));
 			}
 		}
 	}

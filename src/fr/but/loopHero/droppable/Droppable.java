@@ -6,8 +6,8 @@ public interface Droppable {
 
 	void draw(ApplicationContext context, int i);
 
-	void draw(ApplicationContext context, int i,int j);
-	
+	void draw(ApplicationContext context, int i, int j);
+
 	String displayName();
 
 }

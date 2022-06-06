@@ -14,14 +14,14 @@ public class Meadow extends PlacedTiles {
 
 	// Peut a changer pour éviter un overflow !!!!!!!
 
-	
 	public Meadow() {
-		super("Meadow", new LandScape("Meadow"), new Color(53,103,23));
+		super("Meadow", new LandScape("Meadow"), new Color(53, 103, 23));
 
 	}
 
 	@Override
-	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
+	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau, LoopHeroGameData datas,
+			Cell cell) {
 		hero.regenHero(2);
 	}
 
@@ -30,5 +30,5 @@ public class Meadow extends PlacedTiles {
 		// TODO Auto-generated method stub
 		return new Meadow();
 	}
-	
+
 }
