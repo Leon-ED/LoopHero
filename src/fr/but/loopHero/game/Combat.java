@@ -66,9 +66,11 @@ public class Combat {
 			try {Thread.sleep(500);} catch (InterruptedException e) {	e.printStackTrace(); }    		
 		
     	while(!(mob.isDead() || hero.isDead())) {
-    		graphics.drawBar(context,350, timedata.timeFraction(),0,0,Color.GREEN,10);
+    		
     		// Si les 1 secondes sont passées
     		if(timedata.readyToAttack()) {
+    			graphics.drawBar(context,350, timedata.timeFraction(),0,0,Color.GREEN,10);
+    			
     			// On dessine le stats du mobs
     			
     			

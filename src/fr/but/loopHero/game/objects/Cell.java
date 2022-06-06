@@ -2,9 +2,11 @@ package fr.but.loopHero.game.objects;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import fr.but.loopHero.game.objects.tiles.LandScape;
+import fr.but.loopHero.game.objects.tiles.Road;
 import fr.but.loopHero.game.objects.tiles.Tile;
 import fr.but.loopHero.mobs.Mobs;
 
@@ -92,6 +94,23 @@ public class Cell {
 		}
 		Cell cell = (Cell) obj;
 		return i == cell.i && j == cell.j && cell.type.equals(type);
+	}
+
+	public ArrayList<Cell> getAdjacentsCells(Tile tipe, Board plateau,int i, int j) {
+		List<Tuple> listIndex = Tuple.getAdjactentsPos();
+		Cell[][] boardMatrix = plateau.getBoardMatrix();
+		for (Tuple tuple : listIndex) {
+			int x = tuple.i();
+			int y = tuple.j();
+			if (!plateau.isOutOfBounds(x+i, y+j)) {
+				Cell celle = boardMatrix[x+i][y+j];
+				Tile tilee = celle.type;
+				System.out.println(tipe instanceof tilee);
+			
+			
+			}
+		}
+		
 	}
 
 		

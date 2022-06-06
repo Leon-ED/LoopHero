@@ -23,6 +23,7 @@ import fr.but.loopHero.game.objects.tiles.placedTiles.Cemetery;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Grove;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Meadow;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Rock;
+import fr.but.loopHero.game.objects.tiles.placedTiles.Spider_Coccon;
 import fr.but.loopHero.mobs.Mobs;
 import fr.but.loopHero.mobs.Slime;
 import fr.but.loopHero.player.Player;
@@ -51,7 +52,7 @@ public class LoopHeroGameData {
 	public static final ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<>();
 	public static final ArrayList<Mobs> SPAWNABLE_MOBS = new ArrayList<>();
 	
-	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()),new Card("Cemetery", new Cemetery()));
+	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()),new Card("Spider Coccon", new Spider_Coccon()));
 	// 
 	public static final List<Placement> EQUIPED_EQUIPEMENT_ORDER = List.of(
 			Placement.Weapon,Placement.Empty,Placement.Empty,Placement.Empty,

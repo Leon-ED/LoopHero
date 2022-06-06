@@ -144,7 +144,14 @@ public class Board {
 	}
     
 
-    	
+    public boolean isOutOfBounds(int i, int j) {
+    	try {
+    		Cell cell = boardMatrix[i][j];
+    		return false;
+		} catch (Exception e) {
+			return true;
+		}
+    }
     	
 	
     
