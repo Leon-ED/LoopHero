@@ -46,6 +46,7 @@ public class SaveDatas {
 
 	}
 
+	@SuppressWarnings("unused")
 	private void save_game(Path gameSavePath) {
 		Player p1 = new Player();
 		Player p2 = null;
@@ -65,8 +66,7 @@ public class SaveDatas {
 			e.printStackTrace();
 		}
 
-		System.out.println(p1);
-		System.out.println(p2);
+
 
 	}
 

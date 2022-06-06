@@ -64,7 +64,6 @@ public abstract class Equipement implements Droppable {
 		int lvl = LoopHeroGameData.LEVEL;
 		switch (mod) {
 		case Counter -> {
-			System.out.println("DEGATS : " + 8 + (lvl - 1) * 4);
 			return 8 + (lvl - 1) * 4;
 		}
 		case Vampirism -> {

@@ -50,7 +50,6 @@ public class Rock extends PlacedTiles {
 
 		for (Cell cellToAdd : liste) {
 			if (cellToAdd.type() instanceof Rock) {
-				System.out.println("ok");
 				hero.increaseMaxHealth((int) (hero.getHealths()[1] * 0.01));
 			}
 		}

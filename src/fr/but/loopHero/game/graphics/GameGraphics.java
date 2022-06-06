@@ -419,7 +419,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 	}
 
 	public void drawDeathScreen(ApplicationContext context, Player hero, Combat combat) {
-
+		drawString(context, "LE HERO EST MORT, VIVE LE HERO !", Color.BLACK, 50, 0, 500);
 	}
 
 	public void drawString(ApplicationContext context, String string, Color color, int taille, int x, int y) {

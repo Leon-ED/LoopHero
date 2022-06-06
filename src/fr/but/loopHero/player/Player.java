@@ -24,7 +24,7 @@ public class Player implements Serializable {
 	 */
 	private static final long serialVersionUID = 4159983737061660996L;
 	private final int maxHealth_default = 250;
-	private int maxHealth = 250;
+	private int maxHealth = 0;
 	private int currentHealth = maxHealth;
 	private double regenPerSecond = 0;
 
