@@ -1,55 +1,55 @@
 package fr.but.loopHero.game.objects.tiles.placedTiles;
 
 import java.awt.Color;
-import java.util.Random;
-
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
 import fr.but.loopHero.game.objects.tiles.Tile;
 import fr.but.loopHero.game.objects.tiles.Wasteland;
 import fr.but.loopHero.mobs.Mobs;
-import fr.but.loopHero.mobs.Skeleton;
-import fr.but.loopHero.mobs.SkeletonArcher;
+import fr.but.loopHero.mobs.Ratwolf;
+import fr.but.loopHero.mobs.ScorchWorm;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
 
-public class Cemetery extends PlacedTiles{
-	
+public class Ruins extends PlacedTiles {
+
 	private int lastSpawn;
 	
 	private Mobs spawnedMobs;
-
-	public Cemetery() {
-		super("Cemetery", new Wasteland(), new Color(0,69,116));
+	
+	public Ruins() {
+		super("Ruins", new Wasteland(), Color.YELLOW.darker().darker().darker());
 		this.lastSpawn = -1;
 		this.spawnedMobs = null;
 	}
 
 	@Override
-	public Tile generateNew() {
-		return new Cemetery();
-	}
-
-	@Override
 	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
 		if (spawnedMobs == null || spawnedMobs.isDead()) {
-			if((lastSpawn == -1 || lastSpawn >= 3)) {
+			if((lastSpawn == -1 || lastSpawn >= 2)) {
 				lastSpawn = 0;
-				Random r = new Random();
+				Mobs mob = new ScorchWorm(cell);
+				spawnedMobs = mob;
+				cell.addMob(mob);
 				
-				Mobs squeleton;
-				if(r.nextInt(2) == 0)
-					squeleton = new Skeleton(cell);
-				else
-					squeleton = new SkeletonArcher(cell);
-				spawnedMobs = squeleton;
-				cell.addMob(squeleton);
-				//System.out.println(cell.hasMob());	
 			}
 			else
 				lastSpawn++;
 		}
 		
 	}
+	
+
+
+	@Override
+	public Tile generateNew() {
+		// TODO Auto-generated method stub
+		return new Ruins();
+	}
+	
+	
+	
+	
+
 }

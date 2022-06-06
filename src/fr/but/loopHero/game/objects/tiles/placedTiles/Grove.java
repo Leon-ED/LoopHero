@@ -27,7 +27,7 @@ public class Grove extends PlacedTiles {
 	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
 		//moveSpawnedRatWolf(plateau);
 		if (spawnedMobs == null || spawnedMobs.isDead()) {
-			if((lastSpawn == -1 || lastSpawn >= 1)) {
+			if((lastSpawn == -1 || lastSpawn >= 2)) {
 				lastSpawn = 0;
 				Mobs mob = new Ratwolf(cell);
 				spawnedMobs = mob;

@@ -44,6 +44,7 @@ public class Main {
         	}
         	
         	Cell heroCurrentCell = plateau.getlistCellsLoop().get(hero.getCurrentCellIndex());
+        	heroCurrentCell.type().doHeroOnEffect(context, hero, plateau, gameData, heroCurrentCell);
         	
         	if(Combat.combatAvailable(heroCurrentCell) && ! loopHeroTimeData.stopped() ) {
         		loopHeroGraphics.drawHero(plateau, context, hero);

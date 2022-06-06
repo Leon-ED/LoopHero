@@ -65,6 +65,10 @@ public abstract class Tile {
 	public void doNewLoopEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
 		
 	}
+	
+	public void doHeroOnEffect(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
+		
+	}
 	public Tile generateNew() {
 		return null;
 		
