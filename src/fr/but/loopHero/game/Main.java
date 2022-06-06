@@ -62,6 +62,7 @@ public class Main {
         	plateau.getlistCellsLoop().get(0).type().doNewDayEffects(context, hero, plateau, gameData, null);
         	loopHeroGraphics.drawMobs(context, plateau);
         	//loopHeroGraphics.drawHero(plateau, context, hero, loopHeroTimeData,hero.getCurrentCellIndex());
+        	
         	doEvent(context);
         	
 
@@ -111,10 +112,13 @@ public class Main {
 
     
     private void doEvent(ApplicationContext context) {
+    	
     	Event event = context.pollOrWaitEvent(TimeData.HERO_DELAY);
 		if (event == null) { // no event
+			System.out.println("DO EVENT !!");
 			return;
 		}
+		System.out.println("ON A UN EVENT");
 		switch (event.getAction()) {
 		case KEY_PRESSED:
 			doKeyAction(context, event);
@@ -215,10 +219,8 @@ public class Main {
 			return;
 		System.out.println(gameData.getSelectedInventoryPlacement().toString());
 		if(!gameData.canPlaceEquipement()) {
-			System.out.println("non");
 			return;
 		}
-		System.out.println("oui");
 		loopHeroGraphics.drawEquipement(context, gameData.getSelectedEquipement(), i, j);
 		hero.equipEquipement(gameData.getSelectedEquipement());
 		loopHeroGraphics.drawHeroInformations(context, hero);

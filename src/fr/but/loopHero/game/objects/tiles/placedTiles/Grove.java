@@ -1,10 +1,6 @@
 package fr.but.loopHero.game.objects.tiles.placedTiles;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
@@ -19,58 +15,60 @@ public class Grove extends PlacedTiles {
 
 	private int lastSpawn;
 	
-	private final ArrayList<Mobs> spawnedRatwolf;
+	private Mobs spawnedMobs;
 	
 	public Grove() {
 		super("Grove", new Wasteland(), Color.GREEN.darker());
-		this.lastSpawn = 0;
-		this.spawnedRatwolf = new ArrayList<>();
-		// TODO Auto-generated constructor stub
+		this.lastSpawn = -1;
+		this.spawnedMobs = null;
 	}
 
 	@Override
 	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
 		//moveSpawnedRatWolf(plateau);
-		if(lastSpawn == 0 || datas.LEVEL >= lastSpawn+2) {
-			lastSpawn = datas.LEVEL;
-			Mobs rat = new Ratwolf(cell);
-			spawnedRatwolf.add(rat);
-			cell.addMob(rat);
-			System.out.println(cell.hasMob());
-			
+		if (spawnedMobs == null || spawnedMobs.isDead()) {
+			if((lastSpawn == -1 || lastSpawn >= 1)) {
+				lastSpawn = 0;
+				Mobs mob = new Ratwolf(cell);
+				spawnedMobs = mob;
+				cell.addMob(mob);
+				System.out.println(cell.hasMob());	
+			}
+			else
+				lastSpawn++;
 		}
 		
 	}
 	
 	
-	private void moveSpawnedRatWolf(Board plateau) {
-		for (Mobs mobs : spawnedRatwolf) {
-			Cell cell = mobs.getCurrentCell();
-			
-			cell.removeMob(mobs);
-			System.out.println(cell.hasMob() +" ancienne");
-			
-			int index = cell.getIndex();
-			int max = plateau.getlistCellsLoop().size()-1;
-			
-			Random rand = new Random();
-			int rand_number = rand.nextInt(3);
-			List<Integer> deplacements = List.of(-1,0,1);
-			rand_number = deplacements.get(rand_number);
-
-			if(index+rand_number < 0 || rand_number+index >= max || plateau.getlistCellsLoop().get(rand_number+index).hasMob())
-				return;
-			
-			
-			plateau.getlistCellsLoop().get(rand_number+index).addMob(mobs);
-			System.out.println(plateau.getlistCellsLoop().get(rand_number+index).hasMob() +" nouvelle");
-			
-			mobs.changeCell(plateau.getlistCellsLoop().get(rand_number+index));
-			
-			
-			
-		}
-	}
+//	private void moveSpawnedRatWolf(Board plateau) {
+//		for (Mobs mobs : spawnedMobs) {
+//			Cell cell = mobs.getCurrentCell();
+//			
+//			cell.removeMob(mobs);
+//			System.out.println(cell.hasMob() +" ancienne");
+//			
+//			int index = cell.getIndex();
+//			int max = plateau.getlistCellsLoop().size()-1;
+//			
+//			Random rand = new Random();
+//			int rand_number = rand.nextInt(3);
+//			List<Integer> deplacements = List.of(-1,0,1);
+//			rand_number = deplacements.get(rand_number);
+//
+//			if(index+rand_number < 0 || rand_number+index >= max || plateau.getlistCellsLoop().get(rand_number+index).hasMob())
+//				return;
+//			
+//			
+//			plateau.getlistCellsLoop().get(rand_number+index).addMob(mobs);
+//			System.out.println(plateau.getlistCellsLoop().get(rand_number+index).hasMob() +" nouvelle");
+//			
+//			mobs.changeCell(plateau.getlistCellsLoop().get(rand_number+index));
+//			
+//			
+//			
+//		}
+//	}
 
 	@Override
 	public Tile generateNew() {

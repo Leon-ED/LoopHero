@@ -1,5 +1,6 @@
 package fr.but.loopHero.game;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -65,8 +66,12 @@ public class Combat {
 			try {Thread.sleep(500);} catch (InterruptedException e) {	e.printStackTrace(); }    		
 		
     	while(!(mob.isDead() || hero.isDead())) {
+    		graphics.drawBar(context,350, timedata.timeFraction(),0,0,Color.GREEN,10);
     		// Si les 1 secondes sont passées
     		if(timedata.readyToAttack()) {
+    			// On dessine le stats du mobs
+    			
+    			
     			// Le joueur attaque
     			if(attaquant == 0) {
     				attaquant = 1;

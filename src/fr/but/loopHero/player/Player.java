@@ -329,6 +329,7 @@ public class Player {
 			ring = (Ring) selectedEquipement;
 		}
 		changeStats(selectedEquipement.getModifier(),selectedEquipement.getModifierValue(),true);
+		
 		playerEquipedEquipement.add(selectedEquipement);
 		getEquipementInventory().remove(selectedEquipement);
 		

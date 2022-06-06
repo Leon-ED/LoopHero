@@ -238,7 +238,6 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 		
 		
 		private void drawInventoryEquipements(ApplicationContext context,Player hero,ArrayList<Droppable> Equipements) {
-			System.out.println(Equipements.size()+ "taille");
 			context.renderFrame( graphics ->{
 				graphics.setColor(LoopHeroGameData.BG_COLOR);
 				graphics.fillRect(xOrigin+taille*23, yOrigin+taille*4, taille*4, taille*3);
@@ -292,18 +291,17 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 			int startX = 0;
 			int startY = 0;
 			context.renderFrame(graphics->{
-				System.out.println("oui"+i+" "+j);
-						graphics.setColor(droppable.getColor());
-						int x = startX + (xOrigin + j*taille);
-						int y = startY + (yOrigin + (i*taille));		
-						graphics.fillRect(x, y, taille, taille);	
-						drawString(context, droppable.displayName(), Color.BLACK, 15, x, y+taille-40);
-						drawString(context, "("+droppable.getValue()+")", Color.BLACK, 15, x, y+taille-25);
-						graphics.setColor(Color.black);
-						graphics.drawRect(x, y, taille, taille);
-						
-						//graphics.fillRect(x, y, 500, 500);
-						
+					graphics.setColor(droppable.getColor());
+					int x = startX + (xOrigin + j*taille);
+					int y = startY + (yOrigin + (i*taille));		
+					graphics.fillRect(x, y, taille, taille);	
+					drawString(context, droppable.displayName(), Color.BLACK, 15, x, y+taille-40);
+					drawString(context, "("+droppable.getValue()+")", Color.BLACK, 15, x, y+taille-25);
+					graphics.setColor(Color.black);
+					graphics.drawRect(x, y, taille, taille);
+					
+					//graphics.fillRect(x, y, 500, 500);
+					
 
 	
 			});
