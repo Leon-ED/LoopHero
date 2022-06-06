@@ -61,7 +61,7 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 					}
 					}
 				
-				drawSpeedIndicator(context,1);
+				drawSpeedIndicator(context,TimeData.SpeedIndicator);
 	
 			});
 		}
@@ -402,10 +402,10 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 				graphics.drawString("Défense : "+hero.defensePoints(), 1360, 690);
 				
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
-				graphics.drawString("Contre : "+hero.counterPercent()*100+"%", 1360, 730);
+				graphics.drawString("Contre : "+hero.counterPercent()+"%", 1360, 730);
 				
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
-				graphics.drawString("Esquive : "+hero.evadePercent()*100+"%", 1360, 770);
+				graphics.drawString("Esquive : "+hero.evadePercent()+"%", 1360, 770);
 				
 				graphics.setFont(new FontUIResource("Arial", 0, 25));
 				graphics.drawString("Régénération par sec : +"+(int)hero.regenPerSecond(), 1360, 810);

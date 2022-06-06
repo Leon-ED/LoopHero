@@ -72,7 +72,7 @@ public class Combat {
     				attaquant = 1;
     				int heroAttack = hero.attack();
     				CombatEffects usedSpecialEffect = mob.useSpecialEffect();
-    				int mobRealDamages = mob.takeDamage(heroAttack, usedSpecialEffect, graphics, context, attaque);    				
+    				int mobRealDamages = mob.takeDamage(Math.abs(heroAttack), usedSpecialEffect, graphics, context, attaque);    				
         			graphics.drawHealthInfos(context, mob.getHealths(),100,940,350,15); // Vie du mob
         			graphics.drawDamages(context,0,mobRealDamages,attaque);
 	

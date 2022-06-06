@@ -6,9 +6,10 @@ public class TimeData {
 	private long elapsedBob = 0; 	// elapsed time since last Bob reset()
 	
 	
-	private final static long COMBAT_ATTACK_COOLDOWN = 2_000;
+	private static long COMBAT_ATTACK_COOLDOWN = 2_000;
 	private long combatStartTick = 0;
 	private long combatLastAttackTick = 0;
+	public static int SpeedIndicator = 1;
 	
 	private boolean stopped;
 	
@@ -94,18 +95,18 @@ public class TimeData {
 		combatLastAttackTick = 0;
 	}
 
-	public int accelerateTime() {
+	public void accelerateTime() {
 		HERO_DELAY /= 2;
-		
-		return (int) HERO_DELAY_DEFAULT/HERO_DELAY;
+		COMBAT_ATTACK_COOLDOWN /= 2;
+		SpeedIndicator = HERO_DELAY_DEFAULT/HERO_DELAY;
 	}
 	
-	public int decelerateTime() {
+	public void decelerateTime() {
 		if (HERO_DELAY<HERO_DELAY_DEFAULT) {
 			HERO_DELAY *= 2;
 		}
-		
-		return (int) HERO_DELAY_DEFAULT/HERO_DELAY;
+		COMBAT_ATTACK_COOLDOWN *=2;
+		SpeedIndicator = HERO_DELAY_DEFAULT/HERO_DELAY;
 	}
 	
 }

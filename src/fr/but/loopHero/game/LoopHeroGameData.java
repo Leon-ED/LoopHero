@@ -61,16 +61,16 @@ public class LoopHeroGameData {
 	
 	public static void generateDroppableItems() {
 		//Cartes
-//		MOBS_DROPPABLE_ITEMS.add(new Card("Grove", new Grove()));
-//		MOBS_DROPPABLE_ITEMS.add(new Card("Rock", new Rock()));
-//		MOBS_DROPPABLE_ITEMS.add(new Card("Meadow", new Meadow()));
+		MOBS_DROPPABLE_ITEMS.add(new Card("Grove", new Grove()));
+		MOBS_DROPPABLE_ITEMS.add(new Card("Rock", new Rock()));
+		MOBS_DROPPABLE_ITEMS.add(new Card("Meadow", new Meadow()));
 //
 //		
 //		//Equipement
-//		MOBS_DROPPABLE_ITEMS.add(new Weapon("Epee"));
-//		MOBS_DROPPABLE_ITEMS.add(new Weapon("Hache"));
-//		MOBS_DROPPABLE_ITEMS.add(new Shield());
-//		MOBS_DROPPABLE_ITEMS.add(new Armor());
+		MOBS_DROPPABLE_ITEMS.add(new Weapon("Epee"));
+		MOBS_DROPPABLE_ITEMS.add(new Weapon("Hache"));
+		MOBS_DROPPABLE_ITEMS.add(new Shield());
+		MOBS_DROPPABLE_ITEMS.add(new Armor());
 		MOBS_DROPPABLE_ITEMS.add(Equipement.newRing("Anal"));
 	}
 	

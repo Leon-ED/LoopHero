@@ -10,6 +10,7 @@ import fr.but.loopHero.droppable.Droppable;
 import fr.but.loopHero.droppable.Ressource;
 import fr.but.loopHero.droppable.equipment.Equipement;
 import fr.but.loopHero.droppable.equipment.Modifier;
+import fr.but.loopHero.droppable.equipment.Ring;
 import fr.but.loopHero.droppable.equipment.Weapon;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.graphics.GameGraphics;
@@ -28,9 +29,11 @@ public class Player {
 	private int minDamagePoints = 4;
 	private int maxDamagePoints = 6;
 
-	private double counterPercent = 0.40;
+	private double counterPercent = 0.0;
 	private double evadePercent = 0.0;
 	private double vampirismPercent = 0.0;
+	
+	private Ring ring = null;
 	
 	private final ArrayList<ArrayList<Droppable>> playerInventory = new ArrayList<ArrayList<Droppable>>();
 	private final ArrayList<Equipement> playerEquipedEquipement = new ArrayList<>();
@@ -77,6 +80,7 @@ public class Player {
 	// Prends en param les degats supposements subis et retourne la vraie valeur en fonction des autres param.
 	public int takeDamage(int damages, CombatEffects usedSpecialEffect, GameGraphics graphics,ApplicationContext context,int attaque) {
 		if(usedSpecialEffect == null) {
+			//System.out.println("Il prend "+damages);
 			graphics.showEffect(context, attaque, "Le héro a perdu : "+damages+" HP", Color.RED);
 		int realDamages = damages-defensePoints;
 		currentHealth -= realDamages;
@@ -157,11 +161,11 @@ public class Player {
 			else
 				defensePoints = quantity;
 		}case MaximumHP ->{
-			//System.out.println(quantity +"vie plus");
+			System.out.println(quantity +"vie plus");
 			if(added) {
-				maxHealth += quantity;
+				maxHealth = quantity+(maxHealth-maxHealth_default);
 			}else {
-				maxHealth -= quantity;
+				maxHealth = quantity-(maxHealth-maxHealth_default);
 			}
 		}case Damage ->{
 			if(added) {
@@ -174,12 +178,14 @@ public class Player {
 			if(added) {
 				vampirismPercent = quantity;
 			}else {
+				vampirismPercent -= quantity;
 			
 			}
 		}case Counter ->{
 			if(added) {
 				counterPercent = quantity;
 			}else {
+				counterPercent -= quantity;
 			
 			}
 		}case Regen ->{
@@ -192,7 +198,7 @@ public class Player {
 			if(added) {
 				evadePercent = quantity;
 			}else {
-			
+				evadePercent -= quantity;
 			}
 		}
 		
@@ -313,10 +319,19 @@ public class Player {
 			getEquipementInventory().remove(weapon);
 			return;
 		}
-		
+		if (selectedEquipement instanceof Ring) {
+			System.out.println("RINGGGGGGGGGGGGGGGGGGGG A TRABLE");
+			if (ring != null) {
+				
+				changeStats(ring.getModifier(),ring.getModifierValue(),false);
+				
+			}
+			ring = (Ring) selectedEquipement;
+		}
 		changeStats(selectedEquipement.getModifier(),selectedEquipement.getModifierValue(),true);
 		playerEquipedEquipement.add(selectedEquipement);
 		getEquipementInventory().remove(selectedEquipement);
+		
 		
 	}
 	

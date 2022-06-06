@@ -80,8 +80,8 @@ public class Main {
 		}
 		case S -> {loopHeroTimeData.stop(); System.out.println("Jeux mis en pause");}
 		case D -> {loopHeroTimeData.start(); System.out.println("Reprise du jeux");}
-		case RIGHT ->  { loopHeroGraphics.drawSpeedIndicator(context,loopHeroTimeData.accelerateTime()); System.out.println("Accélération du temps");}
-		case LEFT ->  { loopHeroGraphics.drawSpeedIndicator(context,loopHeroTimeData.decelerateTime()); System.out.println("Ralentissement du temps");}
+		case RIGHT ->  { loopHeroTimeData.accelerateTime(); loopHeroGraphics.drawSpeedIndicator(context,TimeData.SpeedIndicator); System.out.println("Accélération du temps");}
+		case LEFT ->  { loopHeroTimeData.decelerateTime(); loopHeroGraphics.drawSpeedIndicator(context,TimeData.SpeedIndicator); System.out.println("Ralentissement du temps");}
 		
 		default -> System.out.println("Touche inactive : " + event.getKey());
 		}
@@ -263,7 +263,7 @@ public class Main {
 		gameData.selectCard(null);
 		gameData.selectCell(null);
 		loopHeroGraphics.drawInventory(context, hero);
-		
+		loopHeroGraphics.drawHeroInformations(context, hero);
 	
 
 		
