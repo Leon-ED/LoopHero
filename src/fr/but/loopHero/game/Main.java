@@ -222,6 +222,11 @@ public class Main {
 		
 			}
 		}
+		if((1400 <= location.x && location.x <= 1500) && (910 <= location.y && location.y <= 940)) {
+				System.out.println("Sauvegarde");
+			
+		}
+		
 		
 		
 
