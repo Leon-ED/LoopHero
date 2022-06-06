@@ -9,10 +9,10 @@ import fr.but.loopHero.droppable.Ressource;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.Cell;
 
-public class Spider extends Mobs{
+public class Chest extends Mobs{
 
-	public Spider(Cell cell) {
-		super("Araignee",-1,8,3.1,0.91,Color.black,0.45,cell,genMobsList(),10);
+	public Chest(Cell cell) {
+		super("Chest",-1,11,0.6,-1,new Color(133,80,20),1,cell,genMobsList(),0);
 	}
 
 	@Override
@@ -20,16 +20,17 @@ public class Spider extends Mobs{
 		graphics.setColor(super.getColor()); // Couleur du mob
 		int startingPointx = taille + super.getCurrentCell().j() * taille;
 		int startingPointy = taille + super.getCurrentCell().i()* taille;
-		graphics.fillOval(startingPointx,startingPointy,taille/4,taille/4);
+		graphics.fillRect(startingPointx,startingPointy,taille/3,taille/3);
 		
 		graphics.setColor(Color.black); // Contour du mob
-		graphics.drawOval(startingPointx,startingPointy,taille/4,taille/4);
+		graphics.drawRect(startingPointx,startingPointy,taille/3,taille/3);
+//		drawString(context, plateau.getBoardMatrix()[i][j].type().name(), Color.WHITE, 10, x, y);
 		
 	}
 
 	private static ArrayList<Droppable> genMobsList() {
 		ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<Droppable>();
-		MOBS_DROPPABLE_ITEMS.add(new Ressource("living_fabric")); // Ressources que le mob peut drop
+		MOBS_DROPPABLE_ITEMS.add(new Ressource("pitful_remains")); // Ressources que le mob peut drop
 		MOBS_DROPPABLE_ITEMS.addAll(LoopHeroGameData.MOBS_DROPPABLE_ITEMS);
 		return MOBS_DROPPABLE_ITEMS;
 	}
@@ -39,10 +40,10 @@ public class Spider extends Mobs{
 		graphics.setColor(super.getColor()); // Couleur du mob
 		int startingPointx = taille + 15 * taille;
 		int startingPointy = taille + 6* taille;
-		graphics.fillOval(startingPointx+taille,startingPointy,taille/4,taille/4);
+		graphics.fillRect(startingPointx+taille,startingPointy,taille/3,taille/3);
 		
 		graphics.setColor(Color.black); // Contour du mob
-		graphics.drawOval(startingPointx+taille,startingPointy,taille/4,taille/4);
+		graphics.drawRect(startingPointx+taille,startingPointy,taille/3,taille/3);
 		
 		
 	}

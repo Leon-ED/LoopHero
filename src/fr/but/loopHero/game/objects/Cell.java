@@ -96,21 +96,28 @@ public class Cell {
 		return i == cell.i && j == cell.j && cell.type.equals(type);
 	}
 
-	public ArrayList<Cell> getAdjacentsCells(Tile tipe, Board plateau,int i, int j) {
-		List<Tuple> listIndex = Tuple.getAdjactentsPos();
+	public ArrayList<Cell> getAdjacentsCells(boolean adj, Board plateau,int i, int j) {
+		List<Tuple> listIndex;
+		if(adj) {
+			 listIndex = Tuple.getAdjactentsPos();
+		}else {
+			listIndex = Tuple.getNeighboursPos();
+		}
 		Cell[][] boardMatrix = plateau.getBoardMatrix();
+		ArrayList<Cell> liste = new ArrayList<>();
 		for (Tuple tuple : listIndex) {
 			int x = tuple.i();
 			int y = tuple.j();
 			if (!plateau.isOutOfBounds(x+i, y+j)) {
-				Cell celle = boardMatrix[x+i][y+j];
-				Tile tilee = celle.type;
-				System.out.println(tipe instanceof tilee);
+				Cell cell = boardMatrix[x+i][y+j];
+				if(cell.type instanceof Road) {
+					liste.add(cell);
+				}
 			
 			
 			}
 		}
-		
+		return liste;
 	}
 
 		

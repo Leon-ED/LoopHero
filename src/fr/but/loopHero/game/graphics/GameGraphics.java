@@ -28,6 +28,7 @@ import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.TimeData;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
+import fr.but.loopHero.game.objects.tiles.placedTiles.PlacedTiles;
 import fr.but.loopHero.player.CombatEffects;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
@@ -112,10 +113,17 @@ public record GameGraphics(int xOrigin, int yOrigin, int length, int width, int 
 					
 					graphics.setColor(Color.red);
 				}
+
 				int x = xOrigin + j*taille;
 				int y = yOrigin + (i*taille);
 				graphics.fill(new Rectangle2D.Float(x,y,taille,taille));
 				graphics.draw(new Rectangle2D.Float(x,y,taille,taille));
+				if(plateau.getBoardMatrix()[i][j].type() instanceof PlacedTiles) {
+					int police = 13;
+					if(plateau.getBoardMatrix()[i][j].type().name().length() > 8)
+						police = 10;
+					drawString(context, plateau.getBoardMatrix()[i][j].type().name(), Color.WHITE, police, x, y);
+				}
 			});
 		}
 		

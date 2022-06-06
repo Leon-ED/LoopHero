@@ -15,15 +15,15 @@ import fr.but.loopHero.mobs.Spider;
 import fr.but.loopHero.player.Player;
 import fr.umlv.zen5.ApplicationContext;
 
-public class Spider_Coccon extends PlacedTiles{
+public class BattleField extends PlacedTiles{
 
-	public Spider_Coccon() {
-		super("Spider_Coccon", new RoadSide("Spider Coccon"), new Color(171,26,55));
+	public BattleField() {
+		super("BattleField", new RoadSide("Battle Field"), new Color(180,80,14));
 	}
 
 	@Override
 	public Tile generateNew() {
-		return new Spider_Coccon();
+		return new BattleField();
 	}
 
 	@Override
@@ -31,11 +31,10 @@ public class Spider_Coccon extends PlacedTiles{
 		//Check si une cell peut accueil le mob
 		ArrayList<Cell> liste = cell.getAdjacentsCells(true,plateau,cell.i(),cell.j());
 		System.out.println(liste);
-		for (Cell cell2 : liste) {
-			if(!cell2.hasMob()) {
-				Mobs spider = new Spider(cell2);
-				System.out.println(cell2.i()+" "+cell2.j());
-				cell2.addMob(spider);
+		for (Cell cellToAdd : liste) {
+			if(!cellToAdd.hasMob()) {
+				Mobs mob = new Spider(cellToAdd);
+				cellToAdd.addMob(mob);
 				break;
 			}
 		}
