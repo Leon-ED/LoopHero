@@ -18,4 +18,9 @@ public class LandScape extends Tile {
 	public boolean allowToPlace(Card card) {
 		return card.cardType().getParentTile().getClass().equals(this.getClass());
 	}
+	@Override
+	public Tile generateNew() {
+		return new LandScape("empty",Color.DARK_GRAY);
+	}
 }
+

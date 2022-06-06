@@ -4,6 +4,7 @@ import fr.but.loopHero.droppable.Card;
 import fr.but.loopHero.game.graphics.GameGraphics;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
+import fr.but.loopHero.game.objects.tiles.CampFire;
 import fr.but.loopHero.player.Player;
 
 import java.awt.Color;
@@ -55,8 +56,13 @@ public class Main {
         	if (loopHeroTimeData.isDayPased()) {
         		gameData.doNewDayEffects(context,hero,plateau);
         		
-
+        	}
         		
+        	if(hero.getCurrentCellIndex() == 0) {
+        		System.out.println("Nv loop");
+        		gameData.doNewLoopEffects(context, hero, plateau);
+        		
+        	
         		
         	}
         	plateau.getlistCellsLoop().get(0).type().doNewDayEffects(context, hero, plateau, gameData, null);
@@ -115,10 +121,8 @@ public class Main {
     	
     	Event event = context.pollOrWaitEvent(TimeData.HERO_DELAY);
 		if (event == null) { // no event
-			System.out.println("DO EVENT !!");
 			return;
 		}
-		System.out.println("ON A UN EVENT");
 		switch (event.getAction()) {
 		case KEY_PRESSED:
 			doKeyAction(context, event);
@@ -234,7 +238,6 @@ public class Main {
 	}
     
 	private void placeCard(ApplicationContext context) {
-		//System.out.println("PLACEEEEJINOZERIHOZOHI");
 		if(gameData.getSelectedCard() == null || gameData.getSelectedCell() == null)
 			
 			return;
@@ -256,7 +259,8 @@ public class Main {
 		
 		plateau.getBoardMatrix()[i][j].setType(selectedCard.cardType().generateNew());		
 		gameData.getSelectedCard().cardType().doEffects(context, hero,plateau,gameData); // On applique l'effet de la carte posée	
-		loopHeroGraphics.drawOneCell(plateau, context, i, j);
+		loopHeroGraphics.drawBoard(plateau, context);
+		//loopHeroGraphics.drawOneCell(plateau, context, i, j);
 		hero.deleteCardFromInventory(selectedCard);
 		
 		

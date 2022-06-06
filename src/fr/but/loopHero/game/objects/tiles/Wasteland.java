@@ -17,7 +17,11 @@ public class Wasteland extends Road {
 	}
 
 	public void doNewDayEffects(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
-		if (!cell.hasMob()) { 			
+		if (!cell.hasMob()) { 	
+			
+			
+			
+			
 			Random rand = new Random();
 			int rand_number = rand.nextInt(99);
 			if (rand_number < 5) { // < 5

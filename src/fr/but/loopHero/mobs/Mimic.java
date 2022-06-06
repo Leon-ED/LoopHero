@@ -9,10 +9,10 @@ import fr.but.loopHero.droppable.Ressource;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.Cell;
 
-public class Chest extends Mobs{
+public class Mimic extends Mobs{
 
-	public Chest(Cell cell) {
-		super("Chest",-1,11,0.6,-1,new Color(133,80,20),1,cell,genMobsList(),0);
+	public Mimic(Cell cell) {
+		super("Mimic",-1,26,7,0.7,new Color(133,80,25),0.40,cell,genMobsList(),5);
 	}
 
 	public void draw(Graphics2D graphics, int taille) {
@@ -31,7 +31,7 @@ public class Chest extends Mobs{
 	private static ArrayList<Droppable> genMobsList() {
 		ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<Droppable>();
 		MOBS_DROPPABLE_ITEMS.add(new Ressource("craft_fragment"));
-		MOBS_DROPPABLE_ITEMS.add(new Ressource("stable_branches")); // Ressources que le mob peut drop
+		MOBS_DROPPABLE_ITEMS.add(new Ressource("stable_branches"));// Ressources que le mob peut drop
 		MOBS_DROPPABLE_ITEMS.addAll(LoopHeroGameData.MOBS_DROPPABLE_ITEMS);
 		return MOBS_DROPPABLE_ITEMS;
 	}
@@ -57,11 +57,6 @@ public class Chest extends Mobs{
 	@Override
 	public int hashCode() {
 		return super.hashCode();
-	}
-	
-	@Override
-	public int attack() {
-		return 0;
 	}
 
 }

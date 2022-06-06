@@ -23,6 +23,7 @@ import fr.but.loopHero.game.objects.tiles.placedTiles.BattleField;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Cemetery;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Grove;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Meadow;
+import fr.but.loopHero.game.objects.tiles.placedTiles.Oblivion;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Rock;
 import fr.but.loopHero.game.objects.tiles.placedTiles.Spider_Coccon;
 import fr.but.loopHero.game.objects.tiles.placedTiles.VampireMansion;
@@ -54,7 +55,7 @@ public class LoopHeroGameData {
 	public static final ArrayList<Droppable> MOBS_DROPPABLE_ITEMS = new ArrayList<>();
 	public static final ArrayList<Mobs> SPAWNABLE_MOBS = new ArrayList<>();
 	
-	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()),new Card("BattleField", new BattleField())
+	public static final List<Card> START_CARDS = List.of(new Card("Grove", new Grove()),new Card("Rock", new Rock()),new Card("Meadow", new Meadow()),new Card("Oblivion", new Oblivion())
 			
 			
 			);
@@ -103,19 +104,19 @@ public class LoopHeroGameData {
 	
 	
 	
-	private Cell selectedCell;
+	public static Cell selectedCell;
 	private Card selectedCard;
 	private Equipement selectedEquipement;
 	private Placement selectedInventoryEquipement;
 	
 	public LoopHeroGameData() {
-		this.selectedCell = null;
+		LoopHeroGameData.selectedCell = null;
 		this.selectedCard = null;
 		this.selectedEquipement = null;
 	}
 
 	public void selectCell (Cell cell) {
-		this.selectedCell = cell;
+		LoopHeroGameData.selectedCell = cell;
 	}
 
 
@@ -145,8 +146,11 @@ public class LoopHeroGameData {
 
 	
 	public boolean canBePlaced() {
+
 		if(selectedCard == null || selectedCell == null)
 			return false;
+		if(selectedCard.displayName().equalsIgnoreCase("OBLIVION"))
+			return true;
 		
 		return selectedCell.type().allowToPlace(selectedCard);
 
@@ -160,6 +164,21 @@ public class LoopHeroGameData {
 		for (Cell[] cells : matricePlateau) {
 			for (Cell cell : cells) {
 				cell.type().doNewDayEffects(context, hero,plateau,this,cell);
+			
+			}
+		}
+		
+		
+		
+		
+	}
+	
+	public void doNewLoopEffects(ApplicationContext context, Player hero, Board plateau) {
+		Cell[][] matricePlateau = plateau.getBoardMatrix();
+		
+		for (Cell[] cells : matricePlateau) {
+			for (Cell cell : cells) {
+				cell.type().doNewLoopEffects(context, hero,plateau,this,cell);
 			
 			}
 		}

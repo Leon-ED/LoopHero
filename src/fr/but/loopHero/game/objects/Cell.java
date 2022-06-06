@@ -7,7 +7,9 @@ import java.util.Objects;
 
 import fr.but.loopHero.game.objects.tiles.LandScape;
 import fr.but.loopHero.game.objects.tiles.Road;
+import fr.but.loopHero.game.objects.tiles.RoadSide;
 import fr.but.loopHero.game.objects.tiles.Tile;
+import fr.but.loopHero.game.objects.tiles.Wasteland;
 import fr.but.loopHero.mobs.Mobs;
 
 public class Cell {
@@ -17,11 +19,14 @@ public class Cell {
 	private Tile type;
 	private ArrayList<Mobs> mobs;
 	
+	private Tile originalType;
+	
 	public Cell(int i, int j) {
 		this.i=Objects.requireNonNull(i);
 		this.j=Objects.requireNonNull(j);
 		this.mobs = new ArrayList<Mobs>();
 		this.type = new LandScape("empty",Color.DARK_GRAY);
+		originalType = type;
 		this.index = -1;
 	}
 	
@@ -30,6 +35,7 @@ public class Cell {
 		this.j=Objects.requireNonNull(j);
 		this.mobs = new ArrayList<Mobs>();
 		this.type = new LandScape("empty",Color.DARK_GRAY);
+		originalType = type;
 		this.index = index;
 	}
 	
@@ -46,12 +52,30 @@ public class Cell {
 	}
 	
 	public void setType(Tile newType) {
+		if(newType instanceof Road)
+			originalType = new Wasteland();
+		else if(newType instanceof RoadSide)
+			originalType = new RoadSide("Wasteland");
+		else if(newType instanceof LandScape)
+			originalType = new LandScape("empty",Color.DARK_GRAY);
+		
 		type = newType;
 	}
 	
 	public int i() {
 		return i;
 	}
+	
+	public Tile originalType() {
+		
+		return originalType;
+	}
+	
+	
+	public void terminateAllMobs() {
+		this.mobs = new ArrayList<>();
+	}
+	
 	
 	public int j() {
 		return j;
