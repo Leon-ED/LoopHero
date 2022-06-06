@@ -1,6 +1,8 @@
 package fr.but.loopHero.game.objects.tiles.placedTiles;
 
 import java.awt.Color;
+
+import fr.but.loopHero.droppable.Ressource;
 import fr.but.loopHero.game.LoopHeroGameData;
 import fr.but.loopHero.game.objects.Board;
 import fr.but.loopHero.game.objects.Cell;
@@ -19,7 +21,7 @@ public class Ruins extends PlacedTiles {
 	private Mobs spawnedMobs;
 	
 	public Ruins() {
-		super("Ruins", new Wasteland(), Color.YELLOW.darker().darker().darker());
+		super("Ruins", new Wasteland(), new Color(45,20,69));
 		this.lastSpawn = -1;
 		this.spawnedMobs = null;
 	}
@@ -48,7 +50,10 @@ public class Ruins extends PlacedTiles {
 		return new Ruins();
 	}
 	
-	
+	@Override
+	public void doHeroOnEffect(ApplicationContext context, Player hero, Board plateau,LoopHeroGameData datas,Cell cell) {
+		hero.addRessource(new Ressource("stable_branches"));
+	}
 	
 	
 
