@@ -24,7 +24,7 @@ public class Player implements Serializable {
 	 */
 	private static final long serialVersionUID = 4159983737061660996L;
 	private final int maxHealth_default = 250;
-	private int maxHealth = 0;
+	private int maxHealth = 250;
 	private int currentHealth = maxHealth;
 	private double regenPerSecond = 0;
 
@@ -85,7 +85,7 @@ public class Player implements Serializable {
 	public int takeDamage(int damages, CombatEffects usedSpecialEffect, GameGraphics graphics,
 			ApplicationContext context, int attaque) {
 		if (usedSpecialEffect == null) {
-			graphics.showEffect(context, attaque, "Le héro a perdu : " + damages + " HP", Color.RED);
+			graphics.showEffect(context, attaque, "Le hÃ©ro a perdu : " + damages + " HP", Color.RED);
 			int realDamages = damages - defensePoints;
 			currentHealth -= realDamages;
 			LoopHeroGameData.TAKEN_DAMAGES += realDamages;
@@ -96,18 +96,18 @@ public class Player implements Serializable {
 		switch (usedSpecialEffect) {
 		case Counter -> {
 
-			graphics.showEffect(context, attaque, "Le héro contre l'attaque, le mob perds : " + damages + " HP",
+			graphics.showEffect(context, attaque, "Le hÃ©ro contre l'attaque, le mob perds : " + damages + " HP",
 					Color.RED);
 			return -damages;
 		}
 
 		case Evade -> {
-			graphics.showEffect(context, attaque, "Le héro a utilisé l'esquive et perds : 0 HP", Color.RED);
+			graphics.showEffect(context, attaque, "Le hÃ©ro a utilisÃ© l'esquive et perds : 0 HP", Color.RED);
 			return 0;
 		}
 		case Vampirism -> {
 			graphics.showEffect(context, attaque,
-					"Le héro a utilisé le vampirisme et obtient :" + damages + " HP en plus !", Color.RED);
+					"Le hÃ©ro a utilisÃ© le vampirisme et obtient :" + damages + " HP en plus !", Color.RED);
 			regenHero(damages);
 			return 0;
 		}
